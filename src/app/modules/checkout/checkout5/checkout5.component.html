@@ -1,0 +1,141 @@
+<div class="row" *ngIf="order">
+
+  <div class="col-lg-12">
+    <h2 class="block-title-2"> Your order</h2>
+  </div>
+
+
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <div>
+      <table class="table">
+        <tbody>
+          <tr *ngIf="order">
+            <td>Order #: </td>
+            <td>{{order?.documentNo}}</td>
+          </tr>
+          <tr>
+            <td>Date: </td>
+            <td class="price">{{order.date  | date: 'MM/dd/yyyy'}}</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td class="price"><span class="success">{{order.docStatus | docStatus}}</span></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+                <button class="btn btn-sm btn-success mr-2" (click)="downloadOrder()">PDF</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <div>
+      <table class="table">
+        <tbody>
+        <tr>
+          <td>Delivery address :</td>
+        </tr>
+        <tr *ngIf="order.shipAddress">
+          <td>
+            <ul class="list-inline">
+              <li *ngIf="order.shipAddress.name"><strong>{{order.shipAddress.name}}</strong></li>
+              <li>{{order.shipAddress.address1}}</li>
+              <li *ngIf="order.shipAddress.address2">{{order.shipAddress.address2}}</li>
+              <li>{{order.shipAddress.postal}} {{order.shipAddress.city}}</li>
+              <li>{{order.shipAddress.countryName}}</li>
+              <li *ngIf="!order.shipAddress.address2">&nbsp;</li>
+            </ul>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <div>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Invoice address :</td>
+          </tr>
+          <tr *ngIf="order.billAddress">
+            <td>
+              <ul class="list-inline">
+                <li *ngIf="order.billAddress.name"><strong>{{order.billAddress.name}}</strong></li>
+                <li *ngIf="!order.billAddress.name">&nbsp;</li>
+                <li>{{order.billAddress.address1}}</li>
+                <li *ngIf="order.billAddress.address2">{{order.billAddress.address2}}</li>
+                <li>{{order.billAddress.postal}} {{order.billAddress.city}}</li>
+                <li>{{order.billAddress.countryName}}</li>
+                <li *ngIf="!order.billAddress.address2">&nbsp;</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr >
+            <th class="w-10 d-none d-sm-table-cell">Item</th>
+            <th class="w-20">Product</th>
+            <th class="w-40">Description</th>
+            <th class="w-10 d-none d-sm-table-cell">Unit Price</th>
+            <th class="w-10">Qty</th>
+            <th class="w-10">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let line of order.lines" >
+            <td class="d-none d-sm-table-cell">{{line.line}}</td>
+            <td><h4>{{line.name}}</h4></td>
+            <td>{{line.description}}</td>
+            <td class="d-none d-sm-table-cell"><div class="price">{{line.price | currency}}</div></td>
+            <td>{{line.qty}}</td>
+            <td>{{line.price*line.qty | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Total Lines</td>
+              <td class="price">{{order.totalLines | currency}}</td>
+            </tr>
+            <tr *ngFor="let tax of order.taxes">
+                <td>{{tax.name}}</td>
+                <td class="price">{{tax.tax | currency}}</td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td class="price">{{order.grandTotal | currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="cartFooter">
+    <div class="box-footer">
+      <div class="pull-left">
+        <a class="btn btn-default" [routerLink]="['/checkout/checkout4']"> 
+          <i class="fa fa-arrow-left mr-2"></i> Return to payment
+        </a>
+      </div>
+    </div>
+</div>

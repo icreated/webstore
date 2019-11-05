@@ -1,0 +1,50 @@
+:host {
+
+    .footer {
+        background: #F8F8F8;
+        height: auto;
+        padding-bottom: 30px;
+        position: relative;
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #DDDDDD;
+        margin-top: 30px;
+    }
+
+    .footer p {
+        margin: 0;
+    }
+    
+    .footer img {
+        max-width: 100%;
+    }
+    
+    .footer h3 {
+        border-bottom: 1px solid #DDDDDD;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 27px;
+        padding: 40px 0 15px;
+        text-transform: uppercase;
+        color: #3a3a3a;
+    }
+    
+    .footer ul {
+        font-size: 13px;
+        list-style-type: none;
+        margin-left: 0;
+        padding-left: 0;
+        margin-top: 20px;
+        color: #888888;
+    }
+    
+    .footer ul li a {
+        padding: 6px 6px 6px 6px;
+        display: block;
+    }
+    
+    .footer a {
+        color: #888888
+    }
+
+}

@@ -1,0 +1,25 @@
+.accountList li {
+    text-align: center;
+}
+
+.accountList li a {
+    font-size: 14px;
+    display: block;
+}
+
+.accountList .thumbnail {
+    padding: 10px 0 0;
+}
+
+.accountList .thumbnail:hover {
+    background: #F5F5F5;
+}
+
+.accountList li a i {
+    display: block;
+    clear: both;
+    font-size: 44px;
+    margin-bottom: 10px;
+}
+
+

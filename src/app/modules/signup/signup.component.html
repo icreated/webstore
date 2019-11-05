@@ -1,0 +1,113 @@
+<div class="container my-2">
+
+      <tabset [justified]="true">
+        <tab heading="Sign In">
+          <div class="d-flex justify-content-center my-5">
+            <form role="form" class="logForm"  (ngSubmit)='login()'>
+                <div class="form-group">
+                  <label>Login</label>
+                  <em [hidden]="username.valid || username.pristine" class="has-error mx-2">Mandatory</em>
+                  <input [(ngModel)]="account.username" name="username" #username="ngModel" type="text"
+                        class="form-control" placeholder="Login" required>
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <em [hidden]="password.valid || password.pristine" class="has-error mx-2">Mandatory</em>
+                  <input [(ngModel)]="account.password" name="password" #password="ngModel"  required
+                        title="Entez your password" type="password" autocomplete="password" 
+                        class="form-control" placeholder="Password" >
+                </div> 
+                <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in mr-2"></i>Sign in</button>
+            </form>
+          </div>
+        </tab>
+        <tab heading="Sign Up">
+          <form class="regForm" [formGroup]="accountForm" (ngSubmit)='signup(accountForm.value)'>
+            <div class="container my-5">
+              <div class="row justify-content-center">
+
+                  <div class="col-lg-6 col-md-6">
+
+                      <div class="form-group">
+                          <label>First Name, Last Name</label>
+                          <control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.name"></control-messages>
+                          <input name="name" ngControl='name' #name formControlName="name" title="First Name, Last Name" type="text"
+                                class="form-control" placeholder="First Name, Last Name" required>
+                      </div>
+                      <div class="form-group required">
+                        <label>Email</label>
+                        <control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.email"></control-messages>
+                        <input name="email" ngControl='email' #email formControlName="email" type="email"
+                              class="form-control" placeholder="Email" required>
+                      </div>
+                      <div class="form-group required">
+                        <label>Password</label>
+                        <control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.newPassword"></control-messages>         
+                        <input name="newPassword" ngControl='newPassword' #newassword formControlName="newPassword"
+                              title="Password" type="password" autocomplete="foo" 
+                              class="form-control" placeholder="Password" required>
+                      </div>
+                      <div class="form-group required">
+                          <label>Confirm Password</label>
+                          <control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.confirmPassword"></control-messages>           
+                          <input name="confirmPassword" ngControl='confirmPassword' #confirmPassword formControlName="confirmPassword"
+                                title="Confirm Password" type="password" autocomplete="foo" 
+                                class="form-control" placeholder="Confirm Password" required>
+                      </div>
+                      <div class="form-group">
+                          <label>Phone</label>
+                          <input name="phone" ngControl='phone'  title="Phone" type="text"
+                                class="form-control" placeholder="Phone">
+                      </div>
+                      <div class="form-group">
+                          <label>Fax</label>
+                          <input name="fax" ngControl='fax'  title="Fax" type="text"
+                                class="form-control" placeholder="Fax">
+                      </div>
+                  </div>
+                  
+                  <div class="col-lg-6 col-md-6">
+                      <div class="form-group">
+                          <label>Address</label>
+                          <control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.address"></control-messages>
+                          <input name="address" ngControl='address' #address formControlName="address" title="Address" type="text"
+                                class="form-control" placeholder="Address" required>
+                      </div>
+                      <div class="form-group">
+                          <label>Address 2</label>
+                          <input name="address2" #address2 ngControl="address2" title="Address 2" type="text"
+                                class="form-control" placeholder="Address 2">
+                      </div>
+                      <div class="form-group">
+                          <label>City</label>
+                          <control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.city"></control-messages>
+                          <input name="city" ngControl='city' #city formControlName="city" title="City" type="text"
+                                class="form-control" placeholder="City" required>
+                      </div>
+                      <div class="form-group">
+                          <label>Postal</label>
+                          <control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.postal"></control-messages>
+                          <input name="postal" ngControl='postal' #postal formControlName="postal" title="Postal" type="text"
+                                class="form-control" placeholder="Postal" required>
+                      </div>
+                      <div class="form-group">
+                          <label>Country</label>
+
+                      </div>
+
+
+                  </div>
+
+                  <div class="error"></div>
+                          
+                  <button type="submit" class="btn btn-primary" [disabled]="!accountForm.valid" ><i class="fa fa-user mx-2"></i>Create Account</button>
+
+
+
+                </div>
+              </div>
+          </form>
+        </tab>
+      </tabset>
+</div>
+

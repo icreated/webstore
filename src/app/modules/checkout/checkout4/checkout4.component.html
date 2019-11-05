@@ -1,0 +1,63 @@
+<div class="row userInfo">
+  <div class="col-lg-12">
+    <h2 class="block-title-2"> Payment </h2>
+
+    <p>Choose your payment method</p>
+    <hr>
+  </div>
+  <div class="col-12">
+
+        <div class="panel panel-primary my-2">
+          <div class="panel-heading">
+            <h4 class="panel-title"><strong> Payment by check</strong></h4>
+          </div>
+          <div class="panel-body">
+            <p>
+              Send your check {{order?.grandTotal | currency}} to <strong>Idempiere</strong>:<br/>
+              Idempiere<br/>
+              Idempiere address<br/>
+              Idempiere city<br/><br/>
+              Don't forget your order # <strong>{{order?.documentNo}}</strong>.
+              Your order will be sent after the check reception
+              Click the button to validate the order
+            </p>
+          </div>
+          <div class="panel-footer contentFooter">
+              <div class="box-footer">
+                <div class="pull-right">
+                    <button (click)="payByCheck()" class="btn btn-primary"> 
+                        Pay by check <i class="fa fa-arrow-circle-right ml-2"></i> 
+                      </button>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h4 class="panel-title"><strong> Payment by Back Transfer</strong></h4>
+          </div>
+          <div class="panel-body">
+            <p>
+              Do the transfer of {{order?.grandTotal | currency}} to this bank account:<br/>
+              Best World Bank<br/>
+              IBAN: FR11 2222 3333 4444 5555 6666 777<br/>
+              BIC: CCBPFRAABBC<br/><br/>
+              Don't forget your order # <strong>{{order?.documentNo}}</strong>.
+              Your order will be sent after the bank transfer
+              Click the button to validate the order
+            </p>
+          </div>
+          <div class="panel-footer contentFooter">
+              <div class="box-footer">
+                <div class="pull-right">
+                    <button (click)="payByTransfer()" class="btn btn-primary"> 
+                        Pay by Bank Transfer <i class="fa fa-arrow-circle-right ml-2"></i> 
+                      </button>
+                </div>
+              </div>
+          </div>
+        </div>
+
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="breadcrumbDiv col-lg-12">
+    <ul class="breadcrumb">
+      <li><a [routerLink]="['/']">Home</a></li>
+      <li><a [routerLink]="['/account']">Account</a></li>
+      <li class="active"> Orders</li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+          <h1 class="section-title-inner"><span><i class="fa fa-list-alt mr-2"></i>Orders</span></h1>
+      
+          <div class="row">
+      
+            <div class="col-xs-12 col-sm-12">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th data-class="expand" data-sort-initial="true"><span
+                    title="table sorted by this column on load">#</span></th>
+                  <th data-hide="phone,tablet" data-sort-ignore="true" class="hidden-xs">Description</th>
+                  <th data-hide="phone,tablet"><strong>Status</strong></th>
+                  <th data-hide="default">Price</th>
+                  <th data-hide="default" data-type="numeric">Date</th>
+                  <th data-hide="phone" data-type="numeric">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let order of orders">
+                  <td><a [routerLink]="['/account/order', order.id]">{{order.documentNo}}</a></td>
+                  <td class="hidden-xs"><a [routerLink]="['/account/order', order.id]">{{order.description}}</a></td>
+                  <td><a [routerLink]="['/account/order', order.id]">{{order.docStatus | docStatus}}</a></td>
+                  <td><a [routerLink]="['/account/order', order.id]">{{order.grandTotal | currency}} €</a></td>
+                  <td><a [routerLink]="['/account/order', order.id]">{{order.date | date: 'MM/dd/yyyy'}}</a></td>
+                  <td data-value="3">
+
+                    <button *ngIf="order.docStatus == 'IP'" class="btn btn-sm btn-danger mr-2" (click)="checkoutService.payOrder(order)">Pay</button>
+                    <button *ngIf="order.docStatus == 'IP'" class="btn btn-sm btn-warning mr-2" (click)="checkoutService.voidOrder(order)">Void</button>
+
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+      
+            <div style="clear:both"></div>
+      
+          </div>
+      
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 clearfix">
+    <ul class="contentFooter list-inline">
+      <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home mr-2"></i> Home</a>
+      </li>
+      <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left mr-2"></i> Account</a></li>
+    </ul>
+</div>
+

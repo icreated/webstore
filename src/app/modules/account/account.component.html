@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="breadcrumbDiv col-lg-12">
+      <ul class="breadcrumb">
+        <li><a [routerLink]="['/']">Home</a></li>
+        <li class="active">Account</li>
+      </ul>
+    </div>
+  </div>
+
+<div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="section-title-inner"><span><i class="fa fa-unlock-alt mr-2"></i>Account</span></h1>
+      
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+      
+              <h2 class="block-title-2"><span>Hello! Here you can manage your personal information and your orders</span></h2>
+      
+              <ul class="row list-inline accountList">
+                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center">
+                  <div class="thumbnail equalheight"><a title="My Orders" [routerLink]="['/account/orders']">
+                    <i class="fa fa-list-alt"></i> Orders</a></div>
+                </li>
+                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
+                  <div class="thumbnail equalheight"><a title="My addresses" [routerLink]="['/account/addresses']">
+                    <i class="fa fa-map-marker"></i> Addresses</a></div>
+                </li>
+                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
+                  <div class="thumbnail equalheight"><a title="Add address" [routerLink]="['/account/new-address']">
+                    <i class="fa fa-edit"> </i> Add address</a></div>
+                </li>
+                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
+                  <div class="thumbnail equalheight"><a title="Personal Information" [routerLink]="['/account/information']">
+                    <i class="fa fa-user"></i> Personal Information</a></div>
+                </li>
+                <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
+                  <div class="thumbnail equalheight"><a title="Password" [routerLink]="['/account/password']">
+                    <i class="fa fa-lock"></i> Password <br/></a></div>
+                </li>
+              </ul>
+              <div class="clear clearfix"></div>
+            </div>
+          </div>
+          <!--/row end-->
+      
+        </div>
+        <div class="my-5"></div>
+      </div>
+      
+
+</div>

@@ -1,1 +1,118 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: normal;
+    margin: 0;
+    padding-bottom: 15px;
+}
+
+h1 {
+    font-size: 30px;
+    line-height: 35px;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 28px;
+}
+
+h3 {
+    font-size: 20px;
+    line-height: 24px;
+}
+
+h4 {
+    font-size: 17px;
+    line-height: 20px;
+}
+
+.block-title-1 {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 2px;
+    margin: 15px 20px 0 0;
+    text-transform: uppercase;
+}
+
+.block-title-2 {
+    border-bottom: 1px solid #CECECE;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 0 15px;
+    padding: 10px 0 0;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.block-title-3 {
+    border-bottom: 1px solid #CECECE;
+    font-weight: bold;
+    margin: 0 0 15px;
+    padding: 10px 0 10px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.block-title-4 {
+    display: inline;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    margin: 0 auto;
+    padding: 0 12px;
+    text-transform: uppercase;
+}
+
+.block-title-5 {
+    display: block;
+    font-size: 16px;
+    margin: 0 0 5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.border-title {
+    border-bottom: 1px solid #CECECE;
+    margin: 0 0 15px;
+    padding: 10px 0 10px;
+}
+
+
+.contentFooter {
+    padding: 20px;
+    border-top: solid 1px #eee;
+    background: #F8F8F8;
+    display: inline-block;
+    width: 100%;
+}
+
+.ng-valid[required] {
+    border-left:5px solid #42A948;
+}
+.ng-invalid:not(form){
+    border-left:5px solid #a94442;
+}
+em {
+    color:#E82C0C;margin:6px 0;
+}
+
+p.required, .required sup {
+    color: #E74C3C;
+}
+
+
+/* ---------------------- Breadcrumbs ---------------------- */
+.breadcrumb {
+    border: 1px solid #DDDDDD;
+    background: none;
+}
+.breadcrumb > li {
+    font-size: 14px;
+    margin-right: 1em;
+}
+

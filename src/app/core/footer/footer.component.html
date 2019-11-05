@@ -1,0 +1,52 @@
+<footer>
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3  col-md-3 col-sm-4 col-xs-12">
+            <h3>Support</h3>
+            <ul>
+              <li>
+                <h4>Feedback</h4>
+              </li>
+              <li>
+                <h4><a class="inline" href="callto:0101010101"> <strong> <i class="fa fa-phone"> </i> 01 01 01 01 01</strong> </a></h4>
+                <h4><a class="inline" href="mailto:{{email}}"> <i class="fa fa-envelope-o"> </i> {{email}}</a></h4>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-2  col-md-2 col-sm-4 col-xs-12">
+            <h3>Web Store</h3>
+            <ul>
+                <li class="nav-item active" *ngFor="let item of categories">
+                    <a class="nav-link" [routerLink]="['/catalog', item.id]">{{item.name}}<span class="sr-only" title="{{item.name}}">(current)</span></a>
+                </li>
+            </ul>
+          </div>
+  
+          <div style="clear:both" class="hide visible-xs"></div>
+  
+          <div class="col-lg-2  col-md-2 col-sm-4 col-xs-12">
+            <h3>Account</h3>
+            <ul>
+              <li><a [routerLink]="['/account']">Account</a></li>
+              <li><a [routerLink]="['/account/addresses']">Addresses</a></li>
+              <li><a [routerLink]="['/account/orders']">Orders </a></li>
+            </ul>
+          </div>
+  
+          <div style="clear:both" class="hide visible-xs"></div>
+  
+  
+        </div>
+      </div>
+
+    </div>
+
+  
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="pull-left"> &copy; Idempiere 2019</p>
+      </div>
+    </div>
+    <!--/.footer-bottom-->
+  </footer>

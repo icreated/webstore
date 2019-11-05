@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]="['/home']">IDEMPIERE</a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"  [attr.aria-expanded]="!isCollapsed">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" [collapse]="isCollapsed">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" *ngFor="let item of categories">
+          <a class="nav-link" [routerLink]="['/catalog', item.id]">{{item.name}}<span class="sr-only" title="{{item.name}}">(current)</span></a>
+        </li>
+      </ul>
+
+      <div class="ml-auto col-auto">
+          <form class="input-group my-2 my-lg-0" (ngSubmit)='onSearch($event)'>
+              <input class="form-control my-2 mr-sm-1" name="search" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success input-sm my-2 mr-sm-1" type="submit">
+                <fa name="search"></fa>
+              </button>
+          </form>
+      </div>
+
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn my-2 my-sm-0" [routerLink]="['/cart']" *ngIf="getCartCount() > 0" title="Cart">
+          <fa name="shopping-cart"></fa>
+          <span class='badge badge-warning'>{{getCartCount()}}</span>
+        </button>
+        <button class="btn my-2 mr-sm-1" [routerLink]="['/signup']" *ngIf="!isLogged()" title="Sign In"><fa name="sign-in"></fa></button>
+
+        <div class="btn-group" dropdown *ngIf="isLogged()">
+            <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-basic">
+              {{getConnectedUser()}} <span class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem"><a class="dropdown-item" [routerLink]="['/account']">Account</a></li>
+              <li role="menuitem"><a class="dropdown-item" [routerLink]="['/account/orders']">Orders</a></li>
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="logout()" href="#">Logout</a></li>
+            </ul>
+        </div>
+      </form>
+    </div>
+
+
+
+
+
+  
+</nav>
+
+
+

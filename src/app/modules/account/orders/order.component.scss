@@ -1,0 +1,49 @@
+.order-box {
+    background: #fff;
+    border: solid 1px #ccc;
+    margin-bottom: 30px;
+}
+
+.order-box-header {
+    background: #ebeded;
+    font-weight: bold;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.order-box-content {
+    padding: 15px;
+}
+
+.order-box-content table td {
+    padding: 5px;
+}
+
+.statusTop {
+    margin-bottom: 20px;
+}
+
+.statusTop p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.order-details-cart {
+    width: 100%;
+}
+
+.order-details-cart tr {
+    border-bottom: solid 1px #ddd;
+}
+
+.order-details-cart img {
+    width: 80px;
+}
+
+.cartTotalTr {
+    border: none !important;
+}
+
+.cartTotalTr td {
+    text-align: right;
+}

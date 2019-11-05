@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="breadcrumbDiv col-lg-12">
+    <ul class="breadcrumb">
+      <li><a [routerLink]="['/']">Home</a></li>
+      <li><a [routerLink]="['/account']">Account</a></li>
+      <li class="active">Information</li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+
+  <form [formGroup]="accountForm" (submit)='save(accountForm.value)'>
+    <div class="row">
+      <div class="col-12">
+        <h1 class="section-title-inner"><span><i
+          class="glyphicon glyphicon-user"></i>Personal information</span></h1>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="block-title-2">Keep updated your information</h2>
+            <p class="required"><sup>*</sup>Mandatory</p>
+          </div>
+
+            <div class="col-xs-12 col-sm-6">
+              <div class="form-group required">
+                <label for="name">Your first name, last name <sup>*</sup> </label>
+                <control-messages  *ngIf="accountForm.controls" [control]="accountForm.controls.name"></control-messages>
+                <input name="name" ngControl='name' #name formControlName="name" type="text"
+                      class="form-control" id="name" placeholder="Your first name, last name" required>
+              </div>
+              <div class="form-group required">
+                <label for="InputInfoEmail"> Email <sup>*</sup> </label>
+                <control-messages  *ngIf="accountForm.controls" [control]="accountForm.controls.email"></control-messages>
+                <input name="email" ngControl='email' #email formControlName="email"
+                      class="form-control" id="InputInfoEmail" placeholder="Email" required>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <button type="submit" class="btn btn-primary" [disabled]="!accountForm.valid"><i class="fa fa-save mr-2"></i>Save</button>
+            </div>
+
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="col-lg-12 my-2">
+    <ul class="contentFooter list-inline">
+      <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home mr-2"></i> Home</a>
+      </li>
+      <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left mr-2"></i> Account</a></li>
+    </ul>
+</div>
+

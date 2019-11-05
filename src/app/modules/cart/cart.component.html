@@ -1,0 +1,51 @@
+<div class="row mx-2">
+    <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6 col-xxs-12 text-center-xs">
+      <h1><span><fa name="shopping-cart"></fa> Cart </span></h1>
+    </div>
+</div>
+
+  
+<div class="alert alert-warning mx-2" *ngIf="cartService.getCart().length==0">
+  <strong>Empty</strong>
+</div>
+  
+<div class="row mx-2" *ngIf="cartService.getCart().length>0">
+
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th scope="col" class="d-none d-sm-table-cell">Description</th>
+        <th scope="col" class="d-none d-sm-table-cell text-center">Price</th>
+        <th class="text-center">Qty</th>
+        <th>Total</th>
+        <th>&nbsp;</th>
+      </tr>
+      <tr *ngFor="let line of cartService.getCart()">
+        <td><h5>{{line.name}}</h5></td>
+        <td scope="col" class="d-none d-sm-table-cell">{{line.description}}</td>
+        <td scope="col" class="d-none d-sm-table-cell text-center">{{line.price | currency}}</td>
+        <td class="text-center">
+          <div class="counter">
+            <div class="counter__container btn-group">
+              <button (click)="decrement(line);" type="button" class="btn btn-success" > - </button>
+              &nbsp;&nbsp;{{line.qty}}&nbsp;&nbsp;
+              <button (click)="increment(line);" type="button" class="btn btn-success" > + </button>
+            </div>
+          </div>
+        </td>
+        <td>{{line.price*line.qty | currency}}
+        </td>
+        <td><button type="button" class="btn btn-primary"  (click)="deleteItem(line)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row" *ngIf="cartService.getCart().length > 0">
+      <div class="ml-auto col-auto mx-2">
+        <a [routerLink]="['/checkout/checkout1']"class="btn btn-primary btn-lg btn-block"
+        title="checkout" style="margin-bottom: 20px"> Pay &nbsp; {{cartService.getTotalPrice() | currency}}</a>
+      </div>
+</div>
+  

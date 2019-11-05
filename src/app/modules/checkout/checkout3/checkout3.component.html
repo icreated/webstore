@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h2 class="block-title-2">Choice your shipper</h2>
+  </div>
+  <div class="col-xs-12 col-sm-12">
+    <div class="row">
+
+      <div class="form-group col-12">
+        <table class="table-bordered table">
+          <thead>
+            <tr>
+              <th>Shipper</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let shipper of shippers">
+              <td>{{shipper.name}}</td>
+              <td><button (click)="validate(shipper)" class="btn btn-sm btn-success"><i class="fa fa-edit"> </i> Validate</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="cartFooter">
+  <div class="box-footer">
+    <div class="pull-left">
+      <a class="btn btn-default" [routerLink]="['/checkout/checkout2']"> 
+        <i class="fa fa-arrow-left mr-2"></i> Return to invoice address
+      </a>
+    </div>
+  </div>
+</div>
+
