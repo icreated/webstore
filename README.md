@@ -25,21 +25,21 @@ Server side REST services are here:
 
 [https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api)
 
-Some snapshots:
+## Some snapshots:
 
-Home page
+### Home page
 
 ![WebStore Home](/src/assets/images/screen_home.png?raw=true "Webstore Home")
 
-Basket page
+### Basket page
 
 ![WebStore Basket](/src/assets/images/screen_basket.png?raw=true "Webstore Basket")
 
-Checkout page
+### Checkout page
 
 ![WebStore Checkout](/src/assets/images/screen_checkout.png?raw=true "Webstore Checkout")
 
-Order page
+### Order page
 
 ![WebStore Order](/src/assets/images/screen_order.png?raw=true "Webstore Order")
 
