@@ -29,19 +29,19 @@ Some snapshots:
 
 Home page
 
-![WebStore Home](/assets/images/screen_home.png?raw=true "Webstore Home")
+![WebStore Home](/src/assets/images/screen_home.png?raw=true "Webstore Home")
 
 Basket page
 
-![WebStore Basket](/assets/images/screen_basket.png?raw=true "Webstore Basket")
+![WebStore Basket](/src/assets/images/screen_basket.png?raw=true "Webstore Basket")
 
 Checkout page
 
-![WebStore Checkout](/assets/images/screen_checkout.png?raw=true "Webstore Checkout")
+![WebStore Checkout](/src/assets/images/screen_checkout.png?raw=true "Webstore Checkout")
 
 Order page
 
-![WebStore Order](/assets/images/screen_order.png?raw=true "Webstore Order")
+![WebStore Order](/src/assets/images/screen_order.png?raw=true "Webstore Order")
 
 
 
