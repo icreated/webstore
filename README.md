@@ -1,28 +1,72 @@
-# Webstore
+# &int; created
+> Integration created
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
+# Idempiere Angular WebStore 
+> 
 
-## Development server
+Idempiere Angular WebStore is a frontend application created as responsive angular / bootstrap seed for your projects. 
+This applications shows standard web sites features:
+* product catalog
+* product search
+* user authentication
+* basket management synchronized with server
+* order checkout
+* private customer area
+* order list
+* password update
+* account information update
+
+Project structure has been inspired from Tom Cowley blog post:
+
+[Angular Folder Structure](https://medium.com/@motcowley/angular-folder-structure-d1809be95542).
+Thank's Tom.
+
+Server side REST services are here:
+
+[https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api)
+
+Some snapshots:
+
+Home page
+
+![WebStore Home](/assets/images/screen_home.png?raw=true "Webstore Home")
+
+Basket page
+
+![WebStore Basket](/assets/images/screen_basket.png?raw=true "Webstore Basket")
+
+Checkout page
+
+![WebStore Checkout](/assets/images/screen_checkout.png?raw=true "Webstore Checkout")
+
+Order page
+
+![WebStore Order](/assets/images/screen_order.png?raw=true "Webstore Order")
+
+
+
+## Installing / Getting started
+
+...to be continued
+
+
+### Deploying / Publishing / Testing
+
+...to be continued
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Contributing
 
-## Build
+If you'd like to contribute, please fork the repository and use a feature
+branch. 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Pull requests are warmly welcome
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Licensing
 
-## Running end-to-end tests
+GNU General Public License
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-# webstore
