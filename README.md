@@ -39,9 +39,9 @@ Server side REST services are here:
 
 ![WebStore Checkout](/src/assets/images/screen_checkout.png?raw=true "Webstore Checkout")
 
-### Order page
+### Orders page
 
-![WebStore Order](/src/assets/images/screen_order.png?raw=true "Webstore Order")
+![WebStore Order](/src/assets/images/screen_orders.png?raw=true "Webstore Order")
 
 
 
