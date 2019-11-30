@@ -37,10 +37,7 @@
                   <td><a [routerLink]="['/account/order', order.id]">{{order.grandTotal | currency}} €</a></td>
                   <td><a [routerLink]="['/account/order', order.id]">{{order.date | date: 'MM/dd/yyyy'}}</a></td>
                   <td data-value="3">
-
-                    <button *ngIf="order.docStatus == 'IP'" class="btn btn-sm btn-danger mr-2" (click)="checkoutService.payOrder(order)">Pay</button>
                     <button *ngIf="order.docStatus == 'IP'" class="btn btn-sm btn-warning mr-2" (click)="checkoutService.voidOrder(order)">Void</button>
-
                   </td>
                 </tr>
                 </tbody>

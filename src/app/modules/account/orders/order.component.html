@@ -26,8 +26,7 @@
                 <p><strong>Date: </strong> {{order.date | date:'MM/dd/yyyy'}}</p>
                 <p><strong># </strong> {{order.documentNo}}</p>
                 <p><strong>
-                  <button class="btn btn-sm btn-danger mr-2" *ngIf="order.docStatus == 'IP'" (click)="payOrder(order)">Pay</button>
-                  <button class="btn btn-sm btn-warning mr-2"*ngIf="order.docStatus == 'IP'" (click)="checkoutService.voidOrder(order)">Void</button>
+                  <button class="btn btn-sm btn-warning mr-2" *ngIf="order.docStatus == 'IP'" (click)="checkoutService.voidOrder(order)">Void</button>
                 </strong></p>
                 <p><strong>
                   <button class="btn btn-sm btn-success mr-2" (click)="downloadOrder()">PDF</button>

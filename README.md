@@ -12,7 +12,8 @@ This applications shows standard web sites features:
 * basket management synchronized with server
 * order checkout
 * private customer area
-* order list
+* orders information
+* addresses management
 * password update
 * account information update
 

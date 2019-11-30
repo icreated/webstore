@@ -34,11 +34,6 @@ export class OrderComponent implements OnInit {
       });
   }
 
-  payOrder(order: Order) {
-
-    this.router.navigate(['/checkout/checkout4i', order.id]);
-  }
-
   downloadOrder() {
 
       this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo);

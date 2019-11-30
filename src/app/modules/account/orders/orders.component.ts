@@ -26,24 +26,5 @@ export class OrdersComponent implements OnInit {
       );
   }
 
-/*
-  payOrder(order:Order) {
-
-    this.privateService.getOrder(order.id)
-      .subscribe(
-        data => {
-          this.checkoutService.orderSource.next(data);
-          this.checkoutService.order = data;
-          this.checkoutService.shipAddress = data.shipAddress;
-          this.checkoutService.billAddress = data.billAddress;
-          this.checkoutService.shipper = data.shipper;
-          this.router.navigate(['/checkout/checkout4']);
-        });
-
-  }
-*/
-
-
-
 
 }
