@@ -21,7 +21,9 @@ Project structure has been inspired from Tom Cowley blog post:
 [Angular Folder Structure](https://medium.com/@motcowley/angular-folder-structure-d1809be95542).
 Thank's Tom.
 
-Server side REST services are here:
+![WebStore Architecture](/src/assets/images/screen_architecture.png?raw=true "Webstore Architecture")
+
+Server side Idempiere REST services project:
 
 [https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api)
 
@@ -47,12 +49,14 @@ Server side REST services are here:
 
 ## Installing / Getting started
 
-...to be continued
+By default, Idempiere Webstore API REST endpoints are installed here:
+
+(http://localhost:8080/services/api/)[http://localhost:8080/services/api/]
+
+Change constant `API_ENDPOINT` in `app/core/library.ts` if different
 
 
 ### Deploying / Publishing / Testing
-
-...to be continued
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
