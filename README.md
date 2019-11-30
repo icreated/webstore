@@ -50,11 +50,17 @@ Server side Idempiere REST services project:
 
 ## Installing / Getting started
 
+Run `npm install`.
+
+This will create the node_modules directory in your current directory (if one doesn’t exist yet) and will download packages to that directory.
+
+
 By default, Idempiere Webstore API REST endpoints are installed here:
 
 [http://localhost:8080/services/api/](http://localhost:8080/services/api/)
 
 Change constant `API_ENDPOINT` in `app/core/library.ts` if different
+
 
 
 ### Deploying / Publishing / Testing
