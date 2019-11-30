@@ -51,7 +51,7 @@ Server side Idempiere REST services project:
 
 By default, Idempiere Webstore API REST endpoints are installed here:
 
-(http://localhost:8080/services/api/)[http://localhost:8080/services/api/]
+[http://localhost:8080/services/api/](http://localhost:8080/services/api/)
 
 Change constant `API_ENDPOINT` in `app/core/library.ts` if different
 
