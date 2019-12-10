@@ -6,7 +6,6 @@ import { PriceListProduct } from 'src/app/shared/models/pricelist-product';
 import { AuthService } from '../authentication/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { stringify } from '@angular/core/src/util';
 
 @Component({
   selector: 'app-header',
