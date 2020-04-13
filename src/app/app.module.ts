@@ -9,9 +9,8 @@ import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { CoreModule } from './core/core.module';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LocalStorageService } from './core/services/local.storage.service';
-import { BsDropdownModule} from 'ngx-bootstrap';
+import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { SharedModule } from './shared/shared.module';
 import { Library } from './core/library';
 import { isPlatformBrowser } from '@angular/common';
@@ -33,7 +32,6 @@ import { CheckoutService } from './core/services/checkout.service';
     SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularFontAwesomeModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
     JwtModule.forRoot({

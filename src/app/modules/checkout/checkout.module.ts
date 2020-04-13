@@ -10,7 +10,6 @@ import {RouterModule} from '@angular/router';
 import {CheckoutComponent} from './checkout.component';
 import {CheckoutRoutes} from "./checkout.routes";
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 @NgModule({
@@ -19,8 +18,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
         ReactiveFormsModule, 
         RouterModule, 
         SharedModule, 
-        CheckoutRoutes, 
-        AngularFontAwesomeModule],
+        CheckoutRoutes],
     declarations: [CheckoutComponent, 
         Checkout1Component, 
         Checkout2Component, 

@@ -15,17 +15,17 @@
           <form class="input-group my-2 my-lg-0" (ngSubmit)='onSearch($event)'>
               <input class="form-control my-2 mr-sm-1" name="search" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success input-sm my-2 mr-sm-1" type="submit">
-                <fa name="search"></fa>
+                <i class="fa fa-search"></i>
               </button>
           </form>
       </div>
 
       <form class="form-inline my-2 my-lg-0">
         <button class="btn my-2 my-sm-0" [routerLink]="['/cart']" *ngIf="getCartCount() > 0" title="Cart">
-          <fa name="shopping-cart"></fa>
+          <i class="fa fa-shopping-cart"></i>
           <span class='badge badge-warning'>{{getCartCount()}}</span>
         </button>
-        <button class="btn my-2 mr-sm-1" [routerLink]="['/signup']" *ngIf="!isLogged()" title="Sign In"><fa name="sign-in"></fa></button>
+        <button class="btn my-2 mr-sm-1" [routerLink]="['/signup']" *ngIf="!isLogged()" title="Sign In"><i class="fa fa-sign-in"></i></button>
 
         <div class="btn-group" dropdown *ngIf="isLogged()">
             <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-basic">
@@ -41,11 +41,6 @@
       </form>
     </div>
 
-
-
-
-
-  
 </nav>
 
 

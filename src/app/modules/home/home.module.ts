@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CollapseModule } from 'ngx-bootstrap';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 const routes: Routes = [
   {
@@ -15,7 +14,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [HomeComponent],
   imports: [
-    AngularFontAwesomeModule,
     CommonModule,
     RouterModule.forChild(routes),
     CollapseModule.forRoot(),
