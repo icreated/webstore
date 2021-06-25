@@ -1,11 +1,11 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { ControlMessagesComponent } from './components/control-messages/control-messages.component';
-import { AlertComponent } from './components/alert/alert.component';
-import { DocStatusFormat } from './pipes/docstatus-format';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+import {ControlMessagesComponent} from './components/control-messages/control-messages.component';
+import {AlertComponent} from './components/alert/alert.component';
+import {DocStatusFormat} from './pipes/docstatus-format';
 
 @NgModule({
   imports: [
@@ -21,6 +21,7 @@ import { DocStatusFormat } from './pipes/docstatus-format';
   exports: [
     ControlMessagesComponent, AlertComponent, DocStatusFormat
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SharedModule { }
+export class SharedModule {
+}

@@ -1,17 +1,14 @@
-import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CollapseModule} from 'ngx-bootstrap/collapse';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './authentication/auth.service';
-import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {HttpClientModule} from '@angular/common/http';
+import {AuthService} from './authentication/auth.service';
 
 @NgModule({
-  declarations: [
-    
-  ],
+  declarations: [],
   imports: [
     HttpClientModule,
     RouterModule,
@@ -21,14 +18,11 @@ import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
     ReactiveFormsModule,
     CollapseModule.forRoot()
   ],
-  providers: [
-
-  ]
+  providers: []
 })
-export class CoreModule { 
+export class CoreModule {
 
-
-  constructor (@Optional() @SkipSelf() parentModule: CoreModule) {
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
     if (parentModule) {
       throw new Error(
         'CoreModule is already loaded. Import it in the AppModule only');
@@ -36,14 +30,14 @@ export class CoreModule {
   }
 
 
-static forRoot(): ModuleWithProviders {
-  return {
-    ngModule: CoreModule,
-    providers: [
-      AuthService
-    ]
-  };
-}
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        AuthService
+      ]
+    };
+  }
 }
 
 

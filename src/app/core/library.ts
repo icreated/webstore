@@ -1,17 +1,16 @@
-
 import {HttpHeaders} from '@angular/common/http';
 
 export class Library {
 
-    public static readonly IS_LOCALHOST = false;
+  public static readonly IS_LOCALHOST = false;
 
-    public static readonly API_DOMAIN = 'localhost:8080';
+  public static readonly API_DOMAIN = 'localhost:8888';
 
-    // TEST LOCALHOST
-    public static readonly API_ENDPOINT = 'http://' + Library.API_DOMAIN + '/services/api/';
+  // TEST LOCALHOST
+  public static readonly API_ENDPOINT = 'http://' + Library.API_DOMAIN + '/services/api/';
 
-    public static readonly STORAGE_KEY = 'webStore';
-    public static readonly CURRENT_COUNTRY_ID = 100;
+  public static readonly STORAGE_KEY = 'webStore';
+  public static readonly CURRENT_COUNTRY_ID = 100;
 
 }
 

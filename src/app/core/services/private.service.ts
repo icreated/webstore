@@ -1,15 +1,12 @@
 import {Injectable} from '@angular/core';
-import { Address } from 'src/app/shared/models/address';
-import { Library, OPTIONS, HEADERS } from '../library';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Order } from 'src/app/shared/models/order';
-import { Shipper } from 'src/app/shared/models/shipper';
-import { Observable } from 'rxjs';
-import { Token } from 'src/app/shared/models/token';
-import { Password } from 'src/app/shared/models/password';
-import { IdNamePair } from 'src/app/shared/models/id-name-pair';
-import { Account } from 'src/app/shared/models/account';
-
+import {Address} from 'src/app/shared/models/address';
+import {HEADERS, Library, OPTIONS} from '../library';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Order} from 'src/app/shared/models/order';
+import {Observable} from 'rxjs';
+import {Token} from 'src/app/shared/models/token';
+import {Password} from 'src/app/shared/models/password';
+import {Account} from 'src/app/shared/models/account';
 
 
 @Injectable({
@@ -20,7 +17,6 @@ export class PrivateService {
     addresses: Address[];
 
     constructor(private http: HttpClient) {}
-
 
     getOrders() {
         return this.http.get(Library.API_ENDPOINT + 'account/orders', OPTIONS);
@@ -46,7 +42,7 @@ export class PrivateService {
     }
 
     payment(type: string, orderId: number) {
-        return this.http.post(Library.API_ENDPOINT + 'checkout/payment', {'type':type, 'orderId':orderId}, { observe: 'response' });
+        return this.http.post(Library.API_ENDPOINT + 'checkout/payment', {'type': type, 'orderId': orderId}, { observe: 'response' });
     }
 
     updateAccount(account: Account) {
@@ -57,8 +53,8 @@ export class PrivateService {
         return this.http.post<Token>(Library.API_ENDPOINT + 'account/password/change', passwordForm, OPTIONS);
     }
 
-    getAddresses() {
-        return Observable.create((observer: any) => {
+    getAddresses(): Observable<Address[]> {
+        return new Observable((observer: any) => {
             this.http.get<Address[]>(Library.API_ENDPOINT + 'account/addresses', OPTIONS)
                 .subscribe((data) => {
                     this.addresses = data;
@@ -71,9 +67,9 @@ export class PrivateService {
     getAddress(id: number | string): Address {
         if (this.addresses) {
             return this.addresses.filter(h => h.id === +id)[0];
-        } else
+        } else {
             return <Address>{};
-
+        }
     }
 
     createUpdateAddress(address: Address) {
@@ -94,8 +90,5 @@ export class PrivateService {
             responseType: 'blob'
            // observe: 'response'
         });
-
     }
-
-
 }

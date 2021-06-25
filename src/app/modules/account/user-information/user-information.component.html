@@ -25,13 +25,13 @@
             <div class="col-xs-12 col-sm-6">
               <div class="form-group required">
                 <label for="name">Your first name, last name <sup>*</sup> </label>
-                <control-messages  *ngIf="accountForm.controls" [control]="accountForm.controls.name"></control-messages>
+                <app-control-messages  *ngIf="accountForm.controls" [control]="accountForm.controls.name"></app-control-messages>
                 <input name="name" ngControl='name' #name formControlName="name" type="text"
                       class="form-control" id="name" placeholder="Your first name, last name" required>
               </div>
               <div class="form-group required">
                 <label for="InputInfoEmail"> Email <sup>*</sup> </label>
-                <control-messages  *ngIf="accountForm.controls" [control]="accountForm.controls.email"></control-messages>
+                <app-control-messages  *ngIf="accountForm.controls" [control]="accountForm.controls.email"></app-control-messages>
                 <input name="email" ngControl='email' #email formControlName="email"
                       class="form-control" id="InputInfoEmail" placeholder="Email" required>
               </div>

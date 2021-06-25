@@ -1,4 +1,4 @@
 export interface Tax {
-   name: string;
-   tax: number;
+  name: string;
+  tax: number;
 }

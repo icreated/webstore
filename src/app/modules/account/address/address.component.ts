@@ -1,18 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import { Address } from 'src/app/shared/models/address';
-import { Router } from '@angular/router';
-import { PrivateService } from 'src/app/core/services/private.service';
-import { AuthService } from 'src/app/core/authentication/auth.service';
+import {Address} from 'src/app/shared/models/address';
+import {Router} from '@angular/router';
+import {PrivateService} from 'src/app/core/services/private.service';
+import {AuthService} from 'src/app/core/authentication/auth.service';
 
 
 @Component({
-
-  selector: 'sp-addresses',
+  selector: 'app-address',
   templateUrl: './address.component.html'
 })
 export class AddressComponent implements OnInit {
-
 
   private _addressObservable: Observable<Address[]>;
 
@@ -38,19 +36,17 @@ export class AddressComponent implements OnInit {
       .subscribe(
         res => {
           if (res.status === 202) {
-            let i = this.privateService.addresses.indexOf(item);
-            this.privateService.addresses.splice(i,1);
-            this.authService.showAlert({type:'success', msg:'Address deleted'});
+            const i = this.privateService.addresses.indexOf(item);
+            this.privateService.addresses.splice(i, 1);
+            this.authService.showAlert({type: 'success', msg: 'Address deleted'});
           } else {
-            this.authService.showAlert({type:'danger', msg:'Address not deleted'});
+            this.authService.showAlert({type: 'danger', msg: 'Address not deleted'});
           }
         }
-
       );
   }
-  
-  modifyAddress(address: Address) {
 
+  modifyAddress(address: Address) {
     this.router.navigate(['/account/new-address', address.id]);
   }
 

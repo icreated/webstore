@@ -1,38 +1,32 @@
 import {Component, OnInit} from '@angular/core';
-import { Alert } from '../../models/alert';
-import { AuthService } from 'src/app/core/authentication/auth.service';
+import {Alert} from '../../models/alert';
+import {AuthService} from 'src/app/core/authentication/auth.service';
 
 
-@Component({ 
-  selector: 'sp-alert',
+@Component({
+  selector: 'app-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements OnInit {
 
-  type:string = 'warning';
-  dismissible:boolean = true;
-  dismissOnTimeout:number = 3000;
+  type = 'warning';
+  dismissible = true;
+  dismissOnTimeout = 3000;
 
-  alert:Alert = <Alert>{};
+  alert: Alert = <Alert>{};
+  closed = false;
+  private classes: Array<string> = [];
 
+  constructor(private authService: AuthService) {
+  }
 
-  closed:boolean = false;
-  private classes:Array<string> = [];
-
-  constructor(private authService: AuthService) {}
-
-
-
-
-  public ngOnInit():any {
-
+  public ngOnInit(): any {
     this.authService.alertSource.subscribe(
       alert => {
 
         this.closed = false;
         this.alert = alert;
-
         this.classes[0] = `alert-${this.alert.type}`;
         this.classes[1] = 'alert-fixed';
 
@@ -43,7 +37,6 @@ export class AlertComponent implements OnInit {
           this.classes.length = 2;
         }
 
-
         if (this.dismissOnTimeout) {
           setTimeout(() => this.onClose(), this.dismissOnTimeout);
         }
@@ -51,9 +44,10 @@ export class AlertComponent implements OnInit {
   }
 
 
-  public onClose():void {
+  public onClose(): void {
     this.classes.splice(this.classes.indexOf('in'), 1);
     this.classes.splice(this.classes.indexOf('alert-fixed'), 1);
   }
 }
+
 //

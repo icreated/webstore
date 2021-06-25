@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
-import { ProductCategory } from 'src/app/shared/models/product-category';
+import {Component, OnInit} from '@angular/core';
+import {ApiService} from '../services/api.service';
+import {ProductCategory} from 'src/app/shared/models/product-category';
 
 @Component({
   selector: 'app-footer',
@@ -11,10 +11,10 @@ export class FooterComponent implements OnInit {
 
   categories: ProductCategory[];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {
+  }
 
   ngOnInit() {
-
     this.apiService.getProductCategories().subscribe(data => {
       this.categories = data;
     });

@@ -1,28 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, PLATFORM_ID } from '@angular/core';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule, PLATFORM_ID} from '@angular/core';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './core/header/header.component';
-import { FooterComponent } from './core/footer/footer.component';
-import { CoreModule } from './core/core.module';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { LocalStorageService } from './core/services/local.storage.service';
-import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import { SharedModule } from './shared/shared.module';
-import { Library } from './core/library';
-import { isPlatformBrowser } from '@angular/common';
-import { TokenInterceptor } from './core/interceptors/token.interceptor';
-import { HttpErrorInterceptor } from './core/interceptors/error.interceptor';
-import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { FormsModule } from '@angular/forms';
-import { CheckoutService } from './core/services/checkout.service';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HeaderComponent} from './core/header/header.component';
+import {FooterComponent} from './core/footer/footer.component';
+import {CoreModule} from './core/core.module';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {LocalStorageService} from './core/services/local.storage.service';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {SharedModule} from './shared/shared.module';
+import {Library} from './core/library';
+import {isPlatformBrowser} from '@angular/common';
+import {TokenInterceptor} from './core/interceptors/token.interceptor';
+import {HttpErrorInterceptor} from './core/interceptors/error.interceptor';
+import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent,FooterComponent, HeaderComponent
+    AppComponent, FooterComponent, HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -36,12 +35,11 @@ import { CheckoutService } from './core/services/checkout.service';
     BsDropdownModule.forRoot(),
     JwtModule.forRoot({
       jwtOptionsProvider: {
-          provide: JWT_OPTIONS,
-          useFactory: jwtOptionsFactory,
-          deps: [PLATFORM_ID]
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [PLATFORM_ID]
       }
-  })
-
+    })
   ],
   providers: [
     LocalStorageService,
@@ -50,17 +48,18 @@ import { CheckoutService } from './core/services/checkout.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 export function jwtOptionsFactory(platformId) {
   return {
-      tokenGetter: () => {
-          let token = null;
-          if (isPlatformBrowser(platformId)) {
-              token = localStorage.getItem('token');
-          }
-          return token;
-      },
-      whitelistedDomains: [Library.API_DOMAIN]
+    tokenGetter: () => {
+      let token = null;
+      if (isPlatformBrowser(platformId)) {
+        token = localStorage.getItem('token');
+      }
+      return token;
+    },
+    whitelistedDomains: [Library.API_DOMAIN]
   };
 }

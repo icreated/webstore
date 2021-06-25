@@ -1,20 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {CartService} from './cart.service';
-import { AuthService } from '../authentication/auth.service';
-import { Order } from 'src/app/shared/models/order';
-import { PriceListProduct } from 'src/app/shared/models/pricelist-product';
-import { Shipper } from 'src/app/shared/models/shipper';
-import { Subject } from 'rxjs';
-import { Address } from 'src/app/shared/models/address';
-import { PrivateService } from './private.service';
+import {AuthService} from '../authentication/auth.service';
+import {Order} from 'src/app/shared/models/order';
+import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
+import {Shipper} from 'src/app/shared/models/shipper';
+import {Subject} from 'rxjs';
+import {Address} from 'src/app/shared/models/address';
+import {PrivateService} from './private.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
-
 
   shipAddress: Address = null;
   billAddress: Address = null;
@@ -23,28 +22,25 @@ export class CheckoutService {
   orderSource = new Subject<Order>();
   order$ = this.orderSource.asObservable();
 
-
   constructor(private router: Router, private authService: AuthService, public cartService: CartService,
-              private privateService: PrivateService) {}
-
+              private privateService: PrivateService) {
+  }
 
   payOrder(order: Order) {
-
     this.privateService.getOrder(order.id)
       .subscribe(
-          (order:Order) => {
-
+        (ord: Order) => {
           this.cartService.clearCart();
-          order.lines.forEach((item: PriceListProduct, index:number) => {
+          ord.lines.forEach((item: PriceListProduct, index: number) => {
             this.cartService.getCart().push(item);
             this.cartService.synchronize(item);
           });
 
-          this.order = order;
-          this.orderSource.next(order);
-          this.shipAddress = order.shipAddress;
-          this.billAddress = order.billAddress;
-          this.shipper = order.shipper;
+          this.order = ord;
+          this.orderSource.next(ord);
+          this.shipAddress = ord.shipAddress;
+          this.billAddress = ord.billAddress;
+          this.shipper = ord.shipper;
           this.router.navigate(['/checkout/checkout4']);
         });
   }
@@ -56,7 +52,6 @@ export class CheckoutService {
   }
 
   voidOrder(order: Order) {
-
     this.privateService.voidOrder(order)
       .subscribe(
         resp => {
@@ -90,8 +85,9 @@ export class CheckoutService {
       return this.order.grandTotal;
     }
     let price = this.cartService.getTotalPrice();
-    if (this.shipper)
-      price = price +this.shipper.price;
+    if (this.shipper) {
+      price = price + this.shipper.price;
+    }
     return price;
   }
 
@@ -103,26 +99,22 @@ export class CheckoutService {
     this.order.shipper = this.shipper;
     this.order.lines = this.cartService.getCart();
 
- /*
-    this.privateService.getOrder(1000000).subscribe(
-      (order : Order) => {
-      this.order = order;
-      console.log('HERE: '+order)
-      this.orderSource.next(order);
-      this.authService.showAlert({type: 'success', msg: 'Order '+order.documentNo+' is generated'});
-    });
-*/
+    /*
+       this.privateService.getOrder(1000000).subscribe(
+         (order : Order) => {
+         this.order = order;
+         console.log('HERE: '+order)
+         this.orderSource.next(order);
+         this.authService.showAlert({type: 'success', msg: 'Order '+order.documentNo+' is generated'});
+       });
+   */
 
 
-  this.privateService.createOrder(this.order).subscribe(
-      (order : Order) => {
-      this.order = order;
-      this.orderSource.next(order);
-      this.authService.showAlert({type: 'success', msg: 'Order '+order.documentNo+' is generated'});
-    });
-
+    this.privateService.createOrder(this.order).subscribe(
+      (order: Order) => {
+        this.order = order;
+        this.orderSource.next(order);
+        this.authService.showAlert({type: 'success', msg: 'Order ' + order.documentNo + ' is generated'});
+      });
   }
-
-
-
 }

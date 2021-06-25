@@ -1,7 +1,7 @@
 /**
  * Created by spok on 26/06/16.
  */
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +15,5 @@ export class DialogService {
     return new Promise<boolean>(resolve => {
       return resolve(window.confirm(message || 'It\'s OK?'));
     });
-  };
+  }
 }

@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', loadChildren: './modules/home/home.module#HomeModule'},
-  { path: 'catalog/:categoryId', loadChildren: './modules/catalog/catalog.module#CatalogModule'},
-  { path: 'catalog/search', loadChildren: './modules/catalog/catalog.module#CatalogModule'},
-  { path: 'cart', loadChildren: './modules/cart/cart.module#CartModule'},
-  { path: 'signup', loadChildren: './modules/signup/signup.module#SignupModule'},
-  { path: 'checkout',   loadChildren: './modules/checkout/checkout.module#CheckoutModule' },
-  { path: 'account',   loadChildren: './modules/account/account.module#AccountModule' },
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', loadChildren: './modules/home/home.module#HomeModule'},
+  {path: 'catalog/:categoryId', loadChildren: './modules/catalog/catalog.module#CatalogModule'},
+  {path: 'catalog/search', loadChildren: './modules/catalog/catalog.module#CatalogModule'},
+  {path: 'cart', loadChildren: './modules/cart/cart.module#CartModule'},
+  {path: 'signup', loadChildren: './modules/signup/signup.module#SignupModule'},
+  {path: 'checkout', loadChildren: './modules/checkout/checkout.module#CheckoutModule'},
+  {path: 'account', loadChildren: './modules/account/account.module#AccountModule'},
 ];
 
 @NgModule({
@@ -22,4 +21,5 @@ const routes: Routes = [
   })],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

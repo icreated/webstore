@@ -2,6 +2,7 @@
  * Created by spok on 22/07/16.
  */
 import {Pipe, PipeTransform} from '@angular/core';
+
 /**
  * Created by spok on 10/06/16.
  */
@@ -11,7 +12,7 @@ import {Pipe, PipeTransform} from '@angular/core';
   name: 'docStatus'
 })
 export class DocStatusFormat implements PipeTransform {
-  transform(value:any) {
+  transform(value: any) {
     if (value) {
       if (value === 'CO') {
         return 'Achevé';

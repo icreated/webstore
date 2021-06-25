@@ -1,35 +1,31 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import { Address } from 'src/app/shared/models/address';
-import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/core/authentication/auth.service';
-import { CheckoutService } from 'src/app/core/services/checkout.service';
-import { PrivateService } from 'src/app/core/services/private.service';
-
+import {ActivatedRoute, Router} from '@angular/router';
+import {Address} from 'src/app/shared/models/address';
+import {Observable} from 'rxjs';
+import {AuthService} from 'src/app/core/authentication/auth.service';
+import {CheckoutService} from 'src/app/core/services/checkout.service';
+import {PrivateService} from 'src/app/core/services/private.service';
 
 
 @Component({
-  selector: 'sp-checkout',
+  selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
 })
 
 export class CheckoutComponent implements OnInit {
 
-  code:string;
-  disabled : boolean = true;
-  currentUrl : String = '/checkout/checkout1';
+  code: string;
+  disabled = true;
+  currentUrl: String = '/checkout/checkout1';
 
   private _addressObservable: Observable<Address[]>;
 
-
-  constructor(private route: ActivatedRoute, private router:Router, private privateService: PrivateService,
+  constructor(private route: ActivatedRoute, private router: Router, private privateService: PrivateService,
               private authService: AuthService, private checkoutService: CheckoutService) {
-
   }
 
   ngOnInit(): any {
-
     this._addressObservable = this.privateService.getAddresses();
     this._addressObservable.subscribe();
   }

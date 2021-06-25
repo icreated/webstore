@@ -1,15 +1,13 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {isPlatformServer} from "@angular/common";
+import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import { Subject, Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { Library, OPTIONS, HEADERS } from '../library';
-import { Token } from 'src/app/shared/models/token';
-import { Login } from 'src/app/shared/models/login';
-import { Alert } from 'src/app/shared/models/alert';
-import { NewAccount } from 'src/app/shared/models/new-account';
-import { ThrowStmt } from '@angular/compiler';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
+import {Router} from '@angular/router';
+import {HEADERS, Library, OPTIONS} from '../library';
+import {Token} from 'src/app/shared/models/token';
+import {Login} from 'src/app/shared/models/login';
+import {Alert} from 'src/app/shared/models/alert';
+import {NewAccount} from 'src/app/shared/models/new-account';
 
 
 @Injectable()
@@ -31,12 +29,11 @@ export class AuthService {
     private name = '';
 
     constructor(private http: HttpClient, private router: Router) {
-
     }
 
 
     login(username: String, password: String, redirectTo: String) {
-        console.log(username, password, redirectTo)
+        console.log(username, password, redirectTo);
         this.http.post(Library.API_ENDPOINT + 'auth/login', {username, password}, OPTIONS)
             .subscribe(
                 (response: Token) => {
@@ -45,7 +42,7 @@ export class AuthService {
                     this.onDecodedToken(response.token);
                     this.showAlert({type: 'success', msg: 'Hello ' + this.decodedToken.name});
                     this.router.navigateByUrl('/' + redirectTo);
-                    //jQuery('#ModalLogin').modal('hide');
+                    // jQuery('#ModalLogin').modal('hide');
                 },
                 error => {
                     this.loggedIn = false;
@@ -57,7 +54,6 @@ export class AuthService {
     }
 
     signup(account: NewAccount, redirectTo: String) {
-
         this.http.post(Library.API_ENDPOINT + 'users/signup', account, OPTIONS)
             .subscribe(
                 (response: Token) => {
@@ -79,12 +75,10 @@ export class AuthService {
 
 
     forgotPassword(email: String) {
-
         return this.http.post<Token>(Library.API_ENDPOINT + 'login/password/forgot', {token: email}, OPTIONS);
     }
 
     changePassword(login: Login): Observable<HttpResponse<any>> {
-
         return this.http.post(Library.API_ENDPOINT + 'login/password/change', login, {
             headers: HEADERS,
             observe: 'response'
@@ -98,8 +92,7 @@ export class AuthService {
     }
 
     testIsAuthenticated() {
-
-        let jwt = localStorage.getItem('jwt');
+        const jwt = localStorage.getItem('jwt');
         if (jwt) {
             this.onDecodedToken(jwt);
             this.loggedIn = true;
@@ -119,7 +112,6 @@ export class AuthService {
     }
 
     onDecodedToken(token: string) {
-
         try {
             token ? this.decodedToken = this.jwtHelper.decodeToken(token) : this.decodedToken = null;
             this.name = this.decodedToken.name;
@@ -142,7 +134,6 @@ export class AuthService {
     showAlert(alert: Alert) {
         this.alertSource.next(alert);
     }
-
 
 }
 

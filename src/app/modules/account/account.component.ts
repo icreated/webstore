@@ -2,10 +2,9 @@ import { Component} from '@angular/core';
 
 
 @Component({
-  selector: 'sp-account',
+  selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent  {
-
 }

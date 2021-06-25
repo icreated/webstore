@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductCategory } from 'src/app/shared/models/product-category';
-import { ApiService } from '../services/api.service';
-import { CartService } from '../services/cart.service';
-import { PriceListProduct } from 'src/app/shared/models/pricelist-product';
-import { AuthService } from '../authentication/auth.service';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {ProductCategory} from 'src/app/shared/models/product-category';
+import {ApiService} from '../services/api.service';
+import {CartService} from '../services/cart.service';
+import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
+import {AuthService} from '../authentication/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,8 +18,9 @@ export class HeaderComponent implements OnInit {
 
   categories: ProductCategory[];
 
-  constructor(private router: Router, private apiService: ApiService, private cartService: CartService, 
-    private authService: AuthService) { }
+  constructor(private router: Router, private apiService: ApiService, private cartService: CartService,
+              private authService: AuthService) {
+  }
 
   ngOnInit() {
 
@@ -31,37 +31,34 @@ export class HeaderComponent implements OnInit {
     let cartItems = this.cartService.getCart();
 
     if (cartItems.length === 0) {
-        this.cartService.getCartFromStorage().subscribe((res: PriceListProduct[]) => {
-            if (!res)
-                return;
-            cartItems = res;
-            cartItems.forEach((item) => {
-                for (var sitem of this.cartService.getSimpleCart()) {
-                    if (item.id === sitem.id) {
-                        item.qty = sitem.qty;
-                        break;
-                    }
-                }
-            });
-            this.cartService.setCart(cartItems);
+      this.cartService.getCartFromStorage().subscribe((res: PriceListProduct[]) => {
+        if (!res) {
+          return;
+        }
+        cartItems = res;
+        cartItems.forEach((item) => {
+          for (const sitem of this.cartService.getSimpleCart()) {
+            if (item.id === sitem.id) {
+              item.qty = sitem.qty;
+              break;
+            }
+          }
         });
+        this.cartService.setCart(cartItems);
+      });
     }
 
 
     this.authService.decodedToken$.subscribe(
       token => {
-          this.decodedToken = token;
+        this.decodedToken = token;
       });
-
     this.authService.testIsAuthenticated();
-
   }
 
   onSearch(event: any) {
-
-   this.router.navigate(['/catalog/search'],{ queryParams: {searchString: event.target.search.value}} );
-   event.target.search.value = '';
-    
+    this.router.navigate(['/catalog/search'], {queryParams: {searchString: event.target.search.value}});
+    event.target.search.value = '';
   }
 
   getCartCount() {
@@ -79,9 +76,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.decodedToken = null;
     this.authService.logout();
-    //this.checkoutService.clear();
+    // this.checkoutService.clear();
     this.router.navigate(['/']);
   }
-
-
 }

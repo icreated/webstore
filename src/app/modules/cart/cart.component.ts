@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CartService } from 'src/app/core/services/cart.service';
-import { PriceListProduct } from 'src/app/shared/models/pricelist-product';
+import {Component, OnInit} from '@angular/core';
+import {CartService} from 'src/app/core/services/cart.service';
+import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
 
 @Component({
   selector: 'app-cart',
@@ -9,7 +9,8 @@ import { PriceListProduct } from 'src/app/shared/models/pricelist-product';
 })
 export class CartComponent implements OnInit {
 
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService) {
+  }
 
   ngOnInit() {
   }
@@ -24,13 +25,14 @@ export class CartComponent implements OnInit {
   }
 
   increment(item: PriceListProduct) {
-    item.qty = item.qty+1;
-
+    item.qty = item.qty + 1;
   }
+
   decrement(item: PriceListProduct) {
-    if (item.qty === 1)
+    if (item.qty === 1) {
       return;
-    item.qty = item.qty-1;
+    }
+    item.qty = item.qty - 1;
   }
 
 }
