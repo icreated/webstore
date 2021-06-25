@@ -28,6 +28,6 @@ export const ACCOUNT_ROUTES: Routes = [
   }
 ];
 
-export const AccountRoutes: ModuleWithProviders = RouterModule.forChild(ACCOUNT_ROUTES);
+export const AccountRoutes: ModuleWithProviders<RouterModule> = RouterModule.forChild(ACCOUNT_ROUTES);
 
 

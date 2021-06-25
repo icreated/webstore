@@ -28,5 +28,5 @@ export const CHECKOUT_ROUTES: Routes = [
   }
 ];
 
-export const CheckoutRoutes: ModuleWithProviders = RouterModule.forChild(CHECKOUT_ROUTES);
+export const CheckoutRoutes: ModuleWithProviders<RouterModule> = RouterModule.forChild(CHECKOUT_ROUTES);
 

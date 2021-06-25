@@ -1,4 +1,3 @@
-import {fromPromise} from 'rxjs/internal/observable/fromPromise';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs/index';
@@ -8,6 +7,7 @@ import {Order} from 'src/app/shared/models/order';
 import {DialogService} from 'src/app/core/services/dialog.service';
 import {CartService} from 'src/app/core/services/cart.service';
 import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
+import {fromPromise} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-checkout4',
