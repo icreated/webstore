@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Address} from 'src/app/shared/models/address';
-import {Observable} from 'rxjs';
+import {EMPTY, Observable} from 'rxjs';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
 import {PrivateService} from 'src/app/core/services/private.service';
@@ -15,11 +15,10 @@ import {PrivateService} from 'src/app/core/services/private.service';
 
 export class CheckoutComponent implements OnInit {
 
-  code: string;
   disabled = true;
   currentUrl: String = '/checkout/checkout1';
 
-  private _addressObservable: Observable<Address[]>;
+  private _addressObservable: Observable<Address[]> = EMPTY;
 
   constructor(private route: ActivatedRoute, private router: Router, private privateService: PrivateService,
               private authService: AuthService, private checkoutService: CheckoutService) {

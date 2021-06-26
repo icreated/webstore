@@ -13,11 +13,10 @@ import {Order} from 'src/app/shared/models/order';
 })
 export class OrderComponent implements OnInit {
 
-  isBrowser: boolean;
   order: Order = <Order>{billAddress: {}, shipAddress: {}};
 
   constructor(private privateService: PrivateService, private route: ActivatedRoute, private router: Router,
-              private checkoutService: CheckoutService, private fileService: FileService) {
+              public checkoutService: CheckoutService, private fileService: FileService) {
   }
 
   ngOnInit() {

@@ -17,7 +17,7 @@ import {fromPromise} from 'rxjs/internal-compatibility';
 
 export class Checkout4Component implements OnInit {
 
-  order: Order;
+  order: Order = {} as Order;
 
   constructor(private route: ActivatedRoute, private router: Router, private checkoutService: CheckoutService,
               private privateService: PrivateService, private cartService: CartService, private dialogService: DialogService) {

@@ -15,9 +15,8 @@ export class AddAddressComponent implements OnInit {
 
   sub: any;
   address = <Address>{label: 'My address'};
-  selectedCountry: IdNamePair;
-  id: number;
-  countries: IdNamePair[];
+  selectedCountry: IdNamePair = {} as IdNamePair;
+  countries: IdNamePair[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
               private privateService: PrivateService, private apiService: ApiService) {

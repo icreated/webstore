@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PrivateService} from './private.service';
-import {saveAs} from 'file-saver/FileSaver';
+import {saveAs} from 'file-saver';
 
 @Injectable({
     providedIn: 'root'

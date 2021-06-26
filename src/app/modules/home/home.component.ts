@@ -10,7 +10,7 @@ import {CartService} from 'src/app/core/services/cart.service';
 })
 export class HomeComponent implements OnInit {
 
-  featuredProducts: PriceListProduct[];
+  featuredProducts: PriceListProduct[] = [];
 
   constructor(private apiService: ApiService, private cartService: CartService) {
   }

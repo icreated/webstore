@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, PLATFORM_ID} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -51,7 +50,7 @@ import {FormsModule} from '@angular/forms';
 export class AppModule {
 }
 
-export function jwtOptionsFactory(platformId) {
+export function jwtOptionsFactory(platformId: any) {
   return {
     tokenGetter: () => {
       let token = null;

@@ -14,20 +14,20 @@ import {Account} from 'src/app/shared/models/account';
 })
 export class PrivateService {
 
-    addresses: Address[];
+    addresses: Address[] = [];
 
     constructor(private http: HttpClient) {}
 
-    getOrders() {
-        return this.http.get(Library.API_ENDPOINT + 'account/orders', OPTIONS);
+    getOrders(): Observable<Order[]> {
+        return this.http.get<Order[]>(Library.API_ENDPOINT + 'account/orders', OPTIONS);
     }
 
     getOrder(id: number) {
         return this.http.get<Order>(Library.API_ENDPOINT + 'account/order/' + id, OPTIONS);
     }
 
-    createOrder(order: Order) {
-        return this.http.post(Library.API_ENDPOINT + 'checkout/order/create', order, OPTIONS);
+    createOrder(order: Order): Observable<Order> {
+        return this.http.post<Order>(Library.API_ENDPOINT + 'checkout/order/create', order, OPTIONS);
     }
 
     voidOrder(order: Order): Observable<HttpResponse<any>> {
@@ -45,8 +45,8 @@ export class PrivateService {
         return this.http.post(Library.API_ENDPOINT + 'checkout/payment', {'type': type, 'orderId': orderId}, { observe: 'response' });
     }
 
-    updateAccount(account: Account) {
-        return this.http.post(Library.API_ENDPOINT + 'account/info/update', account, OPTIONS);
+    updateAccount(account: Account): Observable<Account> {
+        return this.http.post<Account>(Library.API_ENDPOINT + 'account/info/update', account, OPTIONS);
     }
 
     changePassword(passwordForm: Password) {

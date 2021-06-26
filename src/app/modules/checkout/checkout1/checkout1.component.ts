@@ -18,10 +18,9 @@ export class Checkout1Component implements OnInit, OnDestroy {
 
   sub: any;
   billAddressSelected = true;
-  address: Address;
-  selectedCountry: IdNamePair;
-  id: number;
-  countries: IdNamePair[];
+  address: Address = {} as Address;
+  selectedCountry: IdNamePair = {} as IdNamePair;
+  countries: IdNamePair[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService,
               public privateService: PrivateService, private cartService: CartService, private checkoutService: CheckoutService) {
@@ -29,10 +28,7 @@ export class Checkout1Component implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.checkoutService.order = null;
-    this.checkoutService.shipAddress = null;
-    this.checkoutService.billAddress = null;
-    this.checkoutService.shipper = null;
+    this.checkoutService.clear();
 
     this.sub = this.route
       .params

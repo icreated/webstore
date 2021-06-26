@@ -76,10 +76,10 @@ export class DBValidator {
 
     new Promise(resolve => {
       accountEvent.subscribe(
-        data => {
+        (data: Account) => {
           resolve(data);
         });
-    }).then((data: Account) => {
+    }).then((data: any) => {
       oldValue = data.value;
       oldEmail = data.email;
     });
@@ -90,7 +90,7 @@ export class DBValidator {
       const input2 = group.controls[value2];
 
       if ((input && oldEmail) && input.value && input.value !== oldEmail) {
-        this.http.post(Library.API_ENDPOINT + 'common/lookup/email', {'token': input.value}, OPTIONS)
+        this.http.post<boolean>(Library.API_ENDPOINT + 'common/lookup/email', {'token': input.value}, OPTIONS)
           .subscribe(
             (isValid: boolean) => {
               if (isValid) {
@@ -102,7 +102,7 @@ export class DBValidator {
       }
 
       if ((input2 && oldEmail) && input2.value && input2.value !== oldValue) {
-        this.http.post(Library.API_ENDPOINT + 'common/lookup/username', {'token': input2.value}, OPTIONS)
+        this.http.post<boolean>(Library.API_ENDPOINT + 'common/lookup/username', {'token': input2.value}, OPTIONS)
           .subscribe(
             (isValid: boolean) => {
               if (isValid) {

@@ -9,4 +9,5 @@ export interface PriceListProduct {
   price: number;
   qty: number;
   line: number;
+  lineNetAmt: number;
 }

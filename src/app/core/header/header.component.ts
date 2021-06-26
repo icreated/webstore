@@ -16,14 +16,13 @@ export class HeaderComponent implements OnInit {
   isCollapsed = false;
   decodedToken: any;
 
-  categories: ProductCategory[];
+  categories: ProductCategory[] = [];
 
   constructor(private router: Router, private apiService: ApiService, private cartService: CartService,
               private authService: AuthService) {
   }
 
   ngOnInit() {
-
     this.apiService.getProductCategories().subscribe(data => {
       this.categories = data;
     });

@@ -15,10 +15,10 @@ import {PrivateService} from './private.service';
 })
 export class CheckoutService {
 
-  shipAddress: Address = null;
-  billAddress: Address = null;
-  shipper: Shipper = null;
-  public order: Order = null;
+  shipAddress: Address = {} as Address;
+  billAddress: Address = {} as Address;
+  shipper: Shipper = {} as Shipper;
+  public order: Order = {} as Order;
   orderSource = new Subject<Order>();
   order$ = this.orderSource.asObservable();
 
@@ -35,7 +35,6 @@ export class CheckoutService {
             this.cartService.getCart().push(item);
             this.cartService.synchronize(item);
           });
-
           this.order = ord;
           this.orderSource.next(ord);
           this.shipAddress = ord.shipAddress;
@@ -45,10 +44,9 @@ export class CheckoutService {
         });
   }
 
-
   voidCurrentOrder() {
     this.privateService.voidOrder(this.order);
-    this.order = null;
+    this.order = {} as Order;
   }
 
   voidOrder(order: Order) {
@@ -62,10 +60,10 @@ export class CheckoutService {
   }
 
   clear() {
-    this.order = null;
-    this.shipAddress = null;
-    this.billAddress = null;
-    this.shipper = null;
+    this.order = {} as Order;
+    this.shipAddress = {} as Address;
+    this.billAddress = {} as Address;
+    this.shipper = {} as Shipper;
   }
 
   setShipAddress(address: Address) {
@@ -91,7 +89,6 @@ export class CheckoutService {
     return price;
   }
 
-
   createOrder() {
     this.order = <Order>{};
     this.order.shipAddress = this.shipAddress;
@@ -108,7 +105,6 @@ export class CheckoutService {
          this.authService.showAlert({type: 'success', msg: 'Order '+order.documentNo+' is generated'});
        });
    */
-
 
     this.privateService.createOrder(this.order).subscribe(
       (order: Order) => {

@@ -21,15 +21,9 @@ export class UserInformationComponent implements OnInit {
   accountSource = new Subject<Account>();
   account$ = this.accountSource.asObservable();
 
-  value: string;
-  name: string;
-  email: string;
-
   constructor(private privateService: PrivateService, private authService: AuthService,
               private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator) {
-  }
 
-  ngOnInit() {
     this.accountForm = this.builder.group({
         'name': ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(60)])],
         'email': ['', Validators.compose([Validators.required, ValidationService.emailValidator, Validators.minLength(4),
@@ -37,8 +31,9 @@ export class UserInformationComponent implements OnInit {
       },
       {validator: this.dbvalidator.valueAndEmailExists('email', 'value', this.account$)}
     );
+  }
 
-
+  ngOnInit() {
     this.privateService.getAccount().subscribe(
       (data: Account) => {
         this.account = data;

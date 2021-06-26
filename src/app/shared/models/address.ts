@@ -2,6 +2,7 @@ export interface Address {
   id: number;
   label: string;
   name: string;
+  company: string;
   address1: string;
   address2: string;
   postal: string;

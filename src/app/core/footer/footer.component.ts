@@ -9,7 +9,7 @@ import {ProductCategory} from 'src/app/shared/models/product-category';
 })
 export class FooterComponent implements OnInit {
 
-  categories: ProductCategory[];
+  categories: ProductCategory[] = [];
 
   constructor(private apiService: ApiService) {
   }

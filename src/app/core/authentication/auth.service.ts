@@ -34,7 +34,7 @@ export class AuthService {
 
     login(username: String, password: String, redirectTo: String) {
         console.log(username, password, redirectTo);
-        this.http.post(Library.API_ENDPOINT + 'auth/login', {username, password}, OPTIONS)
+        this.http.post<Token>(Library.API_ENDPOINT + 'auth/login', {username, password}, OPTIONS)
             .subscribe(
                 (response: Token) => {
                     this.loggedIn = true;
@@ -54,7 +54,7 @@ export class AuthService {
     }
 
     signup(account: NewAccount, redirectTo: String) {
-        this.http.post(Library.API_ENDPOINT + 'users/signup', account, OPTIONS)
+        this.http.post<Token>(Library.API_ENDPOINT + 'users/signup', account, OPTIONS)
             .subscribe(
                 (response: Token) => {
                     this.loggedIn = true;
@@ -108,7 +108,7 @@ export class AuthService {
     }
 
     public getToken(): string {
-            return localStorage.getItem('jwt');
+            return localStorage.getItem('jwt') as string;
     }
 
     onDecodedToken(token: string) {
@@ -129,7 +129,6 @@ export class AuthService {
         localStorage.removeItem('jwt');
         this.logoutSource.next(true);
     }
-
 
     showAlert(alert: Alert) {
         this.alertSource.next(alert);

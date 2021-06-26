@@ -9,7 +9,7 @@ import {ValidationService} from 'src/app/core/services/validation.service';
 })
 export class ControlMessagesComponent {
 
-  @Input() control: FormControl;
+  @Input() control: FormControl | undefined;
 
   constructor() { }
 

@@ -11,8 +11,7 @@ import {Order} from 'src/app/shared/models/order';
 })
 export class OrdersComponent implements OnInit {
 
-  orders: Order[];
-  error: String;
+  orders: Order[] = [];
 
   constructor(private router: Router, private privateService: PrivateService, private checkoutService: CheckoutService) {
   }

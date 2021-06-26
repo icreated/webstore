@@ -14,21 +14,18 @@ import {CartService} from 'src/app/core/services/cart.service';
 })
 export class Checkout3Component implements OnInit {
 
-  sub: any;
-  selectedShipper: Shipper;
-  shippers: Shipper[];
+  selectedShipper: Shipper = {} as Shipper;
+  shippers: Shipper[] = [];
 
   constructor(private router: Router, private apiService: ApiService, private cartService: CartService,
               private checkoutService: CheckoutService, private privateService: PrivateService) {
   }
-
 
   ngOnInit(): void {
     let countryId = 0;
     if (this.checkoutService.shipAddress) {
       countryId = this.checkoutService.shipAddress.countryId;
     }
-
     this.apiService.getShippers(countryId)
       .subscribe(
         (shippers: Shipper[]) => {

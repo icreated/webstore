@@ -16,14 +16,13 @@ import {ApiService} from 'src/app/core/services/api.service';
 export class Checkout2Component implements OnInit, OnDestroy {
 
   sub: any;
-  address: Address;
-  selectedCountry: IdNamePair;
-  countries: IdNamePair[];
+  address: Address = {} as Address;
+  selectedCountry: IdNamePair = {} as IdNamePair;
+  countries: IdNamePair[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService,
               public privateService: PrivateService, private checkoutService: CheckoutService) {
   }
-
 
   ngOnInit(): void {
     this.sub = this.route
@@ -44,7 +43,6 @@ export class Checkout2Component implements OnInit, OnDestroy {
       this.sub.unsubscribe();
     }
   }
-
 
   validateBillAddress(address: Address) {
     this.checkoutService.setBillAddress(address);

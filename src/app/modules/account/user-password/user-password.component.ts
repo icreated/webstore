@@ -12,14 +12,10 @@ import {Password} from 'src/app/shared/models/password';
 })
 export class UserPasswordComponent implements OnInit {
 
-  sub: any;
   passwordForm: FormGroup;
   active = true;
 
   constructor(private privateService: PrivateService, private authService: AuthService, private builder: FormBuilder) {
-  }
-
-  ngOnInit() {
     this.passwordForm = this.builder.group({
         'password': ['', [Validators.required]],
         'newPassword': ['', [Validators.required, ValidationService.passwordValidator]],
@@ -27,6 +23,9 @@ export class UserPasswordComponent implements OnInit {
       },
       {validator: ValidationService.matchingPasswords('newPassword', 'confirmPassword')}
     );
+  }
+
+  ngOnInit() {
   }
 
   save(password: Password) {

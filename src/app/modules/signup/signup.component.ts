@@ -21,14 +21,11 @@ export class SignupComponent implements OnInit {
   account: Login = <Login>{};
   accountForm: FormGroup;
 
-  selectedCountry: IdNamePair;
-  countries: IdNamePair[];
+  selectedCountry!: IdNamePair;
+  countries: IdNamePair[] = [];
 
   constructor(public http: HttpClient, private authService: AuthService, private apiService: ApiService,
               private router: Router, private route: ActivatedRoute, private builder: FormBuilder) {
-  }
-
-  ngOnInit() {
     this.accountForm = this.builder.group({
         'name': ['', [Validators.required]],
         'email': ['', [Validators.required, ValidationService.emailValidator]],
@@ -40,7 +37,9 @@ export class SignupComponent implements OnInit {
       },
       {validator: ValidationService.matchingPasswords('newPassword', 'confirmPassword')}
     );
+  }
 
+  ngOnInit() {
     this.apiService.getCountries().subscribe(
       (countries: IdNamePair[]) => {
         this.countries = countries;

@@ -5,7 +5,7 @@ import {Library} from '../library';
 @Injectable()
 export class LocalStorageService {
 
-  private isNode: boolean;
+  private readonly isNode: boolean;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     //   this.isNode = typeof module !== 'undefined'
@@ -33,7 +33,7 @@ export class LocalStorageService {
     if (this.isNode) {
       return;
     }
-    const data = JSON.parse(localStorage.getItem(Library.STORAGE_KEY));
+    const data = JSON.parse(localStorage.getItem(Library.STORAGE_KEY) as string);
     if (!data) {
       return undefined;
     }

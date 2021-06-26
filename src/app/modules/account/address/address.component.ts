@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {EMPTY, Observable} from 'rxjs';
 import {Address} from 'src/app/shared/models/address';
 import {Router} from '@angular/router';
 import {PrivateService} from 'src/app/core/services/private.service';
@@ -12,7 +12,7 @@ import {AuthService} from 'src/app/core/authentication/auth.service';
 })
 export class AddressComponent implements OnInit {
 
-  private _addressObservable: Observable<Address[]>;
+  private _addressObservable: Observable<Address[]> = EMPTY;
 
   constructor(private router: Router, public privateService: PrivateService,
       private authService: AuthService) {}

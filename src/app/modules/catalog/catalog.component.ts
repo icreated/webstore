@@ -11,7 +11,7 @@ import {CartService} from 'src/app/core/services/cart.service';
 })
 export class CatalogComponent implements OnInit {
 
-  products: PriceListProduct[];
+  products: PriceListProduct[] = [];
 
   constructor(private apiService: ApiService, private cartService: CartService, private route: ActivatedRoute) {
   }
@@ -36,7 +36,6 @@ export class CatalogComponent implements OnInit {
           });
         }
       });
-
   }
 
   add(item: PriceListProduct) {
