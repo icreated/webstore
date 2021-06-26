@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CartService} from 'src/app/core/services/cart.service';
 import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
 
@@ -7,14 +7,10 @@ import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
 
   constructor(public cartService: CartService) {
   }
-
-  ngOnInit() {
-  }
-
 
   onCounterChange(item: PriceListProduct) {
     this.cartService.synchronize(item);

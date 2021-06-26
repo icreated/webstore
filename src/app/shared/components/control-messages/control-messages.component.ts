@@ -7,14 +7,11 @@ import {ValidationService} from 'src/app/core/services/validation.service';
   templateUrl: './control-messages.component.html',
   styleUrls: ['./control-messages.component.scss'],
 })
-export class ControlMessagesComponent implements OnInit {
+export class ControlMessagesComponent {
 
   @Input() control: FormControl;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
   get errorMessage(): any {
     if (this.control) {

@@ -4,12 +4,12 @@
     </div>
 </div>
 
-  
-<div class="alert alert-warning mx-2" *ngIf="cartService.getCart().length==0">
+
+<div class="alert alert-warning mx-2" *ngIf="cartService.getCart().length === 0">
   <strong>Empty</strong>
 </div>
-  
-<div class="row mx-2" *ngIf="cartService.getCart().length>0">
+
+<div class="row mx-2" *ngIf="cartService.getCart().length > 0">
 
   <table class="table table-striped">
     <tbody>
@@ -48,4 +48,3 @@
         title="checkout" style="margin-bottom: 20px"> Pay &nbsp; {{cartService.getTotalPrice() | currency}}</a>
       </div>
 </div>
-  

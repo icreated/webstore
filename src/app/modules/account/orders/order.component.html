@@ -14,19 +14,19 @@
     <div class="row">
         <div class="col-12">
           <h1><span><i class="fa fa-list-alt mr-2"></i> My order </span></h1>
-      
+
           <div class="row">
             <div class="col-lg-12">
               <h2 class="block-title-2"> Order description </h2>
             </div>
-      
+
             <div class="col-sm-12">
               <div class="statusTop">
                 <p><strong>Status: </strong>{{order.docStatus | docStatus}}</p>
                 <p><strong>Date: </strong> {{order.date | date:'MM/dd/yyyy'}}</p>
                 <p><strong># </strong> {{order.documentNo}}</p>
                 <p><strong>
-                  <button class="btn btn-sm btn-warning mr-2" *ngIf="order.docStatus == 'IP'" (click)="checkoutService.voidOrder(order)">Void</button>
+                  <button class="btn btn-sm btn-warning mr-2" *ngIf="order.docStatus === 'IP'" (click)="checkoutService.voidOrder(order)">Void</button>
                 </strong></p>
                 <p><strong>
                   <button class="btn btn-sm btn-success mr-2" (click)="downloadOrder()">PDF</button>
@@ -48,7 +48,7 @@
                 </div>
               </div>
             </div>
-    
+
             <div class="col-lg-6">
               <div class="order-box">
                 <div class="order-box-header">Invoice address</div>
@@ -63,9 +63,9 @@
                   </div>
                 </div>
               </div>
-    
+
             </div>
-    
+
             <div *ngIf="order.payments?.length" class="col-12">
               <div class="order-box">
                 <div class="order-box-header">Payment</div>
@@ -79,7 +79,7 @@
                 </div>
               </div>
             </div>
-    
+
             <div *ngIf="order.shipments?.length" class="col-sm-6">
               <div class="order-box">
                 <div class="order-box-header">Delivery</div>
@@ -93,7 +93,7 @@
                 </div>
               </div>
             </div>
-    
+
             <div class="col-sm-12 clearfix">
               <div class="order-box">
                 <div class="order-box-header">Lines</div>
@@ -111,8 +111,8 @@
                           <td class="w-20">{{line.price | currency}}  X {{line.qty}}</td>
                           <td class="w-20"><span>{{line.lineNetAmt | currency}}</span></td>
                         </tr>
-    
-    
+
+
                       <tr>
                         <td colspan="2"><div class="text-right">Total Lines</div></td>
                         <td><span> {{order.totalLines | currency}}</span></td>
@@ -125,11 +125,11 @@
                         <td colspan="2"><div class="text-right">Total</div></td>
                         <td><span class="price">{{order.grandTotal | currency}}</span></td>
                       </tr>
-    
+
                       </tbody>
                     </table>
                   </div>
-    
+
                 </div>
               </div>
           </div>

@@ -25,7 +25,7 @@ export class ValidationService {
 
   static emailValidator(control: any) {
     // RFC 2822 compliant regex
-    // tslint:disable-next-line:max-line-length
+    // eslint-disable-next-line max-len
     if (control.value && control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
       return null;
     } else {

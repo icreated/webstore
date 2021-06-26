@@ -13,9 +13,9 @@
     <div class="row">
         <div class="col-12">
           <h1 class="section-title-inner"><span><i class="fa fa-list-alt mr-2"></i>Orders</span></h1>
-      
+
           <div class="row">
-      
+
             <div class="col-xs-12 col-sm-12">
               <table class="table">
                 <thead>
@@ -37,17 +37,17 @@
                   <td><a [routerLink]="['/account/order', order.id]">{{order.grandTotal | currency}} €</a></td>
                   <td><a [routerLink]="['/account/order', order.id]">{{order.date | date: 'MM/dd/yyyy'}}</a></td>
                   <td data-value="3">
-                    <button *ngIf="order.docStatus == 'IP'" class="btn btn-sm btn-warning mr-2" (click)="checkoutService.voidOrder(order)">Void</button>
+                    <button *ngIf="order.docStatus === 'IP'" class="btn btn-sm btn-warning mr-2" (click)="checkoutService.voidOrder(order)">Void</button>
                   </td>
                 </tr>
                 </tbody>
               </table>
             </div>
-      
+
             <div style="clear:both"></div>
-      
+
           </div>
-      
+
         </div>
     </div>
 </div>
