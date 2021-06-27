@@ -13,7 +13,7 @@
           <ul class="orderStep">
             <li [class.active]="routeIsActive('/checkout/checkout1') || routeIsActive('/checkout')">
               <a [routerLink]="['./checkout1']" [class.disabled]="disabled">
-                <i class="fa fa-map-marker"></i> 
+                <i class="fa fa-map-marker"></i>
                 <span class="d-xs-none">Delivery</span>
               </a>
             </li>
@@ -44,11 +44,9 @@
           </ul>
         </div>
 
-
         <div class="clearfix mx-2">
           <router-outlet></router-outlet>
         </div>
-
 
       </div>
     </div>
@@ -58,7 +56,7 @@
     <div>
       <table class="std table">
         <tbody>
-        <tr *ngIf="checkoutService.order">
+        <tr *ngIf="checkoutService.order.id">
           <td>Order : </td>
           <td class="price" >{{checkoutService.order?.documentNo}}</td>
         </tr>
@@ -67,7 +65,7 @@
           <td *ngIf="checkoutService.shipper.price === 0" class="price"><span class="success">Free!</span></td>
           <td *ngIf="checkoutService.shipper.price > 0" class="price"><span class="price">{{checkoutService.shipper.price | currency}}</span></td>
         </tr>
-        <tr *ngIf="checkoutService.order">
+        <tr *ngIf="checkoutService.order.id">
             <td>Net Price : </td>
             <td class="price" >{{checkoutService.order?.totalLines | currency}}</td>
         </tr>
@@ -85,7 +83,7 @@
       <table *ngIf="checkoutService.shipAddress?.address1" class="std table">
         <thead><h3>Delivery Address</h3></thead>
         <tbody>
-        <tr> 
+        <tr>
           <td>
             <ul class="list-inline">
               <li *ngIf="checkoutService.shipAddress.name"><span><strong>{{checkoutService.shipAddress.name}}</strong></span></li>

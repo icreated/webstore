@@ -79,11 +79,11 @@ export class CheckoutService {
   }
 
   getTotalPrice() {
-    if (this.order && this.order.id > 0) {
+    if (this.order.id) {
       return this.order.grandTotal;
     }
     let price = this.cartService.getTotalPrice();
-    if (this.shipper) {
+    if (this.shipper.id) {
       price = price + this.shipper.price;
     }
     return price;

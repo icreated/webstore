@@ -54,13 +54,13 @@
             <div class="form-group required">
               <label for="InputAddress">Address <sup>*</sup> </label>
               <em [hidden]="address1.valid || address1.pristine" class="has-error">Your address is mandatory</em>
-              <input [(ngModel)]="address.address1" #address1="ngModel" name="address1" #address1="ngModel" type="text"
+              <input [(ngModel)]="address.address1" #address1="ngModel" name="address1" type="text"
                       class="form-control" id="InputAddress" placeholder="Address" required>
             </div>
 
             <div class="form-group">
               <label for="InputAddress2">Address 2</label>
-              <input [(ngModel)]="address.address2" name="address2" type="text" class="form-control" id="InputAddress2" 
+              <input [(ngModel)]="address.address2" name="address2" type="text" class="form-control" id="InputAddress2"
                       placeholder="Address 2">
             </div>
           </div>

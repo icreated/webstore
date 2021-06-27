@@ -10,7 +10,7 @@ import {Password} from 'src/app/shared/models/password';
   selector: 'app-user-password',
   templateUrl: './user-password.component.html'
 })
-export class UserPasswordComponent implements OnInit {
+export class UserPasswordComponent {
 
   passwordForm: FormGroup;
   active = true;
@@ -23,9 +23,6 @@ export class UserPasswordComponent implements OnInit {
       },
       {validator: ValidationService.matchingPasswords('newPassword', 'confirmPassword')}
     );
-  }
-
-  ngOnInit() {
   }
 
   save(password: Password) {

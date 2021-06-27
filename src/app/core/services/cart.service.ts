@@ -54,7 +54,7 @@ export class CartService {
     this.cart.splice(index, 1);
     this.simpleCart.splice(index, 1);
     this.storageService.save('cart', this.simpleCart);
-    this.authService.showAlert({type: 'success', msg: 'L\'article a été supprimé du panier'});
+    this.authService.showAlert({type: 'success', msg: 'Item has been removed from shopping cart'});
   }
 
   clearCart() {
