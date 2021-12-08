@@ -43,7 +43,7 @@
                       <div class="form-group required">
                         <label>Password</label>
                         <app-control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.newPassword"></app-control-messages>
-                        <input name="newPassword" ngControl='newPassword' #newassword formControlName="newPassword"
+                        <input name="password" ngControl='password' #newassword formControlName="password"
                               title="Password" type="password" autocomplete="foo"
                               class="form-control" placeholder="Password" required>
                       </div>
@@ -55,51 +55,12 @@
                                 class="form-control" placeholder="Confirm Password" required>
                       </div>
                       <div class="form-group">
-                          <label>Phone</label>
-                          <input name="phone" ngControl='phone'  title="Phone" type="text"
-                                class="form-control" placeholder="Phone">
+                        <button type="submit" class="btn btn-primary" [disabled]="!accountForm.valid" (click)="signup(this.accountForm)"><i class="fa fa-user mx-2"></i>Create Account</button>
                       </div>
-                      <div class="form-group">
-                          <label>Fax</label>
-                          <input name="fax" ngControl='fax'  title="Fax" type="text"
-                                class="form-control" placeholder="Fax">
-                      </div>
-                  </div>
-
-                  <div class="col-lg-6 col-md-6">
-                      <div class="form-group">
-                          <label>Address</label>
-                          <app-control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.address"></app-control-messages>
-                          <input name="address" ngControl='address' #address formControlName="address" title="Address" type="text"
-                                class="form-control" placeholder="Address" required>
-                      </div>
-                      <div class="form-group">
-                          <label>Address 2</label>
-                          <input name="address2" #address2 ngControl="address2" title="Address 2" type="text"
-                                class="form-control" placeholder="Address 2">
-                      </div>
-                      <div class="form-group">
-                          <label>City</label>
-                          <app-control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.city"></app-control-messages>
-                          <input name="city" ngControl='city' #city formControlName="city" title="City" type="text"
-                                class="form-control" placeholder="City" required>
-                      </div>
-                      <div class="form-group">
-                          <label>Postal</label>
-                          <app-control-messages *ngIf="accountForm.controls" [control]="accountForm.controls.postal"></app-control-messages>
-                          <input name="postal" ngControl='postal' #postal formControlName="postal" title="Postal" type="text"
-                                class="form-control" placeholder="Postal" required>
-                      </div>
-                      <div class="form-group">
-                          <label>Country</label>
-
-                      </div>
-
                   </div>
 
                   <div class="error"></div>
 
-                  <button type="submit" class="btn btn-primary" [disabled]="!accountForm.valid" ><i class="fa fa-user mx-2"></i>Create Account</button>
 
                 </div>
               </div>

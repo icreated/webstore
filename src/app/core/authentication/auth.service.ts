@@ -33,16 +33,14 @@ export class AuthService {
 
 
     login(username: String, password: String, redirectTo: String) {
-        console.log(username, password, redirectTo);
         this.http.post<Token>(Library.API_ENDPOINT + 'auth/login', {username, password}, OPTIONS)
             .subscribe(
                 (response: Token) => {
                     this.loggedIn = true;
                     localStorage.setItem('jwt', response.token);
                     this.onDecodedToken(response.token);
-                    this.showAlert({type: 'success', msg: 'Hello ' + this.decodedToken.name});
+                    this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
                     this.router.navigateByUrl('/' + redirectTo);
-                    // jQuery('#ModalLogin').modal('hide');
                 },
                 error => {
                     this.loggedIn = false;
@@ -54,23 +52,24 @@ export class AuthService {
     }
 
     signup(account: NewAccount, redirectTo: String) {
-        this.http.post<Token>(Library.API_ENDPOINT + 'users/signup', account, OPTIONS)
-            .subscribe(
-                (response: Token) => {
-                    this.loggedIn = true;
-                    localStorage.setItem('jwt', response.token);
+      delete account.confirmPassword;
 
-                    this.onDecodedToken(response.token);
-                    this.showAlert({type: 'success', msg: 'Bienvenue ' + this.decodedToken.name});
-                    this.router.navigateByUrl('/' + redirectTo);
-                },
-                error => {
-                    this.loggedIn = false;
-                    this.router.navigateByUrl('/auth');
-                    this.decodedToken = null;
-                    console.log(error.toString());
-                }
-            );
+      this.http.post<Token>(Library.API_ENDPOINT + 'account/signup', account, OPTIONS)
+        .subscribe(
+          (response: Token) => {
+            this.loggedIn = true;
+            localStorage.setItem('jwt', response.token);
+
+            this.onDecodedToken(response.token);
+            this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
+            this.router.navigateByUrl('/' + redirectTo);
+          },
+          error => {
+            this.loggedIn = false;
+            this.router.navigateByUrl('/auth');
+            this.decodedToken = null;
+          }
+        );
     }
 
 

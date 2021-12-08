@@ -21,7 +21,7 @@ export class UserPasswordComponent {
         'newPassword': ['', [Validators.required, ValidationService.passwordValidator]],
         'confirmPassword': ['', Validators.required]
       },
-      {validator: ValidationService.matchingPasswords('newPassword', 'confirmPassword')}
+      {validators: [ValidationService.matchingPasswords]}
     );
   }
 

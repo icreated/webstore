@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {AbstractControl, FormGroup, ValidationErrors} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class ValidationService {
     return config[validatorName];
   }
 
-  static emailValidator(control: any) {
+  static emailValidator(control: AbstractControl) {
     // RFC 2822 compliant regex
     // eslint-disable-next-line max-len
     if (control.value && control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
@@ -33,7 +33,7 @@ export class ValidationService {
     }
   }
 
-  static emptyValidator(control: any) {
+  static emptyValidator(control: AbstractControl) {
     // RFC 2822 compliant regex
     if (control.value && control.value.trim().length > 0) {
       return null;
@@ -42,7 +42,7 @@ export class ValidationService {
     }
   }
 
-  static passwordValidator(control: any) {
+  static passwordValidator(control: AbstractControl) {
     // {6,100}           - Assert password is between 6 and 100 characters
     // (?=.*[0-9])       - Assert a string has at least one number
     if (control.value && control.value.match(/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
@@ -52,13 +52,21 @@ export class ValidationService {
     }
   }
 
-  static matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
-    return (group: FormGroup) => {
-      const passwordInput = group.controls[passwordKey];
-      const passwordConfirmationInput = group.controls[confirmPasswordKey];
-      if ((passwordInput && passwordConfirmationInput) && passwordInput.value !== passwordConfirmationInput.value) {
-        return passwordConfirmationInput.setErrors({'notmatchPasswords': true});
+
+  static matchingPasswords(control: AbstractControl): ValidationErrors | null {
+    if (control) {
+      let passwordInput = control.get('password');
+      if (!passwordInput) {
+        passwordInput = control.get('newPassword');
       }
-    };
+      const passwordConfirmationInput = control.get('confirmPassword');
+      if ((passwordInput && passwordConfirmationInput) && passwordInput.value !== passwordConfirmationInput.value) {
+        passwordConfirmationInput.setErrors({'notmatchPasswords': true});
+        return ({'notmatchPasswords': true});
+      } else {
+        return null;
+      }
+    }
+    return null;
   }
 }
