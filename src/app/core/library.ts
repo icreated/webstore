@@ -4,7 +4,7 @@ export class Library {
 
   public static readonly IS_LOCALHOST = false;
 
-  public static readonly API_DOMAIN = 'localhost:8888';
+  public static readonly API_DOMAIN = 'localhost:8080';
 
   // TEST LOCALHOST
   public static readonly API_ENDPOINT = 'http://' + Library.API_DOMAIN + '/services/api/';
