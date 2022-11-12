@@ -7,12 +7,12 @@ import {Shipment} from './shipment';
 import {Tax} from './tax';
 
 export interface Order extends DocumentItem {
-  shipAddress: Address;
-  billAddress: Address;
-  payments: Payment[];
-  shipments: Shipment[];
-  invoices: DocumentItem;
-  shipper: Shipper;
-  lines: PriceListProduct[];
-  taxes: Tax[];
+    shipAddress: Address;
+    billAddress: Address;
+    payments: Payment[];
+    shipments: Shipment[];
+    invoices: DocumentItem;
+    shipper: Shipper;
+    lines: PriceListProduct[];
+    taxes: Tax[];
 }

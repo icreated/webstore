@@ -5,18 +5,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CatalogComponent
-  }
+    {
+        path: '',
+        component: CatalogComponent
+    }
 ];
 
 @NgModule({
-  declarations: [CatalogComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    CollapseModule.forRoot(),
-  ]
+    declarations: [CatalogComponent],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        CollapseModule.forRoot(),
+    ]
 })
 export class CatalogModule { }

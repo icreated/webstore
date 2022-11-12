@@ -8,45 +8,45 @@ import {CartService} from 'src/app/core/services/cart.service';
 import {FileService} from 'src/app/core/services/file.service';
 
 @Component({
-  selector: 'app-checkout5',
-  providers: [FileService],
-  templateUrl: './checkout5.component.html',
-  styleUrls: ['./checkout5.component.scss']
+    selector: 'app-checkout5',
+    providers: [FileService],
+    templateUrl: './checkout5.component.html',
+    styleUrls: ['./checkout5.component.scss']
 })
 export class Checkout5Component implements OnInit {
 
-  order: Order = <Order>{shipAddress: {}, billAddress: {}};
+    order: Order = {shipAddress: {}, billAddress: {}} as Order;
 
-  constructor(private router: Router, private checkoutService: CheckoutService, private route: ActivatedRoute,
-              private privateService: PrivateService, private authService: AuthService,
-              private cartService: CartService, private fileService: FileService) {
-  }
+    constructor(private router: Router, private checkoutService: CheckoutService, private route: ActivatedRoute,
+        private privateService: PrivateService, private authService: AuthService,
+        private cartService: CartService, private fileService: FileService) {
+    }
 
-  ngOnInit() {
-    this.route
-      .params
-      .subscribe(params => {
-        const id = params['id'];
-        if (id > 0) {
-          this.privateService.getOrder(id)
-            .subscribe(
-              (data: Order) => {
-                this.order = data;
-                if (this.order.docStatus === 'CO') {
-                  this.authService.showAlert({type: 'success', msg: 'Order ' + this.order.documentNo + ' is validated'});
-                  this.cartService.clearCart();
-                  this.checkoutService.clear();
-                } else if (this.order.docStatus === 'VO') {
-                  this.authService.showAlert({type: 'warning', msg: 'Order ' + this.order.documentNo + ' is validated'});
-                  this.checkoutService.voidCurrentOrder();
+    ngOnInit() {
+        this.route
+            .params
+            .subscribe(params => {
+                const id = params['id'];
+                if (id > 0) {
+                    this.privateService.getOrder(id)
+                        .subscribe(
+                            (data: Order) => {
+                                this.order = data;
+                                if (this.order.docStatus === 'CO') {
+                                    this.authService.showAlert({type: 'success', msg: 'Order ' + this.order.documentNo + ' is validated'});
+                                    this.cartService.clearCart();
+                                    this.checkoutService.clear();
+                                } else if (this.order.docStatus === 'VO') {
+                                    this.authService.showAlert({type: 'warning', msg: 'Order ' + this.order.documentNo + ' is validated'});
+                                    this.checkoutService.voidCurrentOrder();
+                                }
+                            });
                 }
-              });
-        }
-      });
-  }
+            });
+    }
 
-  downloadOrder() {
-    this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo);
-  }
+    downloadOrder() {
+        this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo);
+    }
 
 }

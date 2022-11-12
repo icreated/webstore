@@ -8,35 +8,35 @@ import {Shipper} from 'src/app/shared/models/shipper';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  getFeaturedProducts() {
-    return this.http.get<PriceListProduct[]>(Library.API_ENDPOINT + 'catalog/products/featured');
-  }
+    getFeaturedProducts() {
+        return this.http.get<PriceListProduct[]>(Library.apiEndpoint + 'catalog/products/featured');
+    }
 
-  getProductCategories() {
-    return this.http.get<ProductCategory[]>(Library.API_ENDPOINT + 'catalog/categories');
-  }
+    getProductCategories() {
+        return this.http.get<ProductCategory[]>(Library.apiEndpoint + 'catalog/categories');
+    }
 
-  getProducts(categoryId: number) {
-    return this.http.get<PriceListProduct[]>(Library.API_ENDPOINT + 'catalog/products/' + categoryId);
-  }
+    getProducts(categoryId: number) {
+        return this.http.get<PriceListProduct[]>(Library.apiEndpoint + 'catalog/products/' + categoryId);
+    }
 
-  getSearchingProducts(searchString: string) {
-    return this.http.get<PriceListProduct[]>(Library.API_ENDPOINT + 'catalog/products/search/' + searchString);
-  }
+    getSearchingProducts(searchString: string) {
+        return this.http.get<PriceListProduct[]>(Library.apiEndpoint + 'catalog/products/search/' + searchString);
+    }
 
-  getCountries() {
-    return this.http.get<IdNamePair[]>(Library.API_ENDPOINT + 'common/countries');
-  }
+    getCountries() {
+        return this.http.get<IdNamePair[]>(Library.apiEndpoint + 'common/countries');
+    }
 
-  getShippers(countryId: number) {
-    return this.http.get<Shipper[]>(Library.API_ENDPOINT + 'common/shippers');
-  }
+    getShippers(countryId: number) {
+        return this.http.get<Shipper[]>(Library.apiEndpoint + 'common/shippers');
+    }
 
 }

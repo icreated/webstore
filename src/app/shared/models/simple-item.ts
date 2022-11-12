@@ -1,4 +1,4 @@
 export interface SimpleItem {
-  id: number;
-  qty: number;
+    id: number;
+    qty: number;
 }

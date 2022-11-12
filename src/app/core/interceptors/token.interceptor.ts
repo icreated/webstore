@@ -6,15 +6,15 @@ import {AuthService} from '../authentication/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(public auth: AuthService) {
-  }
+    constructor(public auth: AuthService) {
+    }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.auth.getToken()}`
-      }
-    });
-    return next.handle(request);
-  }
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        request = request.clone({
+            setHeaders: {
+                authorization: `Bearer ${this.auth.getToken()}`
+            }
+        });
+        return next.handle(request);
+    }
 }

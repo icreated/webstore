@@ -7,40 +7,40 @@ import {Password} from 'src/app/shared/models/password';
 
 
 @Component({
-  selector: 'app-user-password',
-  templateUrl: './user-password.component.html'
+    selector: 'app-user-password',
+    templateUrl: './user-password.component.html'
 })
 export class UserPasswordComponent {
 
-  passwordForm: FormGroup;
-  active = true;
+    passwordForm: FormGroup;
+    active = true;
 
-  constructor(private privateService: PrivateService, private authService: AuthService, private builder: FormBuilder) {
-    this.passwordForm = this.builder.group({
-        'password': ['', [Validators.required]],
-        'newPassword': ['', [Validators.required, ValidationService.passwordValidator]],
-        'confirmPassword': ['', Validators.required]
-      },
-      {validators: [ValidationService.matchingPasswords]}
-    );
-  }
-
-  save(password: Password) {
-    if (this.passwordForm.dirty && this.passwordForm.valid) {
-      this.privateService.changePassword(password)
-        .subscribe(
-          resp => {
-            if (!resp.token) {
-              this.passwordForm.controls['password'].setErrors({'invalidOldPassword': true});
-            } else {
-              this.authService.updateToken(resp);
-              this.authService.showAlert({type: 'success', msg: 'Password updated'});
-              password = <Password>{};
-              this.passwordForm.reset();
-              this.active = false;
-              setTimeout(() => this.active = true, 0);
-            }
-          });
+    constructor(private privateService: PrivateService, private authService: AuthService, private builder: FormBuilder) {
+        this.passwordForm = this.builder.group({
+            password: ['', [Validators.required]],
+            newPassword: ['', [Validators.required, ValidationService.passwordValidator]],
+            confirmPassword: ['', Validators.required]
+        },
+        {validators: [ValidationService.matchingPasswords]}
+        );
     }
-  }
+
+    save(password: Password) {
+        if (this.passwordForm.dirty && this.passwordForm.valid) {
+            this.privateService.changePassword(password)
+                .subscribe(
+                    resp => {
+                        if (!resp.token) {
+                            this.passwordForm.controls['password'].setErrors({invalidOldPassword: true});
+                        } else {
+                            this.authService.updateToken(resp);
+                            this.authService.showAlert({type: 'success', msg: 'Password updated'});
+                            password = {} as Password;
+                            this.passwordForm.reset();
+                            this.active = false;
+                            setTimeout(() => this.active = true, 0);
+                        }
+                    });
+        }
+    }
 }

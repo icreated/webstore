@@ -18,47 +18,48 @@ import {HttpErrorInterceptor} from './core/interceptors/error.interceptor';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import {FormsModule} from '@angular/forms';
 
+
+export const jwtOptionsFactory = (platformId: any) => ({
+    tokenGetter: () => {
+        let token = null;
+        if (isPlatformBrowser(platformId)) {
+            token = localStorage.getItem('token');
+        }
+        return token;
+    },
+    whitelistedDomains: [Library.apiDomain]
+});
+
+
 @NgModule({
-  declarations: [
-    AppComponent, FooterComponent, HeaderComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    CoreModule.forRoot(),
-    FormsModule,
-    SharedModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    CollapseModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    JwtModule.forRoot({
-      jwtOptionsProvider: {
-        provide: JWT_OPTIONS,
-        useFactory: jwtOptionsFactory,
-        deps: [PLATFORM_ID]
-      }
-    })
-  ],
-  providers: [
-    LocalStorageService,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent, FooterComponent, HeaderComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        CoreModule.forRoot(),
+        FormsModule,
+        SharedModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        CollapseModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        JwtModule.forRoot({
+            jwtOptionsProvider: {
+                provide: JWT_OPTIONS,
+                useFactory: jwtOptionsFactory,
+                deps: [PLATFORM_ID]
+            }
+        })
+    ],
+    providers: [
+        LocalStorageService,
+        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
 
-export function jwtOptionsFactory(platformId: any) {
-  return {
-    tokenGetter: () => {
-      let token = null;
-      if (isPlatformBrowser(platformId)) {
-        token = localStorage.getItem('token');
-      }
-      return token;
-    },
-    whitelistedDomains: [Library.API_DOMAIN]
-  };
-}

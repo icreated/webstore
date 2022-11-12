@@ -8,23 +8,23 @@ import {Checkout5Component} from './checkout5/checkout5.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CheckoutComponent} from './checkout.component';
-import {CheckoutRoutes} from './checkout.routes';
+import {checkoutRoutes} from './checkoutRoutes';
 import {SharedModule} from 'src/app/shared/shared.module';
 
 
 @NgModule({
-  imports: [CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    SharedModule,
-    CheckoutRoutes],
-  declarations: [CheckoutComponent,
-    Checkout1Component,
-    Checkout2Component,
-    Checkout3Component,
-    Checkout4Component,
-    Checkout5Component]
+    imports: [CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        SharedModule,
+        checkoutRoutes],
+    declarations: [CheckoutComponent,
+        Checkout1Component,
+        Checkout2Component,
+        Checkout3Component,
+        Checkout4Component,
+        Checkout5Component]
 })
 export class CheckoutModule {
 }

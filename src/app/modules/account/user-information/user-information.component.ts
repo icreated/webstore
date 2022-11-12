@@ -10,47 +10,47 @@ import {DBValidator} from 'src/app/shared/validators/db.validator';
 
 
 @Component({
-  selector: 'app-user-information',
-  templateUrl: './user-information.component.html'
+    selector: 'app-user-information',
+    templateUrl: './user-information.component.html'
 })
 export class UserInformationComponent implements OnInit {
 
-  account: Account = <Account>{};
-  accountForm: FormGroup;
+    account: Account = {} as Account;
+    accountForm: FormGroup;
 
-  accountSource = new Subject<Account>();
-  account$ = this.accountSource.asObservable();
+    accountSource = new Subject<Account>();
+    account$ = this.accountSource.asObservable();
 
-  constructor(private privateService: PrivateService, private authService: AuthService,
-              private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator) {
+    constructor(private privateService: PrivateService, private authService: AuthService,
+        private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator) {
 
-    this.accountForm = this.builder.group({
-        'name': ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(60)])],
-        'email': ['', Validators.compose([Validators.required, ValidationService.emailValidator, Validators.minLength(4),
-          Validators.maxLength(60)])],
-      },
-      {validator: this.dbvalidator.valueAndEmailExists('email', 'value', this.account$)}
-    );
-  }
-
-  ngOnInit() {
-    this.privateService.getAccount().subscribe(
-      (data: Account) => {
-        this.account = data;
-        this.accountSource.next(data);
-        this.accountForm.controls['name'].setValue(this.account.name);
-        this.accountForm.controls['email'].setValue(this.account.email);
-      });
-  }
-
-  save(accountBean: Account) {
-    if (this.accountForm.dirty && this.accountForm.valid) {
-      this.privateService.updateAccount(accountBean).subscribe(
-        (data: Account) => {
-          this.accountSource.next(this.account);
-          this.authService.showAlert({type: 'success', msg: 'Account updated'});
-        });
+        this.accountForm = this.builder.group({
+            name: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(60)])],
+            email: ['', Validators.compose([Validators.required, ValidationService.emailValidator, Validators.minLength(4),
+                Validators.maxLength(60)])],
+        },
+        {validator: this.dbvalidator.valueAndEmailExists('email', 'value', this.account$)}
+        );
     }
-  }
+
+    ngOnInit() {
+        this.privateService.getAccount().subscribe(
+            (data: Account) => {
+                this.account = data;
+                this.accountSource.next(data);
+                this.accountForm.controls['name'].setValue(this.account.name);
+                this.accountForm.controls['email'].setValue(this.account.email);
+            });
+    }
+
+    save(accountBean: Account) {
+        if (this.accountForm.dirty && this.accountForm.valid) {
+            this.privateService.updateAccount(accountBean).subscribe(
+                (data: Account) => {
+                    this.accountSource.next(this.account);
+                    this.authService.showAlert({type: 'success', msg: 'Account updated'});
+                });
+        }
+    }
 
 }

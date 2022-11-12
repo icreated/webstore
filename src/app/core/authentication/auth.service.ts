@@ -32,8 +32,8 @@ export class AuthService {
     }
 
 
-    login(username: String, password: String, redirectTo: String) {
-        this.http.post<Token>(Library.API_ENDPOINT + 'auth/login', {username, password}, OPTIONS)
+    login(username: string, password: string, redirectTo: string) {
+        this.http.post<Token>(Library.apiEndpoint + 'auth/login', {username, password}, OPTIONS)
             .subscribe(
                 (response: Token) => {
                     this.loggedIn = true;
@@ -51,34 +51,34 @@ export class AuthService {
             );
     }
 
-    signup(account: NewAccount, redirectTo: String) {
-      delete account.confirmPassword;
+    signup(account: NewAccount, redirectTo: string) {
+        delete account.confirmPassword;
 
-      this.http.post<Token>(Library.API_ENDPOINT + 'account/signup', account, OPTIONS)
-        .subscribe(
-          (response: Token) => {
-            this.loggedIn = true;
-            localStorage.setItem('jwt', response.token);
+        this.http.post<Token>(Library.apiEndpoint + 'account/signup', account, OPTIONS)
+            .subscribe(
+                (response: Token) => {
+                    this.loggedIn = true;
+                    localStorage.setItem('jwt', response.token);
 
-            this.onDecodedToken(response.token);
-            this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
-            this.router.navigateByUrl('/' + redirectTo);
-          },
-          error => {
-            this.loggedIn = false;
-            this.router.navigateByUrl('/auth');
-            this.decodedToken = null;
-          }
-        );
+                    this.onDecodedToken(response.token);
+                    this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
+                    this.router.navigateByUrl('/' + redirectTo);
+                },
+                error => {
+                    this.loggedIn = false;
+                    this.router.navigateByUrl('/auth');
+                    this.decodedToken = null;
+                }
+            );
     }
 
 
-    forgotPassword(email: String) {
-        return this.http.post<Token>(Library.API_ENDPOINT + 'login/password/forgot', {token: email}, OPTIONS);
+    forgotPassword(email: string) {
+        return this.http.post<Token>(Library.apiEndpoint + 'login/password/forgot', {token: email}, OPTIONS);
     }
 
     changePassword(login: Login): Observable<HttpResponse<any>> {
-        return this.http.post(Library.API_ENDPOINT + 'login/password/change', login, {
+        return this.http.post(Library.apiEndpoint + 'login/password/change', login, {
             headers: HEADERS,
             observe: 'response'
         });
@@ -107,12 +107,12 @@ export class AuthService {
     }
 
     public getToken(): string {
-            return localStorage.getItem('jwt') as string;
+        return localStorage.getItem('jwt') as string;
     }
 
     onDecodedToken(token: string) {
         try {
-            token ? this.decodedToken = this.jwtHelper.decodeToken(token) : this.decodedToken = null;
+            this.decodedToken = token ? this.jwtHelper.decodeToken(token) : this.decodedToken = null;
             this.name = this.decodedToken.name;
             this.decodedTokenSource.next(this.decodedToken);
         } catch (e) {

@@ -11,39 +11,39 @@ import {Library} from 'src/app/core/library';
 import {NewAccount} from '../../shared/models/new-account';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+    selector: 'app-signup',
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
 
-  @Input() redirectTo: String = 'account';
+    @Input() redirectTo = 'account';
 
-  account: Login = <Login>{};
-  accountForm: FormGroup;
-  countries: IdNamePair[] = [];
+    account: Login = {} as Login;
+    accountForm: FormGroup;
+    countries: IdNamePair[] = [];
 
 
-  constructor(public http: HttpClient, private authService: AuthService, private apiService: ApiService,
-              private router: Router, private route: ActivatedRoute, private builder: FormBuilder) {
+    constructor(public http: HttpClient, private authService: AuthService, private apiService: ApiService,
+        private router: Router, private route: ActivatedRoute, private builder: FormBuilder) {
 
-    this.accountForm = this.builder.group({
-        'name': ['', [Validators.required]],
-        'email': ['', [Validators.required, ValidationService.emailValidator]],
-        'password': ['', [Validators.required, ValidationService.passwordValidator]],
-        'confirmPassword': ['', [Validators.required, ValidationService.passwordValidator]],
-      },
-      {validators: [ValidationService.matchingPasswords]}
-    );
-  }
-
-  login() {
-    this.authService.login(this.account.username, this.account.password, '/home');
-  }
-
-  signup(accountForm: FormGroup) {
-    if (accountForm.dirty && accountForm.valid) {
-      this.authService.signup(accountForm.value, '/home');
+        this.accountForm = this.builder.group({
+            name: ['', [Validators.required]],
+            email: ['', [Validators.required, ValidationService.emailValidator]],
+            password: ['', [Validators.required, ValidationService.passwordValidator]],
+            confirmPassword: ['', [Validators.required, ValidationService.passwordValidator]],
+        },
+        {validators: [ValidationService.matchingPasswords]}
+        );
     }
-  }
+
+    login() {
+        this.authService.login(this.account.username, this.account.password, '/home');
+    }
+
+    signup(accountForm: FormGroup) {
+        if (accountForm.dirty && accountForm.valid) {
+            this.authService.signup(accountForm.value, '/home');
+        }
+    }
 }

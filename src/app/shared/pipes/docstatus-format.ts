@@ -9,21 +9,21 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 
 @Pipe({
-  name: 'docStatus'
+    name: 'docStatus'
 })
 export class DocStatusFormat implements PipeTransform {
-  transform(value: any) {
-    if (value) {
-      if (value === 'CO') {
-        return 'Achevé';
-      } else if (value === 'CL') {
-        return 'Clôturé';
-      } else if (value === 'VO') {
-        return 'Annulé';
-      } else {
+    transform(value: any) {
+        if (value) {
+            if (value === 'CO') {
+                return 'Achevé';
+            } else if (value === 'CL') {
+                return 'Clôturé';
+            } else if (value === 'VO') {
+                return 'Annulé';
+            } else {
+                return 'En cours';
+            }
+        }
         return 'En cours';
-      }
     }
-    return 'En cours';
-  }
 }

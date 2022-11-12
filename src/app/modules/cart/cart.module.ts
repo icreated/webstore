@@ -6,18 +6,18 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CartComponent
-  }
+    {
+        path: '',
+        component: CartComponent
+    }
 ];
 
 @NgModule({
-  declarations: [CartComponent],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    CollapseModule.forRoot(),
-  ]
+    declarations: [CartComponent],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        CollapseModule.forRoot(),
+    ]
 })
 export class CartModule { }

@@ -4,7 +4,7 @@ import {saveAs} from 'file-saver';
 
 @Injectable({
     providedIn: 'root'
-  })
+})
 export class FileService {
 
     constructor(private privateService: PrivateService) {

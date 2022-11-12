@@ -8,20 +8,20 @@ import {AlertComponent} from './components/alert/alert.component';
 import {DocStatusFormat} from './pipes/docstatus-format';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule
-  ],
-  declarations: [
-    ControlMessagesComponent, AlertComponent, DocStatusFormat
-  ],
-  exports: [
-    ControlMessagesComponent, AlertComponent, DocStatusFormat
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterModule
+    ],
+    declarations: [
+        ControlMessagesComponent, AlertComponent, DocStatusFormat
+    ],
+    exports: [
+        ControlMessagesComponent, AlertComponent, DocStatusFormat
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule {
 }

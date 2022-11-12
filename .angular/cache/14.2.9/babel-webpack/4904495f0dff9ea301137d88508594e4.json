@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { AjaxObservable } from './AjaxObservable';\nexport var ajax = function () {\n  return AjaxObservable.create;\n}(); //# sourceMappingURL=ajax.js.map","map":null,"metadata":{},"sourceType":"module"}

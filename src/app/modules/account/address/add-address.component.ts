@@ -8,55 +8,55 @@ import {ApiService} from 'src/app/core/services/api.service';
 import {Library} from 'src/app/core/library';
 
 @Component({
-  selector: 'app-add-address',
-  templateUrl: './add-address.component.html'
+    selector: 'app-add-address',
+    templateUrl: './add-address.component.html'
 })
 export class AddAddressComponent implements OnInit {
 
-  sub: any;
-  address = <Address>{label: 'My address'};
-  selectedCountry: IdNamePair = {} as IdNamePair;
-  countries: IdNamePair[] = [];
+    sub: any;
+    address = {label: 'My address'} as Address;
+    selectedCountry: IdNamePair = {} as IdNamePair;
+    countries: IdNamePair[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
-              private privateService: PrivateService, private apiService: ApiService) {
-  }
+    constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
+        private privateService: PrivateService, private apiService: ApiService) {
+    }
 
-  ngOnInit(): void {
-    this.sub = this.route
-      .params
-      .subscribe(params => {
-        const id = params['id'];
-        if (id) {
-          this.address = this.privateService.getAddress(id);
-          this.apiService.getCountries()
-            .subscribe(
-              (countries) => {
-                this.countries = countries;
-                this.selectedCountry = this.countries.filter(f => f.id === this.address.countryId)[0];
-              });
-        } else {
-          this.address = <Address>{};
-          this.apiService.getCountries()
-            .subscribe(
-              (countries) => {
-                this.countries = countries;
-                this.selectedCountry = this.countries.filter(f => f.id === Library.CURRENT_COUNTRY_ID)[0];
-              });
-        }
-      });
-  }
+    ngOnInit(): void {
+        this.sub = this.route
+            .params
+            .subscribe(params => {
+                const id = params['id'];
+                if (id) {
+                    this.address = this.privateService.getAddress(id);
+                    this.apiService.getCountries()
+                        .subscribe(
+                            (countries) => {
+                                this.countries = countries;
+                                this.selectedCountry = this.countries.filter(f => f.id === this.address.countryId)[0];
+                            });
+                } else {
+                    this.address = {} as Address;
+                    this.apiService.getCountries()
+                        .subscribe(
+                            (countries) => {
+                                this.countries = countries;
+                                this.selectedCountry = this.countries.filter(f => f.id === Library.currentCountryId)[0];
+                            });
+                }
+            });
+    }
 
 
-  save(addressBean: Address): void {
-    addressBean.countryId = this.selectedCountry.id;
-    addressBean.countryName = this.selectedCountry.name;
+    save(addressBean: Address): void {
+        addressBean.countryId = this.selectedCountry.id;
+        addressBean.countryName = this.selectedCountry.name;
 
-    this.privateService.createUpdateAddress(addressBean).subscribe(
-      (address) => {
-        this.address = address;
-        this.router.navigate(['/account/addresses']);
-        this.authService.showAlert({type: 'success', msg: 'Address added'});
-      });
-  }
+        this.privateService.createUpdateAddress(addressBean).subscribe(
+            (address) => {
+                this.address = address;
+                this.router.navigate(['/account/addresses']);
+                this.authService.showAlert({type: 'success', msg: 'Address added'});
+            });
+    }
 }

@@ -7,20 +7,20 @@ import {AuthService} from 'src/app/core/authentication/auth.service';
 
 
 @Component({
-  selector: 'app-address',
-  templateUrl: './address.component.html'
+    selector: 'app-address',
+    templateUrl: './address.component.html'
 })
 export class AddressComponent implements OnInit {
 
-  private _addressObservable: Observable<Address[]> = EMPTY;
+    private _addressObservable: Observable<Address[]> = EMPTY;
 
-  constructor(private router: Router, public privateService: PrivateService,
-      private authService: AuthService) {}
+    constructor(private router: Router, public privateService: PrivateService,
+        private authService: AuthService) {}
 
-  ngOnInit(): any {
+    ngOnInit(): any {
 
-   this._addressObservable = this.privateService.getAddresses();
-   this._addressObservable.subscribe();
+        this._addressObservable = this.privateService.getAddresses();
+        this._addressObservable.subscribe();
 
     /*
     this.privateService.getAddresses()
@@ -29,25 +29,25 @@ export class AddressComponent implements OnInit {
         error => this.error = <any>error
       );
       */
-  }
+    }
 
-  deleteAddress(item: Address) {
-    this.privateService.deleteAddress(item)
-      .subscribe(
-        res => {
-          if (res.status === 202) {
-            const i = this.privateService.addresses.indexOf(item);
-            this.privateService.addresses.splice(i, 1);
-            this.authService.showAlert({type: 'success', msg: 'Address deleted'});
-          } else {
-            this.authService.showAlert({type: 'danger', msg: 'Address not deleted'});
-          }
-        }
-      );
-  }
+    deleteAddress(item: Address) {
+        this.privateService.deleteAddress(item)
+            .subscribe(
+                res => {
+                    if (res.status === 202) {
+                        const i = this.privateService.addresses.indexOf(item);
+                        this.privateService.addresses.splice(i, 1);
+                        this.authService.showAlert({type: 'success', msg: 'Address deleted'});
+                    } else {
+                        this.authService.showAlert({type: 'danger', msg: 'Address not deleted'});
+                    }
+                }
+            );
+    }
 
-  modifyAddress(address: Address) {
-    this.router.navigate(['/account/new-address', address.id]);
-  }
+    modifyAddress(address: Address) {
+        this.router.navigate(['/account/new-address', address.id]);
+    }
 
 }

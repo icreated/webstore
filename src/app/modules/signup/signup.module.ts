@@ -7,23 +7,23 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
 import {SharedModule} from 'src/app/shared/shared.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: SignupComponent
-  }
+    {
+        path: '',
+        component: SignupComponent
+    }
 ];
 
 @NgModule({
-  declarations: [SignupComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule.forChild(routes),
-    TabsModule.forRoot()
-  ],
-  providers: [
-  ]
+    declarations: [SignupComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(routes),
+        TabsModule.forRoot()
+    ],
+    providers: [
+    ]
 })
 export class SignupModule { }
