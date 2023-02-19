@@ -20,7 +20,7 @@ This applications shows standard web sites features:
 * account information update
 
 
-![WebStore Architecture](/src/assets/images/screen_architecture.png?raw=true "Webstore Architecture")
+![WebStore Architecture](https://icreated.co/assets/images/projects/webstore/screenshot_architecture.png?raw=true "Webstore Architecture")
 
 Server side WebStore API REST services project for Idempiere is available here:
 
@@ -30,19 +30,19 @@ Server side WebStore API REST services project for Idempiere is available here:
 
 ### Home page
 
-![WebStore Home](https://icreated.co/assets/images/webstore/screenshot_home.png?raw=true "Webstore Home")
+![WebStore Home](https://icreated.co/assets/images/projects/webstore/screenshot_home.png?raw=true "Webstore Home")
 
 ### Basket page
 
-![WebStore Basket](https://icreated.co/assets/images/webstore/screenshot_basket.png?raw=true "Webstore Basket")
+![WebStore Basket](https://icreated.co/assets/images/projects/webstore/screenshot_basket.png?raw=true "Webstore Basket")
 
 ### Checkout page
 
-![WebStore Checkout](https://icreated.co/assets/images/webstore/screenshot_checkout.png?raw=true "Webstore Checkout")
+![WebStore Checkout](https://icreated.co/assets/images/projects/webstore/screenshot_checkout.png?raw=true "Webstore Checkout")
 
 ### Order page
 
-![WebStore Order](https://icreated.co/assets/images/webstore/screenshot_order.png?raw=true "Webstore Order")
+![WebStore Order](https://icreated.co/assets/images/projects/webstore/screenshot_order.png?raw=true "Webstore Order")
 
 
 
