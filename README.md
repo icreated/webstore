@@ -3,7 +3,7 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7TYVAGLZ7XATQ&source=url)
 
 
-# Idempiere Angular WebStore 
+# Icreated WebStore for Idempiere 
 > The full information about this project is available here: [https://icreated.co/projects/webstore](https://icreated.co/projects/webstore)
 
 Idempiere Angular WebStore is a frontend application created as responsive angular / bootstrap seed for your projects. 
