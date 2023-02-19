@@ -4,7 +4,7 @@
 
 
 # Idempiere Angular WebStore 
-> 
+> The full information about this project is available here: [https://icreated.co/projects/webstore](https://icreated.co/projects/webstore)
 
 Idempiere Angular WebStore is a frontend application created as responsive angular / bootstrap seed for your projects. 
 This applications shows standard web sites features:
@@ -19,14 +19,10 @@ This applications shows standard web sites features:
 * password update
 * account information update
 
-Project structure has been inspired from Tom Cowley blog post:
-
-[Angular Folder Structure](https://medium.com/@motcowley/angular-folder-structure-d1809be95542).
-Thank's Tom.
 
 ![WebStore Architecture](/src/assets/images/screen_architecture.png?raw=true "Webstore Architecture")
 
-Server side Idempiere REST services project:
+Server side WebStore API REST services project for Idempiere is available here:
 
 [https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api)
 
@@ -34,19 +30,19 @@ Server side Idempiere REST services project:
 
 ### Home page
 
-![WebStore Home](/src/assets/images/screen_home.png?raw=true "Webstore Home")
+![WebStore Home](https://icreated.co/assets/images/webstore/screenshot_home.png?raw=true "Webstore Home")
 
 ### Basket page
 
-![WebStore Basket](/src/assets/images/screen_basket.png?raw=true "Webstore Basket")
+![WebStore Basket](https://icreated.co/assets/images/webstore/screenshot_basket.png?raw=true "Webstore Basket")
 
 ### Checkout page
 
-![WebStore Checkout](/src/assets/images/screen_checkout.png?raw=true "Webstore Checkout")
+![WebStore Checkout](https://icreated.co/assets/images/webstore/screenshot_checkout.png?raw=true "Webstore Checkout")
 
 ### Order page
 
-![WebStore Order](/src/assets/images/screen_order.png?raw=true "Webstore Order")
+![WebStore Order](https://icreated.co/assets/images/webstore/screenshot_order.png?raw=true "Webstore Order")
 
 
 
