@@ -1,7 +1,7 @@
 import {RouterModule, Routes} from '@angular/router';
 import {AccountComponent} from './account.component';
 import {OrdersComponent} from './orders/orders.component';
-import {OrderComponent} from './orders/order.component';
+import {OrderComponent} from './order/order.component';
 import {UserInformationComponent} from './user-information/user-information.component';
 import {UserPasswordComponent} from './user-password/user-password.component';
 import {AddressComponent} from './address/address.component';

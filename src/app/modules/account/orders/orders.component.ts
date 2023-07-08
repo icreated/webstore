@@ -15,6 +15,10 @@ export class OrdersComponent implements OnInit {
     constructor(private router: Router, private accountService: AccountService) {
     }
 
+    voidOrder(id: number) {
+        this.accountService.voidOrder({ id });
+    }
+
     ngOnInit(): void {
         this.accountService.getOrders()
             .subscribe(

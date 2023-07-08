@@ -9,8 +9,7 @@
   </div>
 </div>
 
-<div class="container">
-
+<div class="container" *ngIf="order">
     <div class="row">
         <div class="col-12">
           <h1><span><i class="fa fa-list-alt mr-2"></i> My order </span></h1>
@@ -22,11 +21,11 @@
 
             <div class="col-sm-12">
               <div class="statusTop">
-                <p><strong>Status: </strong>{{order.docStatus | docStatus}}</p>
+                <p><strong>Status: </strong>{{order.docStatusName}}</p>
                 <p><strong>Date: </strong> {{order.date | date:'MM/dd/yyyy'}}</p>
                 <p><strong># </strong> {{order.documentNo}}</p>
                 <p><strong>
-                  <button class="btn btn-sm btn-warning mr-2" *ngIf="order.docStatus === 'IP'" (click)="checkoutService.voidOrder(order)">Void</button>
+                  <button class="btn btn-sm btn-warning mr-2" *ngIf="order.docStatus === 'IP'" (click)="voidOrder()">Void</button>
                 </strong></p>
                 <p><strong>
                   <button class="btn btn-sm btn-success mr-2" (click)="downloadOrder()">PDF</button>
@@ -69,7 +68,7 @@
                 <div class="order-box-header">Delivery</div>
                 <div class="order-box-content">
                   <div class="address" *ngFor="let shipment of order.shipments">
-                    <p>Status<span> <strong>({{shipment.docStatus | docStatus}})</strong> </span></p>
+                    <p>Status<span> <strong>({{shipment.docStatusName}})</strong> </span></p>
                     <p><strong># : </strong>{{shipment.documentNo}}</p>
                     <p><strong>Date : </strong>{{shipment.date | date:'MM/dd/yyyy'}}</p>
                     <p><strong># tracking : </strong>{{shipment.trackingNo}}</p>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AccountComponent} from './account.component';
-import {OrderComponent} from './orders/order.component';
+import {OrderComponent} from './order/order.component';
 import {UserInformationComponent} from './user-information/user-information.component';
 import {UserPasswordComponent} from './user-password/user-password.component';
 import {accountRoutes} from './accountRoutes';

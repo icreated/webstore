@@ -33,11 +33,11 @@
                 <tr *ngFor="let order of orders">
                   <td><a [routerLink]="['/account/order', order.id]">{{order.documentNo}}</a></td>
                   <td class="hidden-xs"><a [routerLink]="['/account/order', order.id]">{{order.description}}</a></td>
-                  <td><a [routerLink]="['/account/order', order.id]">{{order.docStatus | docStatus}}</a></td>
+                  <td><a [routerLink]="['/account/order', order.id]">{{order.docStatusName}}</a></td>
                   <td><a [routerLink]="['/account/order', order.id]">{{order.grandTotal | currency}} €</a></td>
                   <td><a [routerLink]="['/account/order', order.id]">{{order.date | date: 'MM/dd/yyyy'}}</a></td>
                   <td data-value="3">
-                    <button *ngIf="order.docStatus === 'IP'" class="btn btn-sm btn-warning mr-2" (click)="checkoutService.voidOrder(order)">Void</button>
+                    <button *ngIf="order.docStatus === 'IP'" class="btn btn-sm btn-warning mr-2" (click)="voidOrder(order.id)">Void</button>
                   </td>
                 </tr>
                 </tbody>
