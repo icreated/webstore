@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CartService} from 'src/app/core/services/cart.service';
-import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
+import {PriceListProduct} from '../../api/models/price-list-product';
 
 @Component({
     selector: 'app-cart',
@@ -21,14 +21,16 @@ export class CartComponent {
     }
 
     increment(item: PriceListProduct) {
-        item.qty = item.qty + 1;
+        // @ts-ignore
+      item.qty = item.qty + 1;
     }
 
     decrement(item: PriceListProduct) {
         if (item.qty === 1) {
             return;
         }
-        item.qty = item.qty - 1;
+        // @ts-ignore
+      item.qty = item.qty - 1;
     }
 
 }

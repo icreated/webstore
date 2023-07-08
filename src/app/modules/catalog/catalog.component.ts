@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
-import {ApiService} from 'src/app/core/services/api.service';
 import {ActivatedRoute} from '@angular/router';
 import {CartService} from 'src/app/core/services/cart.service';
+import {PriceListProduct} from '../../api/models/price-list-product';
+import {CatalogService} from '../../api/services/catalog.service';
 
 @Component({
     selector: 'app-catalog',
@@ -13,7 +13,7 @@ export class CatalogComponent implements OnInit {
 
     products: PriceListProduct[] = [];
 
-    constructor(private apiService: ApiService, private cartService: CartService, private route: ActivatedRoute) {
+    constructor(private catalogService: CatalogService, private cartService: CartService, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -21,7 +21,7 @@ export class CatalogComponent implements OnInit {
             params => {
                 const categoryId = +params['categoryId'];
                 if (categoryId) {
-                    this.apiService.getProducts(categoryId).subscribe(data => {
+                    this.catalogService.getProducts({categoryId}).subscribe(data => {
                         this.products = data;
                     });
                 }
@@ -31,7 +31,7 @@ export class CatalogComponent implements OnInit {
             params => {
                 const searchString = params['searchString'];
                 if (searchString) {
-                    this.apiService.getSearchingProducts(searchString).subscribe(data => {
+                    this.catalogService.getProductsSearch(searchString).subscribe(data => {
                         this.products = data;
                     });
                 }

@@ -38,12 +38,11 @@
                 <div class="order-box-header">Delivery address</div>
                 <div class="order-box-content">
                   <div>
-                      {{order.shipAddress.name}}<br/>
-                      <span *ngIf="order.shipAddress.company">{{order.shipAddress.company}}</span><br *ngIf="order.shipAddress.company"/>
-                      {{order.shipAddress.address1}}<br>
-                      <span *ngIf="order.shipAddress.address2">{{order.shipAddress.address2}}</span><br *ngIf="order.shipAddress.address2"/>
-                      {{order.shipAddress.postal}} &nbsp;&nbsp; {{order.shipAddress.city}}<br>
-                      {{order.shipAddress.countryName}}
+                      {{order.shipAddress?.name}}<br/>
+                      {{order.shipAddress?.location?.address1}}<br>
+                      <span *ngIf="order.shipAddress?.location?.address2">{{order.shipAddress?.location?.address2}}</span><br *ngIf="order.shipAddress?.location?.address2"/>
+                      {{order.shipAddress?.location?.postal}} &nbsp;&nbsp; {{order.shipAddress?.location?.city}}<br>
+                      {{order.shipAddress?.location?.country?.name}}
                   </div>
                 </div>
               </div>
@@ -54,31 +53,16 @@
                 <div class="order-box-header">Invoice address</div>
                 <div class="order-box-content">
                   <div>
-                      {{order.billAddress.name}}<br/>
-                      <span *ngIf="order.billAddress.company">{{order.billAddress.company}}</span><br *ngIf="order.billAddress.company"/>
-                      {{order.billAddress.address1}}<br>
-                      <span *ngIf="order.billAddress.address2">{{order.billAddress.address2}}</span><br *ngIf="order.billAddress.address2"/>
-                      {{order.billAddress.postal}}  {{order.billAddress.city}}<br>
-                      {{order.billAddress.countryName}}
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div *ngIf="order.payments?.length" class="col-12">
-              <div class="order-box">
-                <div class="order-box-header">Payment</div>
-                <div class="order-box-content">
-                  <div class="address" *ngFor="let payment of order.payments">
-                    <p>Payment by  : {{payment.tenderType}} <span style="color: green" class="green"> <strong>({{payment.docStatus | docStatus}})</strong> </span></p>
-                    <p><strong># : </strong> {{payment.documentNo}}</p>
-                    <p><strong>Amount : </strong> {{payment.payAmt | currency}}</p>
-                    <p><strong>Transaction : </strong> {{payment.trxid}}</p>
+                      {{order.billAddress?.name}}<br/>
+                      {{order.billAddress?.location?.address1}}<br>
+                      <span *ngIf="order.billAddress?.location?.address2">{{order.billAddress?.location?.address2}}</span><br *ngIf="order.billAddress?.location?.address2"/>
+                      {{order.billAddress?.location?.postal}}  {{order.billAddress?.location?.city}}<br>
+                      {{order.billAddress?.location?.country?.name}}
                   </div>
                 </div>
               </div>
             </div>
+
 
             <div *ngIf="order.shipments?.length" class="col-sm-6">
               <div class="order-box">
@@ -119,7 +103,7 @@
                       </tr>
                       <tr *ngFor="let tax of order.taxes">
                           <td colspan="2"><div class="text-right">{{tax.name}}</div></td>
-                          <td class="price">{{tax.tax | currency}}</td>
+                          <td class="price">{{tax.taxAmt | currency}}</td>
                       </tr>
                       <tr>
                         <td colspan="2"><div class="text-right">Total</div></td>

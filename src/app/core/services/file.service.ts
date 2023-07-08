@@ -1,18 +1,19 @@
 import {Injectable} from '@angular/core';
 import {PrivateService} from './private.service';
 import {saveAs} from 'file-saver';
+import {AccountService} from '../../api/services/account.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FileService {
 
-    constructor(private privateService: PrivateService) {
+    constructor(private accountService: AccountService) {
     }
 
-    downloadfile(id: number, type: string, documentNo: string) {
+    downloadfile(id: number, type: 'order' | 'invoice', documentNo: string) {
         const reader = new FileReader();
-        this.privateService.getPdfFile(id, type)
+        this.accountService.getOrderFile({type, id})
             .subscribe(
                 (response) => {
                     saveAs(response, documentNo);

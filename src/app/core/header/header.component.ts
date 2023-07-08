@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductCategory} from 'src/app/shared/models/product-category';
-import {ApiService} from '../services/api.service';
 import {CartService} from '../services/cart.service';
-import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
 import {AuthService} from '../authentication/auth.service';
 import {Router} from '@angular/router';
+import {CatalogService} from '../../api/services/catalog.service';
+import {ProductCategory} from '../../api/models/product-category';
+import {PriceListProduct} from '../../api/models/price-list-product';
 
 @Component({
     selector: 'app-header',
@@ -18,12 +18,12 @@ export class HeaderComponent implements OnInit {
 
     categories: ProductCategory[] = [];
 
-    constructor(private router: Router, private apiService: ApiService, private cartService: CartService,
+    constructor(private router: Router, private catalogService: CatalogService, private cartService: CartService,
         private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.apiService.getProductCategories().subscribe(data => {
+        this.catalogService.getCategories().subscribe(data => {
             this.categories = data;
         });
 

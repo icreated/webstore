@@ -19,12 +19,14 @@ import {SharedModule} from 'src/app/shared/shared.module';
         RouterModule,
         SharedModule,
         checkoutRoutes],
-    declarations: [CheckoutComponent,
+    declarations: [
+        CheckoutComponent,
         Checkout1Component,
         Checkout2Component,
         Checkout3Component,
         Checkout4Component,
-        Checkout5Component]
+        Checkout5Component
+    ]
 })
 export class CheckoutModule {
 }

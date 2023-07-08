@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Shipper} from 'src/app/shared/models/shipper';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {PrivateService} from 'src/app/core/services/private.service';
-import {ApiService} from 'src/app/core/services/api.service';
 import {CartService} from 'src/app/core/services/cart.service';
+import {CommonService} from '../../../api/services/common.service';
+import {Shipper} from '../../../api/models/shipper';
 
 
 @Component({
@@ -17,16 +16,17 @@ export class Checkout3Component implements OnInit {
     selectedShipper: Shipper = {} as Shipper;
     shippers: Shipper[] = [];
 
-    constructor(private router: Router, private apiService: ApiService, private cartService: CartService,
-        private checkoutService: CheckoutService, private privateService: PrivateService) {
+    constructor(private router: Router, private commonService: CommonService, private cartService: CartService,
+        private checkoutService: CheckoutService) {
     }
 
     ngOnInit(): void {
-        let countryId = 0;
+        // let countryId = 0;
         if (this.checkoutService.shipAddress) {
-            countryId = this.checkoutService.shipAddress.countryId;
+            // TODO: SPOK check if this is correct
+            // countryId = this.checkoutService.shipAddress.location.country.id;
         }
-        this.apiService.getShippers(countryId)
+        this.commonService.getShippers()
             .subscribe(
                 (shippers: Shipper[]) => {
                     this.shippers = shippers;

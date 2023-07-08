@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PrivateService} from 'src/app/core/services/private.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
 import {FileService} from 'src/app/core/services/file.service';
-import {Order} from 'src/app/shared/models/order';
+import {AccountService} from '../../../api/services/account.service';
+import {Order} from '../../../api/models/order';
 
 
 @Component({
@@ -13,9 +13,9 @@ import {Order} from 'src/app/shared/models/order';
 })
 export class OrderComponent implements OnInit {
 
-    order: Order = {billAddress: {}, shipAddress: {}} as Order;
+    order!: Order;
 
-    constructor(private privateService: PrivateService, private route: ActivatedRoute, private router: Router,
+    constructor(private accountService: AccountService, private route: ActivatedRoute, private router: Router,
         public checkoutService: CheckoutService, private fileService: FileService) {
     }
 
@@ -23,7 +23,7 @@ export class OrderComponent implements OnInit {
         this.route.params
             .subscribe(params => {
                 const id = params['id'];
-                this.privateService.getOrder(id)
+                this.accountService.getOrder(id)
                     .subscribe(
                         (data: Order) => {
                             this.order = data;
@@ -32,6 +32,9 @@ export class OrderComponent implements OnInit {
     }
 
     downloadOrder() {
-        this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo);
+        // TODO: SPOK check if this is correct
+        if (this.order && this.order.id && this.order.documentNo) {
+            this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo);
+        }
     }
 }

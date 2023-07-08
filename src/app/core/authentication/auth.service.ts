@@ -5,9 +5,9 @@ import {Observable, Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {HEADERS, Library, OPTIONS} from '../library';
 import {Token} from 'src/app/shared/models/token';
-import {Login} from 'src/app/shared/models/login';
 import {Alert} from 'src/app/shared/models/alert';
 import {NewAccount} from 'src/app/shared/models/new-account';
+import {UserCredentials} from '../../api/models/user-credentials';
 
 
 @Injectable()
@@ -32,7 +32,7 @@ export class AuthService {
     }
 
 
-    login(username: string, password: string, redirectTo: string) {
+  login(username: string | undefined, password: string | undefined, redirectTo: string) {
         this.http.post<Token>(Library.apiEndpoint + 'auth/login', {username, password}, OPTIONS)
             .subscribe(
                 (response: Token) => {
@@ -77,7 +77,7 @@ export class AuthService {
         return this.http.post<Token>(Library.apiEndpoint + 'login/password/forgot', {token: email}, OPTIONS);
     }
 
-    changePassword(login: Login): Observable<HttpResponse<any>> {
+    changePassword(login: UserCredentials): Observable<HttpResponse<any>> {
         return this.http.post(Library.apiEndpoint + 'login/password/change', login, {
             headers: HEADERS,
             observe: 'response'

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from 'src/app/core/services/api.service';
-import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
 import {CartService} from 'src/app/core/services/cart.service';
+import {CatalogService} from '../../api/services/catalog.service';
+import {PriceListProduct} from '../../api/models/price-list-product';
 
 @Component({
     selector: 'app-home',
@@ -12,11 +12,11 @@ export class HomeComponent implements OnInit {
 
     featuredProducts: PriceListProduct[] = [];
 
-    constructor(private apiService: ApiService, private cartService: CartService) {
+    constructor(private catalogService: CatalogService, private cartService: CartService) {
     }
 
     ngOnInit() {
-        this.apiService.getFeaturedProducts().subscribe(data => {
+        this.catalogService.getProductsFeatured().subscribe(data => {
             this.featuredProducts = data;
         });
     }

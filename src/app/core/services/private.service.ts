@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Address} from 'src/app/shared/models/address';
 import {HEADERS, Library, OPTIONS} from '../library';
 import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Order} from 'src/app/shared/models/order';
 import {Observable} from 'rxjs';
 import {Token} from 'src/app/shared/models/token';
 import {Password} from 'src/app/shared/models/password';
-import {Account} from 'src/app/shared/models/account';
+import {AccountInfo} from '../../api/models/account-info';
+import {Order} from '../../api/models/order';
+import {Address} from '../../api/models/address';
 
 
 @Injectable({
@@ -18,13 +18,6 @@ export class PrivateService {
 
     constructor(private http: HttpClient) {}
 
-    getOrders(): Observable<Order[]> {
-        return this.http.get<Order[]>(Library.apiEndpoint + 'account/orders', OPTIONS);
-    }
-
-    getOrder(id: number) {
-        return this.http.get<Order>(Library.apiEndpoint + 'account/order/' + id, OPTIONS);
-    }
 
     createOrder(order: Order): Observable<Order> {
         return this.http.post<Order>(Library.apiEndpoint + 'checkout/order/create', order, OPTIONS);
@@ -38,15 +31,15 @@ export class PrivateService {
     }
 
     getAccount() {
-        return this.http.get<Account>(Library.apiEndpoint + 'account/info', OPTIONS);
+        return this.http.get<AccountInfo>(Library.apiEndpoint + 'account/info', OPTIONS);
     }
 
     payment(type: string, orderId: number) {
         return this.http.post(Library.apiEndpoint + 'checkout/payment', {type, orderId}, { observe: 'response' });
     }
 
-    updateAccount(account: Account): Observable<Account> {
-        return this.http.post<Account>(Library.apiEndpoint + 'account/info/update', account, OPTIONS);
+    updateAccount(account: AccountInfo): Observable<AccountInfo> {
+        return this.http.post<AccountInfo>(Library.apiEndpoint + 'account/info/update', account, OPTIONS);
     }
 
     changePassword(passwordForm: Password) {

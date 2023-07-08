@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Address} from 'src/app/shared/models/address';
 import {EMPTY, Observable} from 'rxjs';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
 import {PrivateService} from 'src/app/core/services/private.service';
+import {Address} from '../../api/models/address';
 
 
 @Component({

@@ -5,8 +5,8 @@ import {PrivateService} from 'src/app/core/services/private.service';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {ValidationService} from 'src/app/core/services/validation.service';
-import {Account} from 'src/app/shared/models/account';
 import {DBValidator} from 'src/app/shared/validators/db.validator';
+import {AccountInfo} from '../../../api/models/account-info';
 
 
 @Component({
@@ -15,10 +15,10 @@ import {DBValidator} from 'src/app/shared/validators/db.validator';
 })
 export class UserInformationComponent implements OnInit {
 
-    account: Account = {} as Account;
+    account: AccountInfo = {};
     accountForm: FormGroup;
 
-    accountSource = new Subject<Account>();
+    accountSource = new Subject<AccountInfo>();
     account$ = this.accountSource.asObservable();
 
     constructor(private privateService: PrivateService, private authService: AuthService,
@@ -35,7 +35,7 @@ export class UserInformationComponent implements OnInit {
 
     ngOnInit() {
         this.privateService.getAccount().subscribe(
-            (data: Account) => {
+            (data: AccountInfo) => {
                 this.account = data;
                 this.accountSource.next(data);
                 this.accountForm.controls['name'].setValue(this.account.name);
@@ -43,10 +43,10 @@ export class UserInformationComponent implements OnInit {
             });
     }
 
-    save(accountBean: Account) {
+    save(accountBean: AccountInfo) {
         if (this.accountForm.dirty && this.accountForm.valid) {
             this.privateService.updateAccount(accountBean).subscribe(
-                (data: Account) => {
+                (data: AccountInfo) => {
                     this.accountSource.next(this.account);
                     this.authService.showAlert({type: 'success', msg: 'Account updated'});
                 });

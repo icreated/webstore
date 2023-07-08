@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {IdNamePair} from 'src/app/shared/models/id-name-pair';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {PrivateService} from 'src/app/core/services/private.service';
-import {Address} from 'src/app/shared/models/address';
 import {Library} from 'src/app/core/library';
-import {ApiService} from 'src/app/core/services/api.service';
+import {CommonService} from '../../../api/services/common.service';
+import {IdNameBean} from '../../../api/models/id-name-bean';
+import {Address} from '../../../api/models/address';
+import {AccountService} from '../../../api/services/account.service';
 
 
 @Component({
@@ -16,26 +16,33 @@ import {ApiService} from 'src/app/core/services/api.service';
 export class Checkout2Component implements OnInit, OnDestroy {
 
     sub: any;
-    address: Address = {} as Address;
-    selectedCountry: IdNamePair = {} as IdNamePair;
-    countries: IdNamePair[] = [];
+    address: Address = {name: '', location: {address1: '', postal: '', city: '', country: {}}};
+    selectedCountry: IdNameBean = {} as IdNameBean;
+    countries: IdNameBean[] = [];
+    addresses: Address[] = [];
 
-    constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService,
-        public privateService: PrivateService, private checkoutService: CheckoutService) {
+    constructor(private router: Router, private route: ActivatedRoute, private commonService: CommonService,
+        public accountService: AccountService, private checkoutService: CheckoutService) {
     }
 
     ngOnInit(): void {
         this.sub = this.route
             .params
             .subscribe(params => {
-                this.address = {label: 'Invoice address'} as Address;
-                this.apiService.getCountries()
+                this.address = {name: 'Invoice address'} as Address;
+                this.commonService.getCountries()
                     .subscribe(
-                        (countries: IdNamePair[]) => {
+                        (countries: IdNameBean[]) => {
                             this.countries = countries;
                             this.selectedCountry = this.countries.filter(f => f.id === Library.currentCountryId)[0];
                         });
             });
+
+        this.accountService.getAddresses().subscribe(
+            (addresses: Address[]) => {
+                this.addresses = addresses;
+            }
+        );
     }
 
     ngOnDestroy(): any {

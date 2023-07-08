@@ -1,14 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Login} from 'src/app/shared/models/login';
 import {HttpClient} from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationService} from 'src/app/core/services/validation.service';
-import {IdNamePair} from 'src/app/shared/models/id-name-pair';
-import {ApiService} from 'src/app/core/services/api.service';
-import {Library} from 'src/app/core/library';
-import {NewAccount} from '../../shared/models/new-account';
+import {UserCredentials} from '../../api/models/user-credentials';
+
 
 @Component({
     selector: 'app-signup',
@@ -19,12 +16,11 @@ export class SignupComponent {
 
     @Input() redirectTo = 'account';
 
-    account: Login = {} as Login;
+    account: UserCredentials = {};
     accountForm: FormGroup;
-    countries: IdNamePair[] = [];
 
 
-    constructor(public http: HttpClient, private authService: AuthService, private apiService: ApiService,
+    constructor(public http: HttpClient, private authService: AuthService,
         private router: Router, private route: ActivatedRoute, private builder: FormBuilder) {
 
         this.accountForm = this.builder.group({

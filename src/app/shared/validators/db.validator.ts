@@ -3,7 +3,7 @@ import {Injectable, Injector, ReflectiveInjector} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Library, OPTIONS} from 'src/app/core/library';
 import {Observable} from 'rxjs';
-import {Account} from '../models/account';
+import {AccountInfo} from '../../api/models/account-info';
 
 
 @Injectable({
@@ -69,14 +69,14 @@ export class DBValidator {
     }
 
 
-    valueAndEmailExists(value: string, value2: string, accountEvent: Observable<Account>) {
+    valueAndEmailExists(value: string, value2: string, accountEvent: Observable<AccountInfo>) {
 
         let oldValue: string;
         let oldEmail: string;
 
         new Promise(resolve => {
             accountEvent.subscribe(
-                (data: Account) => {
+                (data: AccountInfo) => {
                     resolve(data);
                 });
         }).then((data: any) => {

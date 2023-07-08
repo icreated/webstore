@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {CartService} from './cart.service';
 import {AuthService} from '../authentication/auth.service';
-import {Order} from 'src/app/shared/models/order';
-import {PriceListProduct} from 'src/app/shared/models/pricelist-product';
-import {Shipper} from 'src/app/shared/models/shipper';
 import {Subject} from 'rxjs';
-import {Address} from 'src/app/shared/models/address';
-import {PrivateService} from './private.service';
+import {PriceListProduct} from '../../api/models/price-list-product';
+import {Shipper} from '../../api/models/shipper';
+import {Order} from '../../api/models/order';
+import {AccountService} from '../../api/services/account.service';
+import {Address} from '../../api/models/address';
 
 
 @Injectable({
@@ -18,45 +18,48 @@ export class CheckoutService {
     shipAddress: Address = {} as Address;
     billAddress: Address = {} as Address;
     shipper: Shipper = {} as Shipper;
-    public order: Order = {} as Order;
+    public order: Order = {};
     orderSource = new Subject<Order>();
     order$ = this.orderSource.asObservable();
 
     constructor(private router: Router, private authService: AuthService, public cartService: CartService,
-        private privateService: PrivateService) {
+        private accountService: AccountService, private checkoutService: CheckoutService) {
     }
 
     payOrder(order: Order) {
-        this.privateService.getOrder(order.id)
+      // TODO: SPOK check if this is correct
+        const id = order.id ? order.id : 0;
+        this.accountService.getOrder({id})
             .subscribe(
                 (ord: Order) => {
                     this.cartService.clearCart();
-                    ord.lines.forEach((item: PriceListProduct, index: number) => {
-                        this.cartService.getCart().push(item);
-                        this.cartService.synchronize(item);
-                    });
-                    this.order = ord;
-                    this.orderSource.next(ord);
-                    this.shipAddress = ord.shipAddress;
-                    this.billAddress = ord.billAddress;
-                    this.shipper = ord.shipper;
+                    // TODO: SPOK check if this is correct
+                    // ord.lines.forEach((item: PriceListProduct, index: number) => {
+                    //     this.cartService.getCart().push(item);
+                    //     this.cartService.synchronize(item);
+                    // });
+                    // this.order = ord;
+                    // this.orderSource.next(ord);
+                    // this.shipAddress = ord.shipAddress;
+                    // this.billAddress = ord.billAddress;
+                    // this.shipper = ord.shipper;
                     this.router.navigate(['/checkout/checkout4']);
                 });
     }
 
     voidCurrentOrder() {
-        this.privateService.voidOrder(this.order);
+        this.checkoutService.voidOrder(this.order);
         this.order = {} as Order;
     }
 
     voidOrder(order: Order) {
-        this.privateService.voidOrder(order)
-            .subscribe(
-                resp => {
-                    if (resp.status === 200) {
-                        order.docStatus = 'VO';
-                    }
-                });
+        this.checkoutService.voidOrder(order);
+        // .subscribe(
+        //     resp => {
+        //         if (resp.status === 200) {
+        //             order.docStatus = 'VO';
+        //         }
+        //     });
     }
 
     clear() {
@@ -82,9 +85,10 @@ export class CheckoutService {
         if (this.order.id) {
             return this.order.grandTotal;
         }
-        let price = this.cartService.getTotalPrice();
+        const price = this.cartService.getTotalPrice();
         if (this.shipper.id) {
-            price = price + this.shipper.price;
+            // SPOK price Lost
+            //   price = price + this.shipper.price;
         }
         return price;
     }
@@ -93,11 +97,12 @@ export class CheckoutService {
         this.order = {} as Order;
         this.order.shipAddress = this.shipAddress;
         this.order.billAddress = this.billAddress;
-        this.order.shipper = this.shipper;
+        // SPOK old order object
+        // this.order.shipper = this.shipper;
         this.order.lines = this.cartService.getCart();
 
         /*
-       this.privateService.getOrder(1000000).subscribe(
+       this.accountService.getOrder(1000000).subscribe(
          (order : Order) => {
          this.order = order;
          console.log('HERE: '+order)
@@ -106,11 +111,12 @@ export class CheckoutService {
        });
    */
 
-        this.privateService.createOrder(this.order).subscribe(
-            (order: Order) => {
-                this.order = order;
-                this.orderSource.next(order);
-                this.authService.showAlert({type: 'success', msg: 'Order ' + order.documentNo + ' is generated'});
-            });
+        this.checkoutService.createOrder();
+        // .subscribe(
+        //   (order: Order) => {
+        //       this.order = order;
+        //       this.orderSource.next(order);
+        //       this.authService.showAlert({type: 'success', msg: 'Order ' + order.documentNo + ' is generated'});
+        //   });
     }
 }

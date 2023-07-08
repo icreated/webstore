@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {EMPTY, Observable} from 'rxjs';
-import {Address} from 'src/app/shared/models/address';
 import {Router} from '@angular/router';
 import {PrivateService} from 'src/app/core/services/private.service';
 import {AuthService} from 'src/app/core/authentication/auth.service';
+import {Address} from '../../../api/models/address';
 
 
 @Component({

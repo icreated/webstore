@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Order} from 'src/app/shared/models/order';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
 import {PrivateService} from 'src/app/core/services/private.service';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {CartService} from 'src/app/core/services/cart.service';
 import {FileService} from 'src/app/core/services/file.service';
+import {Order} from '../../../api/models/order';
+import {AccountService} from '../../../api/services/account.service';
 
 @Component({
     selector: 'app-checkout5',
@@ -18,7 +19,7 @@ export class Checkout5Component implements OnInit {
     order: Order = {shipAddress: {}, billAddress: {}} as Order;
 
     constructor(private router: Router, private checkoutService: CheckoutService, private route: ActivatedRoute,
-        private privateService: PrivateService, private authService: AuthService,
+        private accountService: AccountService, private authService: AuthService,
         private cartService: CartService, private fileService: FileService) {
     }
 
@@ -28,7 +29,7 @@ export class Checkout5Component implements OnInit {
             .subscribe(params => {
                 const id = params['id'];
                 if (id > 0) {
-                    this.privateService.getOrder(id)
+                    this.accountService.getOrder(id)
                         .subscribe(
                             (data: Order) => {
                                 this.order = data;
@@ -46,7 +47,8 @@ export class Checkout5Component implements OnInit {
     }
 
     downloadOrder() {
-        this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo);
+        // TODO: SPOK check if this is correct
+        // this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo);
     }
 
 }
