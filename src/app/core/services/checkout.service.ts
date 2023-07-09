@@ -18,7 +18,7 @@ export class CheckoutService {
     shipAddress: Address = {} as Address;
     billAddress: Address = {} as Address;
     shipper: Shipper = {} as Shipper;
-    public order: Order = {};
+    public order!: Order;
     orderSource = new Subject<Order>();
     order$ = this.orderSource.asObservable();
 

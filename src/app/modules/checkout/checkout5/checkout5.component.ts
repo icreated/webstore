@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {PrivateService} from 'src/app/core/services/private.service';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {CartService} from 'src/app/core/services/cart.service';
 import {FileService} from 'src/app/core/services/file.service';

@@ -152,6 +152,73 @@ export class AccountService extends BaseService {
   }
 
   /**
+   * Path part for operation voidOrder
+   */
+  static readonly VoidOrderPath = '/account/orders/{id}';
+
+  /**
+   * Void order.
+   *
+   * Void order
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `voidOrder()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  voidOrder$Response(params: {
+
+    /**
+     * C_Order_ID
+     */
+    id: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AccountService.VoidOrderPath, 'delete');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Void order.
+   *
+   * Void order
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `voidOrder$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  voidOrder(params: {
+
+    /**
+     * C_Order_ID
+     */
+    id: number;
+    context?: HttpContext
+  }
+): Observable<void> {
+
+    return this.voidOrder$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation signup
    */
   static readonly SignupPath = '/account';
@@ -404,6 +471,73 @@ export class AccountService extends BaseService {
 ): Observable<Address> {
 
     return this.createAddress$Response(params).pipe(
+      map((r: StrictHttpResponse<Address>) => r.body as Address)
+    );
+  }
+
+  /**
+   * Path part for operation getAddress
+   */
+  static readonly GetAddressPath = '/account/addresses/{id}';
+
+  /**
+   * Get Address.
+   *
+   * Get address
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAddress()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAddress$Response(params: {
+
+    /**
+     * C_BPartner_Location_ID
+     */
+    id: number;
+    context?: HttpContext
+  }
+): Observable<StrictHttpResponse<Address>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AccountService.GetAddressPath, 'get');
+    if (params) {
+      rb.path('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Address>;
+      })
+    );
+  }
+
+  /**
+   * Get Address.
+   *
+   * Get address
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `getAddress$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAddress(params: {
+
+    /**
+     * C_BPartner_Location_ID
+     */
+    id: number;
+    context?: HttpContext
+  }
+): Observable<Address> {
+
+    return this.getAddress$Response(params).pipe(
       map((r: StrictHttpResponse<Address>) => r.body as Address)
     );
   }

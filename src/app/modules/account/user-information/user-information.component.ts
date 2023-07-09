@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
-import {PrivateService} from 'src/app/core/services/private.service';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {ValidationService} from 'src/app/core/services/validation.service';
 import {DBValidator} from 'src/app/shared/validators/db.validator';
 import {AccountInfo} from '../../../api/models/account-info';
+import {AccountService} from '../../../api/services/account.service';
+import {Token} from '../../../api/models/token';
 
 
 @Component({
@@ -21,8 +22,8 @@ export class UserInformationComponent implements OnInit {
     accountSource = new Subject<AccountInfo>();
     account$ = this.accountSource.asObservable();
 
-    constructor(private privateService: PrivateService, private authService: AuthService,
-        private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator) {
+    constructor(private accountService: AccountService, private authService: AuthService,
+                private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator) {
 
         this.accountForm = this.builder.group({
             name: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(60)])],
@@ -34,7 +35,7 @@ export class UserInformationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.privateService.getAccount().subscribe(
+        this.accountService.getInfo().subscribe(
             (data: AccountInfo) => {
                 this.account = data;
                 this.accountSource.next(data);
@@ -45,9 +46,10 @@ export class UserInformationComponent implements OnInit {
 
     save(accountBean: AccountInfo) {
         if (this.accountForm.dirty && this.accountForm.valid) {
-            this.privateService.updateAccount(accountBean).subscribe(
-                (data: AccountInfo) => {
-                    this.accountSource.next(this.account);
+            this.accountService.updateAccount({body: accountBean}).subscribe(
+                (data: Token) => {
+                    // TODO: SPOK: Fix this
+                    // this.accountSource.next(this.account);
                     this.authService.showAlert({type: 'success', msg: 'Account updated'});
                 });
         }

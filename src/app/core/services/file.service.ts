@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {PrivateService} from './private.service';
 import {saveAs} from 'file-saver';
 import {AccountService} from '../../api/services/account.service';
 

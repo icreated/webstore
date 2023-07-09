@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {EMPTY, Observable} from 'rxjs';
 import {Router} from '@angular/router';
-import {PrivateService} from 'src/app/core/services/private.service';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {Address} from '../../../api/models/address';
+import {AccountService} from '../../../api/services/account.service';
 
 
 @Component({
@@ -14,34 +14,36 @@ export class AddressComponent implements OnInit {
 
     private _addressObservable: Observable<Address[]> = EMPTY;
 
-    constructor(private router: Router, public privateService: PrivateService,
+    addresses: Address[] = [];
+
+    constructor(private router: Router, public accountService: AccountService,
         private authService: AuthService) {}
 
     ngOnInit(): any {
+        // TODO: SPOK: Fix this
+        // this._addressObservable = this.accountService.getAddresses();
+        // this._addressObservable.subscribe();
 
-        this._addressObservable = this.privateService.getAddresses();
-        this._addressObservable.subscribe();
 
-    /*
-    this.privateService.getAddresses()
-      .subscribe(
-        addresses => this.addresses = addresses,
-        error => this.error = <any>error
-      );
-      */
+        this.accountService.getAddresses()
+            .subscribe(
+                addresses => this.addresses = addresses,
+            );
+
     }
 
     deleteAddress(item: Address) {
-        this.privateService.deleteAddress(item)
+        this.accountService.deleteAddress({id: item?.id || 0})
             .subscribe(
                 res => {
-                    if (res.status === 202) {
-                        const i = this.privateService.addresses.indexOf(item);
-                        this.privateService.addresses.splice(i, 1);
-                        this.authService.showAlert({type: 'success', msg: 'Address deleted'});
-                    } else {
-                        this.authService.showAlert({type: 'danger', msg: 'Address not deleted'});
-                    }
+                    // TODO: SPOK: Fix this
+                    // if (res.status === 202) {
+                    //     const i = this.accountService.addresses.indexOf(item);
+                    //     this.accountService.addresses.splice(i, 1);
+                    //     this.authService.showAlert({type: 'success', msg: 'Address deleted'});
+                    // } else {
+                    //     this.authService.showAlert({type: 'danger', msg: 'Address not deleted'});
+                    // }
                 }
             );
     }

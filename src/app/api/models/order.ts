@@ -14,7 +14,7 @@ export interface Order {
   docStatusName?: string;
   documentNo?: string;
   grandTotal?: number;
-  id?: number;
+  id: number;
   invoices?: Array<Document>;
   lines?: Array<DocumentLine>;
   poReference?: string;

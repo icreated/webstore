@@ -3,8 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {EMPTY, Observable} from 'rxjs';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {PrivateService} from 'src/app/core/services/private.service';
 import {Address} from '../../api/models/address';
+import {AccountService} from '../../api/services/account.service';
 
 
 @Component({
@@ -20,12 +20,12 @@ export class CheckoutComponent implements OnInit {
 
     private _addressObservable: Observable<Address[]> = EMPTY;
 
-    constructor(private route: ActivatedRoute, private router: Router, private privateService: PrivateService,
+    constructor(private route: ActivatedRoute, private router: Router, private accountService: AccountService,
         private authService: AuthService, private checkoutService: CheckoutService) {
     }
 
     ngOnInit(): any {
-        this._addressObservable = this.privateService.getAddresses();
+        this._addressObservable = this.accountService.getAddresses();
         this._addressObservable.subscribe();
     }
 

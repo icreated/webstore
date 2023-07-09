@@ -49,6 +49,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
+    delete:
+      tags:
+          - Account
+      summary: Void order
+      description: Void order
+      operationId: voidOrder
+      parameters:
+        - name: id
+          in: path
+          description: C_Order_ID
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Order processed
+        '403':
+          description: Order forbidden
+        '500':
+          description: Order not processed
   /account:
     post:
       tags:
@@ -126,20 +147,33 @@ paths:
         '200':
           description: Address updated
   /account/addresses/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: C_BPartner_Location_ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+    get:
+      tags:
+        - Account
+      summary: Get Address
+      description: Get address
+      operationId: getAddress
+      responses:
+        '200':
+            description: Address found
+            content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Address'
     delete:
       tags:
         - Account
       summary: Deactivating address
       description: Deactivating address
       operationId: deleteAddress
-      parameters:
-        - name: id
-          in: path
-          description: C_BPartner_Location_ID
-          required: true
-          schema:
-            type: integer
-            format: int32
       responses:
         '200':
           description: Address deactivated
@@ -407,26 +441,6 @@ paths:
                 $ref: '#/components/schemas/Order'
         '500':
           description: Missing address or shipper or lines
-    delete:
-      tags:
-        - Checkout
-      summary: Void order
-      description: Void order
-      operationId: voidOrder
-      requestBody:
-        description: Order Form
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-        required: true
-      responses:
-        '200':
-          description: Order processed
-        '403':
-          description: Order forbidden
-        '500':
-          description: Order not processed
   /common/countries:
     get:
       tags:
@@ -648,6 +662,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tax'
+      required:
+        - id
     Payment:
       type: object
       properties:

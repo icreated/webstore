@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PrivateService} from 'src/app/core/services/private.service';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {ValidationService} from 'src/app/core/services/validation.service';
-import {Password} from 'src/app/shared/models/password';
+import {AccountService} from '../../../api/services/account.service';
+import {Password} from '../../../api/models/password';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class UserPasswordComponent {
     passwordForm: FormGroup;
     active = true;
 
-    constructor(private privateService: PrivateService, private authService: AuthService, private builder: FormBuilder) {
+    constructor(private accountService: AccountService, private authService: AuthService, private builder: FormBuilder) {
         this.passwordForm = this.builder.group({
             password: ['', [Validators.required]],
             newPassword: ['', [Validators.required, ValidationService.passwordValidator]],
@@ -27,13 +27,14 @@ export class UserPasswordComponent {
 
     save(password: Password) {
         if (this.passwordForm.dirty && this.passwordForm.valid) {
-            this.privateService.changePassword(password)
+            this.accountService.changePassword({body: password})
                 .subscribe(
                     resp => {
                         if (!resp.token) {
                             this.passwordForm.controls['password'].setErrors({invalidOldPassword: true});
                         } else {
-                            this.authService.updateToken(resp);
+                            // TODO: SPOK: Fix this
+                            //   this.authService.updateToken(resp);
                             this.authService.showAlert({type: 'success', msg: 'Password updated'});
                             password = {} as Password;
                             this.passwordForm.reset();
