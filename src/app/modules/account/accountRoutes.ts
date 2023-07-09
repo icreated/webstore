@@ -4,8 +4,8 @@ import {OrdersComponent} from './orders/orders.component';
 import {OrderComponent} from './order/order.component';
 import {UserInformationComponent} from './user-information/user-information.component';
 import {UserPasswordComponent} from './user-password/user-password.component';
-import {AddressComponent} from './address/address.component';
-import {AddAddressComponent} from './address/add-address.component';
+import {AddressesComponent} from './addresses/addresses.component';
+import {UpsertAddressComponent} from './upsert-address/upsert-address.component';
 import {ModuleWithProviders} from '@angular/core';
 import {AuthGuard} from 'src/app/core/guards/auth-guard';
 
@@ -18,9 +18,9 @@ export const ACCOUNT_ROUTES: Routes = [
             {path: 'menu', component: AccountComponent, canActivate: [AuthGuard]},
             {path: 'orders', component: OrdersComponent, canActivate: [AuthGuard]},
             {path: 'order/:id', component: OrderComponent, canActivate: [AuthGuard]},
-            {path: 'addresses', component: AddressComponent, canActivate: [AuthGuard]},
-            {path: 'new-address/:id', component: AddAddressComponent, canActivate: [AuthGuard]},
-            {path: 'new-address', component: AddAddressComponent, canActivate: [AuthGuard]},
+            {path: 'addresses', component: AddressesComponent, canActivate: [AuthGuard]},
+            {path: 'new-address/:id', component: UpsertAddressComponent, canActivate: [AuthGuard]},
+            {path: 'new-address', component: UpsertAddressComponent, canActivate: [AuthGuard]},
             {path: 'information', component: UserInformationComponent, canActivate: [AuthGuard]},
             {path: 'password', component: UserPasswordComponent, canActivate: [AuthGuard]},
             {path: '**', redirectTo: '/account/menu', pathMatch: 'full'}

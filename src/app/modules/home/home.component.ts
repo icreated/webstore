@@ -16,9 +16,8 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.catalogService.getProductsFeatured().subscribe(data => {
-            this.featuredProducts = data;
-        });
+        this.catalogService.getProductsFeatured()
+            .subscribe(data => this.featuredProducts = data);
     }
 
     add(item: PriceListProduct) {

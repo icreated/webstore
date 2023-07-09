@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {EMPTY, Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {Address} from '../../../api/models/address';
@@ -7,12 +6,10 @@ import {AccountService} from '../../../api/services/account.service';
 
 
 @Component({
-    selector: 'app-address',
-    templateUrl: './address.component.html'
+    selector: 'app-addresses',
+    templateUrl: './addresses.component.html'
 })
-export class AddressComponent implements OnInit {
-
-    private _addressObservable: Observable<Address[]> = EMPTY;
+export class AddressesComponent implements OnInit {
 
     addresses: Address[] = [];
 
@@ -20,15 +17,8 @@ export class AddressComponent implements OnInit {
         private authService: AuthService) {}
 
     ngOnInit(): any {
-        // TODO: SPOK: Fix this
-        // this._addressObservable = this.accountService.getAddresses();
-        // this._addressObservable.subscribe();
-
-
         this.accountService.getAddresses()
-            .subscribe(
-                addresses => this.addresses = addresses,
-            );
+            .subscribe(data => this.addresses = data);
 
     }
 
@@ -48,7 +38,7 @@ export class AddressComponent implements OnInit {
             );
     }
 
-    modifyAddress(address: Address) {
+    updateAddress(address: Address) {
         this.router.navigate(['/account/new-address', address.id]);
     }
 

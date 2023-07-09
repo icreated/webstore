@@ -17,14 +17,23 @@ export class CatalogComponent implements OnInit {
     }
 
     ngOnInit() {
-        const categoryId = this.route.snapshot.params['categoryId'];
-        if (categoryId) {
-            this.catalogService.getProducts({categoryId}).subscribe(data => this.products = data);
-        }
-        const searchString = this.route.snapshot.queryParams['searchString'];
-        if (searchString) {
-            this.catalogService.getProductsSearch(searchString).subscribe(data => this.products = data);
-        }
+        this.route.params.subscribe(
+            params => {
+                const categoryId = +params['categoryId'];
+                if (categoryId) {
+                    this.catalogService.getProducts({categoryId})
+                        .subscribe(data => this.products = data);
+                }
+            });
+
+        this.route.queryParams.subscribe(
+            params => {
+                const searchString = params['searchString'];
+                if (searchString) {
+                    this.catalogService.getProductsSearch(searchString)
+                        .subscribe(data => this.products = data);
+                }
+            });
     }
 
     add(item: PriceListProduct) {

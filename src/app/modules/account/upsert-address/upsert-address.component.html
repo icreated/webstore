@@ -4,19 +4,19 @@
         <li><a [routerLink]="['/']">Home</a></li>
         <li><a [routerLink]="['/account']">Account</a></li>
         <li><a [routerLink]="['/account/addresses']">Addresses</a></li>
-        <li class="active"> Add address</li>
+        <li class="active"> {{ isUpdate ? 'Update address' : 'Add address' }}</li>
       </ul>
     </div>
   </div>
 
 
   <div class="container">
-
-
     <div class="row">
       <div class="col-12">
 
-        <h1 class="section-title-inner"><span><i class="fa fa-map-marker mr-2"></i>Add address</span></h1>
+        <h1 class="section-title-inner">
+          <span><i class="fa fa-map-marker mr-2"></i>{{ isUpdate ? 'Update address' : 'Add address' }}</span>
+        </h1>
 
         <form novalidate #addressForm="ngForm" (ngSubmit)='save(addressForm.value)'>
           <div class="row">
@@ -29,8 +29,6 @@
 
 
               <input [(ngModel)]="address.id" name="id" #id="ngModel" type="hidden">
-
-
               <div class="col-lg-12 col-xs-12 col-sm-12">
                   <div class="form-group required">
                     <label for="addressLabel">Address Label<sup>*</sup></label>
@@ -78,7 +76,7 @@
 
                 <div class="form-group required">
                   <label for="InputCountry">Country <sup>*</sup> </label>
-                  <select [(ngModel)]="selectedCountry"  name="selectedCountry" class="form-control" id="InputCountry">
+                  <select [(ngModel)]="address.location.country"  name="selectedCountry" class="form-control" id="InputCountry">
                     <option [ngValue]="country" *ngFor="let country of countries">{{country.name}}</option>
                   </select>
                 </div>

@@ -8,13 +8,13 @@ import {accountRoutes} from './accountRoutes';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {OrdersComponent} from './orders/orders.component';
-import {AddressComponent} from './address/address.component';
-import {AddAddressComponent} from './address/add-address.component';
+import {AddressesComponent} from './addresses/addresses.component';
+import {UpsertAddressComponent} from './upsert-address/upsert-address.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, RouterModule, accountRoutes], // , AccountRoutes
-    declarations: [AccountComponent, OrdersComponent, OrderComponent, AddressComponent, AddAddressComponent,
+    declarations: [AccountComponent, OrdersComponent, OrderComponent, AddressesComponent, UpsertAddressComponent,
         UserInformationComponent, UserPasswordComponent]
 })
 
