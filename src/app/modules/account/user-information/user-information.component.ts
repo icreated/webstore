@@ -48,8 +48,7 @@ export class UserInformationComponent implements OnInit {
         if (this.accountForm.dirty && this.accountForm.valid) {
             this.accountService.updateAccount({body: accountBean}).subscribe(
                 (data: Token) => {
-                    // TODO: SPOK: Fix this
-                    // this.accountSource.next(this.account);
+                    this.accountSource.next(this.account);
                     this.authService.showAlert({type: 'success', msg: 'Account updated'});
                 });
         }

@@ -33,8 +33,7 @@ export class UserPasswordComponent {
                         if (!resp.token) {
                             this.passwordForm.controls['password'].setErrors({invalidOldPassword: true});
                         } else {
-                            // TODO: SPOK: Fix this
-                            //   this.authService.updateToken(resp);
+                            this.authService.updateToken(resp);
                             this.authService.showAlert({type: 'success', msg: 'Password updated'});
                             password = {} as Password;
                             this.passwordForm.reset();

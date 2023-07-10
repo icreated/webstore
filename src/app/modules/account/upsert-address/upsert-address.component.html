@@ -18,7 +18,7 @@
           <span><i class="fa fa-map-marker mr-2"></i>{{ isUpdate ? 'Update address' : 'Add address' }}</span>
         </h1>
 
-        <form novalidate #addressForm="ngForm" (ngSubmit)='save(addressForm.value)'>
+        <form novalidate #addressForm="ngForm" (ngSubmit)='save()'>
           <div class="row">
 
             <div class="col-12">
@@ -27,24 +27,17 @@
               <p class="required"><sup>*</sup> Mandatory</p>
             </div>
 
-
               <input [(ngModel)]="address.id" name="id" #id="ngModel" type="hidden">
               <div class="col-lg-12 col-xs-12 col-sm-12">
                   <div class="form-group required">
                     <label for="addressLabel">Address Label<sup>*</sup></label>
                     <em [hidden]="label.valid || label.pristine" class="has-error">Label is mandatory</em>
-                    <input [(ngModel)]="address.name" #label="ngModel" type="text" value="My address" name="label"
+                    <input [(ngModel)]="address.name" #label="ngModel" type="text" value="My address" name="name"
                             class="form-control" id="addressLabel" required>
                   </div>
               </div>
 
               <div class="col-lg-6 col-xs-6 col-sm-12">
-                <div class="form-group required" >
-                  <label for="InputName">Your First Name, Last Name<sup>*</sup> </label>
-                  <em [hidden]="name.valid || name.pristine" class="has-error">Your name is mandatory</em>
-                  <input [(ngModel)]="address.name" name="name" #name="ngModel" type="text" class="form-control" id="InputName" placeholder="First Name, Last Name" required>
-                </div>
-
                 <div class="form-group required">
                   <label for="InputAddress">Address <sup>*</sup> </label>
                   <em [hidden]="address1.valid || address1.pristine" class="has-error">Your address is mandatory</em>
@@ -56,6 +49,12 @@
                   <label for="InputAddress2">Address 2</label>
                   <input [(ngModel)]="address.location.address2" name="address2" type="text" class="form-control" id="InputAddress2"
                           placeholder="Address 2">
+                </div>
+
+                <div class="form-group required">
+                  <label for="InputMobile">Phone <sup>*</sup></label>
+                  <em [hidden]="phone.valid || phone.pristine" class="has-error">Phone is mandatory for delivery</em>
+                  <input [(ngModel)]="address.phone" #phone="ngModel" type="tel" name="phone" class="form-control" id="InputMobile" required>
                 </div>
               </div>
 
@@ -79,12 +78,6 @@
                   <select [(ngModel)]="address.location.country"  name="selectedCountry" class="form-control" id="InputCountry">
                     <option [ngValue]="country" *ngFor="let country of countries">{{country.name}}</option>
                   </select>
-                </div>
-
-                <div class="form-group required">
-                  <label for="InputMobile">Phone <sup>*</sup></label>
-                  <em [hidden]="phone.valid || phone.pristine" class="has-error">Phone is mandatory for delivery</em>
-                  <input [(ngModel)]="address.phone" #phone="ngModel" type="tel" name="phone" class="form-control" id="InputMobile" required>
                 </div>
               </div>
 

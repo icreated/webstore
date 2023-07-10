@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {HttpResponse} from '@angular/common/http';
+import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
-import {HEADERS, Library, OPTIONS} from '../library';
-import {Token} from 'src/app/shared/models/token';
 import {Alert} from 'src/app/shared/models/alert';
-import {NewAccount} from 'src/app/shared/models/new-account';
 import {UserCredentials} from '../../api/models/user-credentials';
+import {AuthenticationService} from '../../api/services/authentication.service';
+import {Token} from '../../api/models/token';
+import {AccountService} from '../../api/services/account.service';
+import {NewAccountForm} from '../../api/models/new-account-form';
 
 
 @Injectable()
@@ -28,66 +29,52 @@ export class AuthService {
     private loggedIn = false;
     private name = '';
 
-    constructor(private http: HttpClient, private router: Router) {
+    constructor(private authenticationService: AuthenticationService, private accountService: AccountService,
+                private router: Router) {
     }
 
 
-  login(username: string | undefined, password: string | undefined, redirectTo: string) {
-        this.http.post<Token>(Library.apiEndpoint + 'auth/login', {username, password}, OPTIONS)
-            .subscribe(
-                (response: Token) => {
-                    this.loggedIn = true;
-                    localStorage.setItem('jwt', response.token);
-                    this.onDecodedToken(response.token);
-                    this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
-                    this.router.navigateByUrl('/' + redirectTo);
-                },
-                error => {
-                    this.loggedIn = false;
-                    this.router.navigateByUrl('/signup');
-                    this.decodedToken = null;
-                    this.showAlert({type: 'warning', msg: 'Credentials are wrong'});
-                }
-            );
+    login(userCredentials: UserCredentials, redirectTo: string) {
+
+        this.authenticationService.authenticateUser$Response({body: userCredentials}).subscribe(
+            (response: HttpResponse<Token>) => {
+                this.loggedIn = true;
+                localStorage.setItem('jwt', response.body?.token || '');
+                this.onDecodedToken(response.body?.token || '');
+                this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
+                this.router.navigateByUrl('/' + redirectTo);
+            },
+            error => {
+                this.loggedIn = false;
+                this.router.navigateByUrl('/signup');
+                this.decodedToken = null;
+                this.showAlert({type: 'warning', msg: 'Credentials are wrong'});
+            }
+        );
+
     }
 
-    signup(account: NewAccount, redirectTo: string) {
+    signup(account: NewAccountForm, redirectTo: string) {
         delete account.confirmPassword;
-
-        this.http.post<Token>(Library.apiEndpoint + 'account/signup', account, OPTIONS)
-            .subscribe(
-                (response: Token) => {
-                    this.loggedIn = true;
-                    localStorage.setItem('jwt', response.token);
-
-                    this.onDecodedToken(response.token);
-                    this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
-                    this.router.navigateByUrl('/' + redirectTo);
-                },
-                error => {
-                    this.loggedIn = false;
-                    this.router.navigateByUrl('/auth');
-                    this.decodedToken = null;
-                }
-            );
+        this.accountService.signup$Response({body: account}).subscribe(
+            (response: HttpResponse<Token>) => {
+                this.loggedIn = true;
+                localStorage.setItem('jwt', response.body?.token || '');
+                this.onDecodedToken(response.body?.token || '');
+                this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
+                this.router.navigateByUrl('/' + redirectTo);
+            },
+            error => {
+                this.loggedIn = false;
+                this.router.navigateByUrl('/signup');
+                this.decodedToken = null;
+            }
+        );
     }
-
-
-    forgotPassword(email: string) {
-        return this.http.post<Token>(Library.apiEndpoint + 'login/password/forgot', {token: email}, OPTIONS);
-    }
-
-    changePassword(login: UserCredentials): Observable<HttpResponse<any>> {
-        return this.http.post(Library.apiEndpoint + 'login/password/change', login, {
-            headers: HEADERS,
-            observe: 'response'
-        });
-    }
-
 
     updateToken(tokenJson: Token) {
-        localStorage.setItem('jwt', tokenJson.token);
-        this.onDecodedToken(tokenJson.token);
+        localStorage.setItem('jwt', tokenJson.token || '');
+        this.onDecodedToken(tokenJson.token || '');
     }
 
     testIsAuthenticated() {

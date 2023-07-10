@@ -30,7 +30,7 @@ export class CatalogComponent implements OnInit {
             params => {
                 const searchString = params['searchString'];
                 if (searchString) {
-                    this.catalogService.getProductsSearch(searchString)
+                    this.catalogService.getProductsSearch({ searchString })
                         .subscribe(data => this.products = data);
                 }
             });

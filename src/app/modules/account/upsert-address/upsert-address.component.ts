@@ -50,15 +50,15 @@ export class UpsertAddressComponent implements OnInit {
     }
 
 
-    save(addressBean: Address): void {
+    save(): void {
         if (this.isUpdate) {
-            this.accountService.updateAddress({body: addressBean}).subscribe(
+            this.accountService.updateAddress({body: this.address}).subscribe(
                 (address) => {
                     this.router.navigate(['/account/addresses']);
                     this.authService.showAlert({type: 'success', msg: 'Address updated'});
                 });
         } else {
-            this.accountService.createAddress({body: addressBean}).subscribe(
+            this.accountService.createAddress({body: this.address}).subscribe(
                 (address) => {
                     this.router.navigate(['/account/addresses']);
                     this.authService.showAlert({type: 'success', msg: 'New Address added'});

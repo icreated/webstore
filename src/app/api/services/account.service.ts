@@ -823,7 +823,7 @@ export class AccountService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `updateAccount()` instead.
    *
-   * This method sends `* / *` and handles request body of type `* / *`.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   updateAccount$Response(params: {
     context?: HttpContext
@@ -837,7 +837,7 @@ export class AccountService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, AccountService.UpdateAccountPath, 'put');
     if (params) {
-      rb.body(params.body, '*/*');
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(rb.build({
@@ -860,7 +860,7 @@ export class AccountService extends BaseService {
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `updateAccount$Response()` instead.
    *
-   * This method sends `* / *` and handles request body of type `* / *`.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   updateAccount(params: {
     context?: HttpContext

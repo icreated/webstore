@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpsertAddressComponent } from './upsert-address.component';
+import {UserInformationComponent} from './user-information.component';
 
-describe('AddAddressComponent', () => {
-    let component: UpsertAddressComponent;
-    let fixture: ComponentFixture<UpsertAddressComponent>;
+describe('UserInformationComponent', () => {
+    let component: UserInformationComponent;
+    let fixture: ComponentFixture<UserInformationComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ UpsertAddressComponent ]
+            declarations: [ UserInformationComponent ]
         })
             .compileComponents();
 
-        fixture = TestBed.createComponent(UpsertAddressComponent);
+        fixture = TestBed.createComponent(UserInformationComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

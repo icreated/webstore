@@ -259,7 +259,7 @@ paths:
       requestBody:
         description: Account Form
         content:
-          '*/*':
+          application/json:
             schema:
               $ref: '#/components/schemas/AccountInfo'
         required: true
@@ -374,7 +374,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PriceListProduct'
-  /catalog/products/search/{searchString}:
+  /catalog/products/search:
     get:
       tags:
         - Catalog
@@ -383,7 +383,7 @@ paths:
       operationId: getProductsSearch
       parameters:
         - name: searchString
-          in: path
+          in: query
           description: Searching string
           required: true
           schema:
@@ -592,6 +592,8 @@ components:
         email:
           type: string
         password:
+          type: string
+        confirmPassword:
           type: string
     Password:
       type: object

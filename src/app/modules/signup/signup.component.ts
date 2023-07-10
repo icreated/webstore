@@ -16,7 +16,7 @@ export class SignupComponent {
 
     @Input() redirectTo = 'account';
 
-    account: UserCredentials = {};
+    userCredentials: UserCredentials = {};
     accountForm: FormGroup;
 
 
@@ -34,7 +34,7 @@ export class SignupComponent {
     }
 
     login() {
-        this.authService.login(this.account.username, this.account.password, '/home');
+        this.authService.login(this.userCredentials, '/home');
     }
 
     signup(accountForm: FormGroup) {

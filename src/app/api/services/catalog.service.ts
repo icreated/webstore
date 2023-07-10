@@ -272,7 +272,7 @@ export class CatalogService extends BaseService {
   /**
    * Path part for operation getProductsSearch
    */
-  static readonly GetProductsSearchPath = '/catalog/products/search/{searchString}';
+  static readonly GetProductsSearchPath = '/catalog/products/search';
 
   /**
    * Search products.
@@ -296,7 +296,7 @@ export class CatalogService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, CatalogService.GetProductsSearchPath, 'get');
     if (params) {
-      rb.path('searchString', params.searchString, {});
+      rb.query('searchString', params.searchString, {});
     }
 
     return this.http.request(rb.build({
