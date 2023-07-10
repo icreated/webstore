@@ -4,9 +4,9 @@ import {CartService} from 'src/app/core/services/cart.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
 import {Library} from 'src/app/core/library';
 import {CommonService} from '../../../api/services/common.service';
-import {IdNameBean} from '../../../api/models/id-name-bean';
 import {Address} from '../../../api/models/address';
 import {AccountService} from '../../../api/services/account.service';
+import {IdNamePair} from '../../../api/models/id-name-pair';
 
 
 @Component({
@@ -19,8 +19,8 @@ export class Checkout1Component implements OnInit, OnDestroy {
     sub: any;
     billAddressSelected = true;
     address: Address = {} as Address;
-    selectedCountry: IdNameBean = {} as IdNameBean;
-    countries: IdNameBean[] = [];
+    selectedCountry: IdNamePair = {} as IdNamePair;
+    countries: IdNamePair[] = [];
     addresses: Address[] = [];
 
     constructor(private router: Router, private route: ActivatedRoute, private commonService: CommonService,
@@ -37,17 +37,17 @@ export class Checkout1Component implements OnInit, OnDestroy {
                 this.address = {label: 'My address'} as unknown as Address;
                 this.commonService.getCountries()
                     .subscribe(
-                        (countries: IdNameBean[]) => {
+                        (countries: IdNamePair[]) => {
                             this.countries = countries;
                             this.selectedCountry = this.countries.filter(f => f.id === Library.defaultCountryId)[0];
                         });
             });
 
-      this.accountService.getAddresses().subscribe(
-        (addresses: Address[]) => {
-          this.addresses = addresses;
-        }
-      );
+        this.accountService.getAddresses().subscribe(
+            (addresses: Address[]) => {
+                this.addresses = addresses;
+            }
+        );
     }
 
     ngOnDestroy(): any {
