@@ -1,11 +1,12 @@
 .bg {
     /* The image used */
-    background-image: url("/assets/images/tulip.png");
+    background-image: url("/assets/images/tulips.png");
+    opacity: 0.8;
     min-height:500px;
-  
+
     /* Full height */
     height: 100%;
-  
+
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
@@ -14,17 +15,17 @@
 
 .bg h1 {
     font-size: 6em;
-    color:yellowgreen;
+    color: yellowgreen;
     font-weight: bold;
     margin-top: 1em;
 }
 
 .product {
     display: block;
+    background-color: whitesmoke;
     height: auto;
-    border-radius: 5px;
+    border-radius: 7px;
     border: 1px solid #DDDDDD;
-    border-bottom: 1px solid #DDDDDD;
     text-align: center;
     margin: 10px;
     padding: 10px;
@@ -43,5 +44,5 @@
     max-width: 235px;
 }
 
-    
+
 
