@@ -39,7 +39,7 @@ export class AddressesComponent implements OnInit {
     }
 
     updateAddress(address: Address) {
-        this.router.navigate(['/account/new-address', address.id]);
+        this.router.navigate(['/account/upsert-address', address.id]);
     }
 
 }

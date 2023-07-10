@@ -15,5 +15,5 @@ export { UserCredentials } from './models/user-credentials';
 export { PriceListProduct } from './models/price-list-product';
 export { ProductCategory } from './models/product-category';
 export { PaymentParam } from './models/payment-param';
-export { IdNameBean } from './models/id-name-bean';
+export { IdNamePair } from './models/id-name-pair';
 export { Token } from './models/token';

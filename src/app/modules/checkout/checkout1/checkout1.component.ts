@@ -39,7 +39,7 @@ export class Checkout1Component implements OnInit, OnDestroy {
                     .subscribe(
                         (countries: IdNameBean[]) => {
                             this.countries = countries;
-                            this.selectedCountry = this.countries.filter(f => f.id === Library.currentCountryId)[0];
+                            this.selectedCountry = this.countries.filter(f => f.id === Library.defaultCountryId)[0];
                         });
             });
 

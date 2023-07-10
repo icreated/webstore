@@ -456,7 +456,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/IdNameBean'
+                  $ref: '#/components/schemas/IdNamePair'
   /common/lookup/email:
     post:
       tags:
@@ -773,7 +773,7 @@ components:
         orderId:
           type: integer
           format: int32
-    IdNameBean:
+    IdNamePair:
       type: object
       properties:
         id:

@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { IdNameBean } from '../models/id-name-bean';
+import { IdNamePair } from '../models/id-name-pair';
 import { Shipper } from '../models/shipper';
 import { Token } from '../models/token';
 
@@ -42,7 +42,7 @@ export class CommonService extends BaseService {
   getCountries$Response(params?: {
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<Array<IdNameBean>>> {
+): Observable<StrictHttpResponse<Array<IdNamePair>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CommonService.GetCountriesPath, 'get');
     if (params) {
@@ -55,7 +55,7 @@ export class CommonService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<IdNameBean>>;
+        return r as StrictHttpResponse<Array<IdNamePair>>;
       })
     );
   }
@@ -73,10 +73,10 @@ export class CommonService extends BaseService {
   getCountries(params?: {
     context?: HttpContext
   }
-): Observable<Array<IdNameBean>> {
+): Observable<Array<IdNamePair>> {
 
     return this.getCountries$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<IdNameBean>>) => r.body as Array<IdNameBean>)
+      map((r: StrictHttpResponse<Array<IdNamePair>>) => r.body as Array<IdNamePair>)
     );
   }
 

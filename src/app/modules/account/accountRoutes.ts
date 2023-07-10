@@ -19,8 +19,8 @@ export const ACCOUNT_ROUTES: Routes = [
             {path: 'orders', component: OrdersComponent, canActivate: [AuthGuard]},
             {path: 'order/:id', component: OrderComponent, canActivate: [AuthGuard]},
             {path: 'addresses', component: AddressesComponent, canActivate: [AuthGuard]},
-            {path: 'new-address/:id', component: UpsertAddressComponent, canActivate: [AuthGuard]},
-            {path: 'new-address', component: UpsertAddressComponent, canActivate: [AuthGuard]},
+            {path: 'upsert-address/:id', component: UpsertAddressComponent, canActivate: [AuthGuard]},
+            {path: 'upsert-address', component: UpsertAddressComponent, canActivate: [AuthGuard]},
             {path: 'information', component: UserInformationComponent, canActivate: [AuthGuard]},
             {path: 'password', component: UserPasswordComponent, canActivate: [AuthGuard]},
             {path: '**', redirectTo: '/account/menu', pathMatch: 'full'}

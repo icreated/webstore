@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface IdNameBean {
+export interface IdNamePair {
   id?: number;
   name?: string;
 }

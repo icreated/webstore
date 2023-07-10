@@ -7,7 +7,7 @@ export class Library {
     public static readonly apiEndpoint = 'http://' + Library.apiDomain + '/services/api/';
 
     public static readonly storageKey = 'webStore';
-    public static readonly currentCountryId = 100;
+    public static readonly defaultCountryId = 100;
   public static readonly webMasterEmail = 'webmaster@mycompany';
 
 }
