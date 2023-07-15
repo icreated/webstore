@@ -15,7 +15,7 @@
           <p>&nbsp;{{item.description}}</p>
         </div>
         <div class="product-price">
-          <p> {{item.price | currency}}<a (click)="add(item)" [routerLink]=""><i class="fa fa-cart-plus ml-2"></i></a></p>
+          <p> {{item.price | currency}}<a role="button" (click)="add(item)" [routerLink]=""><i class="fa fa-cart-plus ml-2"></i></a></p>
       </div>
      </div>
     </div>
