@@ -4,6 +4,7 @@ import {AuthService} from 'src/app/core/authentication/auth.service';
 import {ValidationService} from 'src/app/core/services/validation.service';
 import {AccountService} from '../../../api/services/account.service';
 import {Password} from '../../../api/models/password';
+import {AlertService} from '../../../core/services/alert.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class UserPasswordComponent {
     passwordForm: FormGroup;
     active = true;
 
-    constructor(private accountService: AccountService, private authService: AuthService, private builder: FormBuilder) {
+    constructor(private accountService: AccountService, private authService: AuthService,
+                private alertService: AlertService, private builder: FormBuilder) {
         this.passwordForm = this.builder.group({
             password: ['', [Validators.required]],
             newPassword: ['', [Validators.required, ValidationService.passwordValidator]],
@@ -34,7 +36,7 @@ export class UserPasswordComponent {
                             this.passwordForm.controls['password'].setErrors({invalidOldPassword: true});
                         } else {
                             this.authService.updateToken(resp);
-                            this.authService.showAlert({type: 'success', msg: 'Password updated'});
+                            this.alertService.showAlert({type: 'success', msg: 'Password updated'});
                             password = {} as Password;
                             this.passwordForm.reset();
                             this.active = false;

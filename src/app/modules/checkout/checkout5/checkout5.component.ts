@@ -6,6 +6,7 @@ import {CartService} from 'src/app/core/services/cart.service';
 import {FileService} from 'src/app/core/services/file.service';
 import {Order} from '../../../api/models/order';
 import {AccountService} from '../../../api/services/account.service';
+import {AlertService} from '../../../core/services/alert.service';
 
 @Component({
     selector: 'app-checkout5',
@@ -18,7 +19,7 @@ export class Checkout5Component implements OnInit {
     order: Order = {shipAddress: {}, billAddress: {}} as Order;
 
     constructor(private router: Router, private checkoutService: CheckoutService, private route: ActivatedRoute,
-        private accountService: AccountService, private authService: AuthService,
+        private accountService: AccountService, private alertService: AlertService,
         private cartService: CartService, private fileService: FileService) {
     }
 
@@ -33,11 +34,11 @@ export class Checkout5Component implements OnInit {
                             (data: Order) => {
                                 this.order = data;
                                 if (this.order.docStatus === 'CO') {
-                                    this.authService.showAlert({type: 'success', msg: 'Order ' + this.order.documentNo + ' is validated'});
+                                    this.alertService.showAlert({type: 'success', msg: 'Order ' + this.order.documentNo + ' is validated'});
                                     this.cartService.clearCart();
                                     this.checkoutService.clear();
                                 } else if (this.order.docStatus === 'VO') {
-                                    this.authService.showAlert({type: 'warning', msg: 'Order ' + this.order.documentNo + ' is validated'});
+                                    this.alertService.showAlert({type: 'warning', msg: 'Order ' + this.order.documentNo + ' is validated'});
                                     this.checkoutService.voidCurrentOrder();
                                 }
                             });

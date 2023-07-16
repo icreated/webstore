@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Alert} from '../../models/alert';
-import {AuthService} from 'src/app/core/authentication/auth.service';
+import {AlertService} from '../../../core/services/alert.service';
 
 
 @Component({
@@ -18,11 +18,11 @@ export class AlertComponent implements OnInit {
     closed = false;
     private classes: Array<string> = [];
 
-    constructor(private authService: AuthService) {
+    constructor(private alertService: AlertService) {
     }
 
     public ngOnInit(): any {
-        this.authService.alertSource.subscribe(
+        this.alertService.alertSource.subscribe(
             alert => {
 
                 this.closed = false;

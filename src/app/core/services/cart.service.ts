@@ -8,6 +8,7 @@ import {SimpleItem} from 'src/app/shared/models/simple-item';
 import {AuthService} from '../authentication/auth.service';
 import {PriceListProduct} from '../../api/models/price-list-product';
 import {CatalogService} from '../../api/services/catalog.service';
+import {AlertService} from './alert.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class CartService {
     private cart: WritableSignal<PriceListProduct[]> = signal([]);
 
     constructor(private catalogService: CatalogService, private storageService: LocalStorageService, private router: Router,
-        private authService: AuthService) {
+        private alertService: AlertService) {
 
         effect(() => {
             this.saveCartToStorage();
@@ -30,9 +31,11 @@ export class CartService {
               .find((product) => product.id === item.id);
             if (productIn) {
               productIn.qty += 1;
+              this.alertService.showAlert({type: 'success', msg: 'Quantity has been updated'});
             } else {
               item.qty = 1;
               basket.push(item);
+              this.alertService.showAlert({type: 'success', msg: 'Item has been added to shopping cart'});
             }
         });
     }
@@ -51,7 +54,7 @@ export class CartService {
     deleteItem(item: PriceListProduct) {
         const index = this.cart().indexOf(item);
         this.cart.mutate((basket) => basket.splice(index, 1));
-        this.authService.showAlert({type: 'success', msg: 'Item has been removed from shopping cart'});
+        this.alertService.showAlert({type: 'success', msg: 'Item has been removed from shopping cart'});
     }
 
     clearCart() {

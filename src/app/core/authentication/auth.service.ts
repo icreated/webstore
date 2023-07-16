@@ -9,6 +9,7 @@ import {AuthenticationService} from '../../api/services/authentication.service';
 import {Token} from '../../api/models/token';
 import {AccountService} from '../../api/services/account.service';
 import {NewAccountForm} from '../../api/models/new-account-form';
+import {AlertService} from '../services/alert.service';
 
 
 @Injectable()
@@ -19,9 +20,6 @@ export class AuthService {
     decodedToken$ = this.decodedTokenSource.asObservable();
     jwtHelper: JwtHelperService = new JwtHelperService();
 
-    alertSource = new Subject<Alert>();
-    alert$ = this.alertSource.asObservable();
-
     logoutSource = new Subject<boolean>();
     logout$ = this.logoutSource.asObservable();
 
@@ -30,7 +28,7 @@ export class AuthService {
     private name = '';
 
     constructor(private authenticationService: AuthenticationService, private accountService: AccountService,
-                private router: Router) {
+                private alertService: AlertService, private router: Router) {
     }
 
 
@@ -41,14 +39,14 @@ export class AuthService {
                 this.loggedIn = true;
                 localStorage.setItem('jwt', response.body?.token || '');
                 this.onDecodedToken(response.body?.token || '');
-                this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
+                this.alertService.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
                 this.router.navigateByUrl('/' + redirectTo);
             },
             error => {
                 this.loggedIn = false;
                 this.router.navigateByUrl('/signup');
                 this.decodedToken = null;
-                this.showAlert({type: 'warning', msg: 'Credentials are wrong'});
+                this.alertService.showAlert({type: 'warning', msg: 'Credentials are wrong'});
             }
         );
 
@@ -61,7 +59,7 @@ export class AuthService {
                 this.loggedIn = true;
                 localStorage.setItem('jwt', response.body?.token || '');
                 this.onDecodedToken(response.body?.token || '');
-                this.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
+                this.alertService.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
                 this.router.navigateByUrl('/' + redirectTo);
             },
             error => {
@@ -114,10 +112,6 @@ export class AuthService {
         this.decodedToken = null;
         localStorage.removeItem('jwt');
         this.logoutSource.next(true);
-    }
-
-    showAlert(alert: Alert) {
-        this.alertSource.next(alert);
     }
 
 }

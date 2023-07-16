@@ -8,6 +8,7 @@ import {AccountService} from '../../../api/services/account.service';
 import {switchMap} from 'rxjs/operators';
 import {EMPTY} from 'rxjs';
 import {IdNamePair} from '../../../api/models/id-name-pair';
+import {AlertService} from '../../../core/services/alert.service';
 
 @Component({
     selector: 'app-upsert-address',
@@ -19,7 +20,7 @@ export class UpsertAddressComponent implements OnInit {
     countries: IdNamePair[] = [];
     isUpdate = false;
 
-    constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
+    constructor(private router: Router, private route: ActivatedRoute, private alertService: AlertService,
                 private accountService: AccountService, private commonService: CommonService) {
     }
 
@@ -55,13 +56,13 @@ export class UpsertAddressComponent implements OnInit {
             this.accountService.updateAddress({body: this.address}).subscribe(
                 (address) => {
                     this.router.navigate(['/account/addresses']);
-                    this.authService.showAlert({type: 'success', msg: 'Address updated'});
+                    this.alertService.showAlert({type: 'success', msg: 'Address updated'});
                 });
         } else {
             this.accountService.createAddress({body: this.address}).subscribe(
                 (address) => {
                     this.router.navigate(['/account/addresses']);
-                    this.authService.showAlert({type: 'success', msg: 'New Address added'});
+                    this.alertService.showAlert({type: 'success', msg: 'New Address added'});
                 });
         }
     }

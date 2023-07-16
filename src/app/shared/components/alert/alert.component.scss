@@ -3,8 +3,12 @@
   top: 80px;
   left: 0;
   width: 100%;
-  height: 3em;
   border-radius: 0;
+  text-align: center;
+}
+.alert-text {
+  font-size: 1.2em;
+  font-weight: bold;
 }
 .alert-fixed {
   z-index: 9999;

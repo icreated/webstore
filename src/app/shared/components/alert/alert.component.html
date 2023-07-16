@@ -1,8 +1,7 @@
 <div id="myAlert" class="alert my-alert fade2" role="alert" [ngClass]="classes" *ngIf="!closed">
-    <button *ngIf="dismissible" type="button" class="close" (click)="onClose()" (touch)="onClose()">
-      <span aria-hidden="true">&times;</span>
-      <span class="sr-only">Close</span>
+    <span class="alert-text"> {{alert.msg}}</span>
+    <button *ngIf="dismissible" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            (click)="onClose()">
     </button>
-    <h4 align="center">{{alert.msg}}</h4>
-  </div>
+</div>
 

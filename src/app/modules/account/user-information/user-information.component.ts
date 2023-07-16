@@ -8,6 +8,7 @@ import {DBValidator} from 'src/app/shared/validators/db.validator';
 import {AccountInfo} from '../../../api/models/account-info';
 import {AccountService} from '../../../api/services/account.service';
 import {Token} from '../../../api/models/token';
+import {AlertService} from '../../../core/services/alert.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class UserInformationComponent implements OnInit {
     accountSource = new Subject<AccountInfo>();
     account$ = this.accountSource.asObservable();
 
-    constructor(private accountService: AccountService, private authService: AuthService,
+    constructor(private accountService: AccountService, private alertService: AlertService,
                 private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator) {
 
         this.accountForm = this.builder.group({
@@ -49,7 +50,7 @@ export class UserInformationComponent implements OnInit {
             this.accountService.updateAccount({body: accountBean}).subscribe(
                 (data: Token) => {
                     this.accountSource.next(this.account);
-                    this.authService.showAlert({type: 'success', msg: 'Account updated'});
+                    this.alertService.showAlert({type: 'success', msg: 'Account updated'});
                 });
         }
     }
