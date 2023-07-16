@@ -5,11 +5,11 @@
 </div>
 
 
-<div class="alert alert-warning mx-2" *ngIf="cartService.getCart().length === 0">
+<div class="alert alert-warning mx-2" *ngIf="items.length === 0">
   <strong>Empty</strong>
 </div>
 
-<div class="row mx-2" *ngIf="cartService.getCart().length > 0">
+<div class="row mx-2" *ngIf="items.length > 0">
 
   <table class="table table-striped">
     <tbody>
@@ -21,7 +21,7 @@
         <th>Total</th>
         <th>&nbsp;</th>
       </tr>
-      <tr *ngFor="let line of cartService.getCart()">
+      <tr *ngFor="let line of items">
         <td><h5>{{line.name}}</h5></td>
         <td scope="col" class="d-none d-sm-table-cell">{{line.description}}</td>
         <td scope="col" class="d-none d-sm-table-cell text-center">{{line.price | currency}}</td>
@@ -42,7 +42,7 @@
   </table>
 </div>
 
-<div class="row" *ngIf="cartService.getCart().length > 0">
+<div class="row" *ngIf="items.length > 0">
       <div class="ml-auto col-auto mx-2">
         <a [routerLink]="['/checkout/checkout1']"class="btn btn-primary btn-lg btn-block"
         title="checkout" style="margin-bottom: 20px"> Pay &nbsp; {{cartService.getTotalPrice() | currency}}</a>

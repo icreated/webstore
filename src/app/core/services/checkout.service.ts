@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {CartService} from './cart.service';
 import {AuthService} from '../authentication/auth.service';
 import {Subject} from 'rxjs';
-import {PriceListProduct} from '../../api/models/price-list-product';
 import {Shipper} from '../../api/models/shipper';
 import {Order} from '../../api/models/order';
 import {AccountService} from '../../api/services/account.service';

@@ -757,6 +757,12 @@ components:
         line:
           type: integer
           format: int32
+      required:
+        - id
+        - name
+        - price
+        - qty
+        - line
     ProductCategory:
       type: object
       properties:

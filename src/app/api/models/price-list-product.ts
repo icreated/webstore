@@ -4,11 +4,11 @@ export interface PriceListProduct {
   description?: string;
   documentNote?: string;
   help?: string;
-  id?: number;
+  id: number;
   imageURL?: string;
-  line?: number;
-  name?: string;
-  price?: number;
-  qty?: number;
+  line: number;
+  name: string;
+  price: number;
+  qty: number;
   value?: string;
 }

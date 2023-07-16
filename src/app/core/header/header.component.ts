@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, effect, OnInit} from '@angular/core';
 import {CartService} from '../services/cart.service';
 import {AuthService} from '../authentication/auth.service';
 import {Router} from '@angular/router';
@@ -17,9 +17,15 @@ export class HeaderComponent implements OnInit {
     decodedToken: any;
 
     categories: ProductCategory[] = [];
+    cartCount = 0;
 
     constructor(private router: Router, private catalogService: CatalogService, private cartService: CartService,
         private authService: AuthService) {
+
+      effect(() => {
+        console.log('effect', this.cartService.getCart());
+        this.cartCount = this.cartService.getCart().length;
+      });
     }
 
     ngOnInit() {
@@ -27,26 +33,7 @@ export class HeaderComponent implements OnInit {
             this.categories = data;
         });
 
-        let cartItems = this.cartService.getCart();
-
-        if (cartItems.length === 0) {
-            this.cartService.getCartFromStorage().subscribe((res: PriceListProduct[]) => {
-                if (!res) {
-                    return;
-                }
-                cartItems = res;
-                cartItems.forEach((item) => {
-                    for (const sitem of this.cartService.getSimpleCart()) {
-                        if (item.id === sitem.id) {
-                            item.qty = sitem.qty;
-                            break;
-                        }
-                    }
-                });
-                this.cartService.setCart(cartItems);
-            });
-        }
-
+        this.cartService.getCartFromStorage();
 
         this.authService.decodedToken$.subscribe(
             token => {
@@ -60,9 +47,6 @@ export class HeaderComponent implements OnInit {
         event.target.search.value = '';
     }
 
-    getCartCount() {
-        return this.cartService.getCart().length;
-    }
 
     isLogged() {
         return this.authService.isAuthenticated();

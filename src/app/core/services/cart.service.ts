@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {effect, Injectable, signal, WritableSignal} from '@angular/core';
 import {LocalStorageService} from './local.storage.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
@@ -7,101 +7,80 @@ import {HEADERS, Library} from '../library';
 import {SimpleItem} from 'src/app/shared/models/simple-item';
 import {AuthService} from '../authentication/auth.service';
 import {PriceListProduct} from '../../api/models/price-list-product';
+import {CatalogService} from '../../api/services/catalog.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CartService {
 
-    private cart: PriceListProduct[] = [];
-    private simpleCart: SimpleItem[] = [];
+    private cart: WritableSignal<PriceListProduct[]> = signal([]);
 
-    constructor(private http: HttpClient, private storageService: LocalStorageService, private router: Router,
+    constructor(private catalogService: CatalogService, private storageService: LocalStorageService, private router: Router,
         private authService: AuthService) {
-        this.cart = [];
+
+        effect(() => {
+            this.saveCartToStorage();
+        } );
     }
 
     addItem(item: PriceListProduct) {
-        this.cart.push(item);
-        this.synchronize(item);
-        this.authService.showAlert({type: 'success', msg: 'Item added to cart'});
-    }
-
-    synchronize(curItem: PriceListProduct) {
-
-        if (typeof this.simpleCart === 'undefined') {
-            this.simpleCart = [];
-        }
-
-        let updated = false;
-        this.simpleCart.forEach((item, index) => {
-            if (item.id === curItem.id) {
-                if (curItem.qty != null) {
-                    item.qty = curItem.qty;
-                }
-                updated = true;
+        this.cart.mutate((basket) => {
+            const productIn = basket
+              .find((product) => product.id === item.id);
+            if (productIn) {
+              productIn.qty += 1;
+            } else {
+              item.qty = 1;
+              basket.push(item);
             }
         });
-        if (!updated) {
-            const sObj = {} as SimpleItem;
-            if (curItem.id != null) {
-                sObj.id = curItem.id;
-            }
-            if (curItem.qty != null) {
-                sObj.qty = curItem.qty;
-            }
-            this.simpleCart.push(sObj);
-        }
-        this.storageService.save('cart', this.simpleCart);
     }
 
+
+    saveCartToStorage() {
+      if (this.cart().length > 0) {
+        const simpleCart = this.cart().map((item) => {
+          return {id: item.id, qty: item.qty};
+        });
+        this.storageService.save('cart', simpleCart);
+      }
+    }
+
+
     deleteItem(item: PriceListProduct) {
-        const index = this.cart.indexOf(item);
-        this.cart.splice(index, 1);
-        this.simpleCart.splice(index, 1);
-        this.storageService.save('cart', this.simpleCart);
+        const index = this.cart().indexOf(item);
+        this.cart.mutate((basket) => basket.splice(index, 1));
         this.authService.showAlert({type: 'success', msg: 'Item has been removed from shopping cart'});
     }
 
     clearCart() {
-        this.cart = [];
-        this.storageService.save('cart', []);
-        this.simpleCart = [];
+        this.cart.set([]);
     }
 
-    setCart(cart: PriceListProduct[]) {
-        this.cart = cart;
-    }
 
     getCart() {
-        return this.cart;
+        return this.cart();
     }
 
-    getSimpleCart() {
-        return this.simpleCart;
-    }
 
-    getCartFromStorage(): Observable<any> {
-        this.simpleCart = this.storageService.get('cart');
-        if (this.simpleCart === null || this.simpleCart === undefined) {
-            this.storageService.save('cart', []);
-            this.simpleCart = this.storageService.get('cart');
+    getCartFromStorage() {
+        const cart: SimpleItem[] = this.storageService.get('cart');
+        let ids: number[] = [];
+        if (typeof cart !== 'undefined') {
+          ids = cart.map(item => item.id);
+          this.catalogService.getCart({'ids': ids})
+            .subscribe((list) => {
+              list.forEach((item) => {
+                item.qty = cart.find(sItem => sItem.id === item.id)?.qty || 1;
+              } );
+              this.cart.set(list);
+            });
         }
-
-        let params: HttpParams = new HttpParams();
-        if (typeof this.simpleCart !== 'undefined') {
-            for (const item of this.simpleCart) {
-                params = params.append('id', item.id.toString());
-            }
-        }
-
-        return this.http.get(Library.apiEndpoint + 'catalog/cart', {params, headers: HEADERS});
     }
 
     getTotalPrice() {
-        // @ts-ignore
-        const totalPrice = this.cart.reduce((sum, cartItem) => (sum += cartItem.price * cartItem.qty, sum), 0);
-        return totalPrice;
+      return this.cart().reduce((sum, item) => (sum += item.price * item?.qty, sum), 0);
     }
 
 }

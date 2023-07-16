@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, effect} from '@angular/core';
 import {CartService} from 'src/app/core/services/cart.service';
 import {PriceListProduct} from '../../api/models/price-list-product';
 
@@ -9,12 +9,14 @@ import {PriceListProduct} from '../../api/models/price-list-product';
 })
 export class CartComponent {
 
+    items: PriceListProduct[] = [];
+
     constructor(public cartService: CartService) {
+      effect(() => {
+        this.items = this.cartService.getCart();
+      });
     }
 
-    onCounterChange(item: PriceListProduct) {
-        this.cartService.synchronize(item);
-    }
 
     deleteItem(item: PriceListProduct) {
         this.cartService.deleteItem(item);
