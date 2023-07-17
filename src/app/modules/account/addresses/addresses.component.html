@@ -17,40 +17,20 @@
       </div>
 
       <div class="col-lg-4 col-md-4" *ngFor="let address of addresses">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><strong>{{address.name}}</strong></h3>
-          </div>
-          <div class="panel-body">
-            <ul class="list-inline">
-              <li>{{address.location?.address1}}</li>
-              <li>{{address.location?.address2}}</li>
-              <li>{{address.location?.postal}} {{address.location?.city}}</li>
-              <li>{{address.location?.country?.name}}</li>
-              <li *ngIf="!address.location?.address2">&nbsp;</li>
-            </ul>
-          </div>
-          <div class="panel-footer">
-            <button (click)="updateAddress(address)" class="btn btn-sm btn-success mr-2"><i class="fa fa-edit mr-2"> </i>Update</button>
-            <button (click)="deleteAddress(address)" class="btn btn-sm btn-danger"> <i class="fa fa-minus-circle mr-2"></i>Delete</button>
-          </div>
-        </div>
+          <app-address [address]="address" [actions]="actions" (actionEvent)="actionEvent($event, address)"></app-address>
       </div>
-
 
       <div class="col-lg-12 my-5">
-        <a class="btn btn-primary" [routerLink]="['/account/upsert-address']"><i class="fa fa-plus-circle mr-2"></i> Add new address</a>
+        <a class="btn btn-primary" [routerLink]="['/account/upsert-address']"><i class="fa fa-plus-circle me-2"></i> Add new address</a>
       </div>
-
-
     </div>
 </div>
 
 <div class="col-lg-12 clearfix">
     <ul class="contentFooter list-inline">
-      <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home mr-2"></i> Home</a>
+      <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home me-2"></i> Home</a>
       </li>
-      <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left mr-2"></i> Account</a></li>
+      <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left me-2"></i> Account</a></li>
     </ul>
 </div>
 

@@ -12,7 +12,7 @@
 <div class="container" *ngIf="order">
     <div class="row">
         <div class="col-12">
-          <h1><span><i class="fa fa-list-alt mr-2"></i> My order </span></h1>
+          <h1><span><i class="fa fa-list-alt me-2"></i> My order </span></h1>
 
           <div class="row">
             <div class="col-lg-12">
@@ -25,10 +25,10 @@
                 <p><strong>Date: </strong> {{order.date | date:'MM/dd/yyyy'}}</p>
                 <p><strong># </strong> {{order.documentNo}}</p>
                 <p><strong>
-                  <button class="btn btn-sm btn-warning mr-2" *ngIf="order.docStatus === 'IP'" (click)="voidOrder()">Void</button>
+                  <button class="btn btn-sm btn-warning me-2" *ngIf="order.docStatus === 'IP'" (click)="voidOrder()">Void</button>
                 </strong></p>
                 <p><strong>
-                  <button class="btn btn-sm btn-success mr-2" (click)="downloadOrder()">PDF</button>
+                  <button class="btn btn-sm btn-success me-2" (click)="downloadOrder()">PDF</button>
                 </strong></p>
               </div>
             </div>
@@ -123,9 +123,9 @@
 
 <div class="col-lg-12 my-2">
     <ul class="contentFooter list-inline">
-      <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home mr-2"></i> Home</a>
+      <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home me-2"></i> Home</a>
       </li>
-      <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left mr-2"></i> Account</a></li>
+      <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left me-2"></i> Account</a></li>
     </ul>
 </div>
 

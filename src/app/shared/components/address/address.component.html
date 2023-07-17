@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><strong>{{address.name}}</strong></h3>
+  </div>
+  <div class="panel-body">
+    <ul class="list-inline">
+      <li>{{address.location?.address1}}</li>
+      <li>{{address.location?.address2}}</li>
+      <li>{{address.location?.postal}} {{address.location?.city}}</li>
+      <li>{{address.location?.country?.name}}</li>
+      <li *ngIf="!address.location?.address2">&nbsp;</li>
+    </ul>
+  </div>
+  <div class="panel-footer">
+    <button *ngFor="let action of actions" (click)="onClick(action)" class="btn btn-sm me-2 {{action.buttonClass}}"><i class="fa {{action.icon}} me-2"></i>{{action.label}}</button>
+<!--    <button (click)="updateAddress(address)" class="btn btn-sm btn-success me-2"><i class="fa fa-edit me-2"> </i>Update</button>-->
+<!--    <button (click)="deleteAddress(address)" class="btn btn-sm btn-danger"> <i class="fa fa-minus-circle me-2"></i>Delete</button>-->
+  </div>
+</div>

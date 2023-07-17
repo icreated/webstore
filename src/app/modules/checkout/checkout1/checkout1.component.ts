@@ -14,7 +14,7 @@ import {IdNamePair} from '../../../api/models/id-name-pair';
     templateUrl: './checkout1.component.html',
     styleUrls: ['./checkout1.component.scss'],
 })
-export class Checkout1Component implements OnInit, OnDestroy {
+export class Checkout1Component implements OnInit {
 
     sub: any;
     billAddressSelected = true;
@@ -31,10 +31,10 @@ export class Checkout1Component implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.checkoutService.clear();
 
-        this.sub = this.route
+        this.route
             .params
             .subscribe(params => {
-                this.address = {label: 'My address'} as unknown as Address;
+                this.address = {label: 'My address', location: {} } as unknown as Address;
                 this.commonService.getCountries()
                     .subscribe(
                         (countries: IdNamePair[]) => {
@@ -43,18 +43,10 @@ export class Checkout1Component implements OnInit, OnDestroy {
                         });
             });
 
-        this.accountService.getAddresses().subscribe(
-            (addresses: Address[]) => {
-                this.addresses = addresses;
-            }
-        );
+        this.accountService.getAddresses()
+          .subscribe(addresses => this.addresses = addresses);
     }
 
-    ngOnDestroy(): any {
-        if (this.sub) {
-            this.sub.unsubscribe();
-        }
-    }
 
     validateShipAddress(address: Address) {
         this.checkoutService.setShipAddress(address);

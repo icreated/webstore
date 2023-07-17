@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from 'src/app/core/authentication/auth.service';
 import {Address} from '../../../api/models/address';
 import {AccountService} from '../../../api/services/account.service';
+import {AddressAction} from '../../../shared/components/address/address.component';
+import {AlertService} from '../../../core/services/alert.service';
 
+const EDIT = 'Edit';
+const DELETE = 'Delete';
 
 @Component({
     selector: 'app-addresses',
@@ -12,9 +15,13 @@ import {AccountService} from '../../../api/services/account.service';
 export class AddressesComponent implements OnInit {
 
     addresses: Address[] = [];
+    actions = [
+      {label: EDIT, icon: 'fa-edit', buttonClass: 'btn-primary'},
+      {label: DELETE, icon: 'fa-minus-circle', buttonClass: 'btn-danger'},
+      ];
 
     constructor(private router: Router, public accountService: AccountService,
-        private authService: AuthService) {}
+        private alertService: AlertService) {}
 
     ngOnInit(): any {
         this.accountService.getAddresses()
@@ -22,24 +29,36 @@ export class AddressesComponent implements OnInit {
 
     }
 
+    actionEvent(action: AddressAction, address: Address) {
+      switch (action.label) {
+        case EDIT:
+          this.updateAddress(address);
+          break;
+        case DELETE:
+          this.deleteAddress(address);
+          break;
+      }
+    }
+
+    updateAddress(address: Address) {
+      this.router.navigate(['/account/upsert-address', address.id]);
+    }
+
     deleteAddress(item: Address) {
-        this.accountService.deleteAddress({id: item?.id || 0})
+        this.accountService.deleteAddress$Response({id: item.id || 0})
             .subscribe(
                 res => {
-                    // TODO: SPOK: Fix this
-                    // if (res.status === 202) {
-                    //     const i = this.accountService.addresses.indexOf(item);
-                    //     this.accountService.addresses.splice(i, 1);
-                    //     this.authService.showAlert({type: 'success', msg: 'Address deleted'});
-                    // } else {
-                    //     this.authService.showAlert({type: 'danger', msg: 'Address not deleted'});
-                    // }
+                  console.log(res.status);
+                    if (res.status === 200) {
+                        this.addresses = this.addresses.filter(a => a.id !== item.id);
+                        this.alertService.showAlert({type: 'success', msg: 'Address deleted'});
+                    } else {
+                        this.alertService.showAlert({type: 'danger', msg: 'Address not deleted'});
+                    }
                 }
             );
     }
 
-    updateAddress(address: Address) {
-        this.router.navigate(['/account/upsert-address', address.id]);
-    }
-
 }
+
+

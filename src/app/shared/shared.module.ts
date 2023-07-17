@@ -6,6 +6,8 @@ import {RouterModule} from '@angular/router';
 import {ControlMessagesComponent} from './components/control-messages/control-messages.component';
 import {AlertComponent} from './components/alert/alert.component';
 import {DocStatusFormat} from './pipes/docstatus-format';
+import { AddressComponent } from './components/address/address.component';
+import { FormAddressComponent } from './components/form-address/form-address.component';
 
 @NgModule({
     imports: [
@@ -16,11 +18,11 @@ import {DocStatusFormat} from './pipes/docstatus-format';
         RouterModule
     ],
     declarations: [
-        ControlMessagesComponent, AlertComponent, DocStatusFormat
+        ControlMessagesComponent, AlertComponent, DocStatusFormat, AddressComponent, FormAddressComponent
     ],
-    exports: [
-        ControlMessagesComponent, AlertComponent, DocStatusFormat
-    ],
+  exports: [
+    ControlMessagesComponent, AlertComponent, DocStatusFormat, AddressComponent
+  ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule {

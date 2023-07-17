@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row">
 
+
     <div class="col-lg-4 col-md-4 my-2" *ngFor="let address of addresses">
       <div class="panel panel-default">
           <div class="panel-heading">
@@ -8,13 +9,13 @@
           </div>
           <div class="panel-body">
             <ul class="list-inline">
-              <li><span>{{address.location.address1}}</span></li>
-              <li><span>{{address.location.address2}}</span></li>
-              <li><span>{{address.location.postal}} {{address.location.city}}</span></li>
-              <li><span>{{address.location.country.name}}</span></li>
+              <li><span>{{address.location?.address1}}</span></li>
+              <li><span>{{address.location?.address2}}</span></li>
+              <li><span>{{address.location?.postal}} {{address.location?.city}}</span></li>
+              <li><span>{{address.location?.country?.name}}</span></li>
 
-              <li *ngIf="!address.location.address2"><span>&nbsp;</span></li>
-              <li *ngIf="!address.phone"><span> <strong class="mr-2">Phone</strong>{{address.phone}}</span></li>
+              <li *ngIf="!address.location?.address2"><span>&nbsp;</span></li>
+              <li *ngIf="!address.phone"><span> <strong class="me-2">Phone</strong>{{address.phone}}</span></li>
             </ul>
           </div>
           <div class="panel-footer panel-footer-address">
