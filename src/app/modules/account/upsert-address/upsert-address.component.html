@@ -9,88 +9,16 @@
     </div>
   </div>
 
-
   <div class="container">
     <div class="row">
       <div class="col-12">
-
         <h1 class="section-title-inner">
           <span><i class="fa fa-map-marker me-2"></i>{{ isUpdate ? 'Update address' : 'Add address' }}</span>
         </h1>
-
-        <form novalidate #addressForm="ngForm" (ngSubmit)='save()'>
-          <div class="row mb-2">
-            <div class="col-12">
-              <h2 class="block-title-2"> Fill in this form</h2>
-              <p class="required"><sup>*</sup> Mandatory</p>
-            </div>
-
-            <input [(ngModel)]="address.id" name="id" #id="ngModel" type="hidden">
-            <div class="col-lg-12 col-xs-12 col-sm-12 mb-2">
-                <div class="form-group required">
-                  <label for="addressLabel">Address Label<sup>*</sup></label>
-                  <em [hidden]="label.valid || label.pristine" class="has-error">Label is mandatory</em>
-                  <input [(ngModel)]="address.name" #label="ngModel" type="text" value="My address" name="name"
-                          class="form-control" id="addressLabel" required>
-                </div>
-            </div>
-            <div class="col-lg-6 col-xs-6 col-sm-12 d-grid gap-2">
-              <div class="form-group required">
-                <label for="InputAddress">Address <sup>*</sup> </label>
-                <em [hidden]="address1.valid || address1.pristine" class="has-error">Your address is mandatory</em>
-                <input [(ngModel)]="address.location.address1" #address1="ngModel" name="address1" type="text"
-                        class="form-control" id="InputAddress" placeholder="Address" required>
-              </div>
-
-              <div class="form-group">
-                <label for="InputAddress2">Address 2</label>
-                <input [(ngModel)]="address.location.address2" name="address2" type="text" class="form-control" id="InputAddress2"
-                        placeholder="Address 2">
-              </div>
-
-              <div class="form-group required">
-                <label for="InputMobile">Phone <sup>*</sup></label>
-                <em [hidden]="phone.valid || phone.pristine" class="has-error">Phone is mandatory for delivery</em>
-                <input [(ngModel)]="address.phone" #phone="ngModel" type="tel" name="phone" class="form-control" id="InputMobile" required>
-              </div>
-            </div>
-
-            <div class="col-lg-6 col-xs-6 col-sm-12 d-grid gap-2">
-              <div class="form-group required">
-                <label for="InputCity">City <sup>*</sup> </label>
-                <em [hidden]="city.valid || city.pristine" class="has-error">Your city is mandatory</em>
-                <input [(ngModel)]="address.location.city" name="city" #city="ngModel" type="text" class="form-control" id="InputCity" placeholder="City"  required>
-              </div>
-
-              <div class="form-group required">
-                <label for="InputZip">Postal <sup>*</sup> </label>
-                <em [hidden]="postal.valid || postal.pristine" class="has-error">Your postal is mandatory</em>
-                <input [(ngModel)]="address.location.postal" name="postal" #postal="ngModel" type="text" class="form-control" id="InputZip" placeholder="Postal" required>
-              </div>
-
-              <div class="form-group required">
-                <label for="InputCountry">Country <sup>*</sup> </label>
-                <select [(ngModel)]="address.location.country"  name="selectedCountry" class="form-control" id="InputCountry">
-                  <option [ngValue]="country" *ngFor="let country of countries">{{country.name}}</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="col-lg-12 col-xs-12 mt-2">
-              <button type="submit" class="btn btn-primary" [disabled]="!addressForm.form.valid"><i class="fa fa-map-marker me-2"></i> Save
-              </button>
-            </div>
-
-          </div>
-      </form>
-
+        <app-form-address [id]="id" (actionEvent)="actionEvent()"></app-form-address>
       </div>
-
-
     </div>
-
 </div>
-
 
 <div class="col-lg-12 my-2 clearfix">
     <ul class="contentFooter list-inline">

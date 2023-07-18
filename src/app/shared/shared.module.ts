@@ -21,7 +21,7 @@ import { FormAddressComponent } from './components/form-address/form-address.com
         ControlMessagesComponent, AlertComponent, DocStatusFormat, AddressComponent, FormAddressComponent
     ],
   exports: [
-    ControlMessagesComponent, AlertComponent, DocStatusFormat, AddressComponent
+    ControlMessagesComponent, AlertComponent, DocStatusFormat, AddressComponent, FormAddressComponent
   ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -32,7 +32,7 @@ export class AddressesComponent implements OnInit {
     actionEvent(action: AddressAction, address: Address) {
       switch (action.label) {
         case EDIT:
-          this.updateAddress(address);
+          this.editAddress(address);
           break;
         case DELETE:
           this.deleteAddress(address);
@@ -40,7 +40,7 @@ export class AddressesComponent implements OnInit {
       }
     }
 
-    updateAddress(address: Address) {
+    editAddress(address: Address) {
       this.router.navigate(['/account/upsert-address', address.id]);
     }
 
@@ -48,7 +48,6 @@ export class AddressesComponent implements OnInit {
         this.accountService.deleteAddress$Response({id: item.id || 0})
             .subscribe(
                 res => {
-                  console.log(res.status);
                     if (res.status === 200) {
                         this.addresses = this.addresses.filter(a => a.id !== item.id);
                         this.alertService.showAlert({type: 'success', msg: 'Address deleted'});

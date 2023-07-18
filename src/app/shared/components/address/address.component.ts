@@ -20,7 +20,6 @@ export class AddressComponent {
   @Input() actions: AddressAction[] = [];
   @Output() actionEvent = new EventEmitter<AddressAction>();
 
-  constructor(private accountService: AccountService, private router: Router) { }
 
   onClick(action: AddressAction) {
     this.actionEvent.emit(action);
