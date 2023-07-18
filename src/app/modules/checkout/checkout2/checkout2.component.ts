@@ -35,7 +35,7 @@ export class Checkout2Component implements OnInit {
   }
 
   validateAddress(address: Address): void {
-    this.checkoutService.setBillAddress(address);
+    this.checkoutService.getOrder().billAddress = address;
     this.router.navigate(['/checkout/checkout3']);
   }
 }

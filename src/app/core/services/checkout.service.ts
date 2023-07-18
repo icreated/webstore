@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal, WritableSignal} from '@angular/core';
 import {Router} from '@angular/router';
 import {CartService} from './cart.service';
 import {AuthService} from '../authentication/auth.service';
@@ -17,12 +17,18 @@ export class CheckoutService {
     shipAddress: Address = {} as Address;
     billAddress: Address = {} as Address;
     shipper: Shipper = {} as Shipper;
-    public order!: Order;
+    public order1!: Order;
     orderSource = new Subject<Order>();
     order$ = this.orderSource.asObservable();
 
+    private order: WritableSignal<Order> = signal({id: 0} as Order);
+
     constructor(private router: Router, private authService: AuthService, public cartService: CartService,
         private accountService: AccountService, private checkoutService: CheckoutService) {
+    }
+
+    getOrder() {
+      return this.order();
     }
 
     payOrder(order: Order) {
@@ -47,8 +53,8 @@ export class CheckoutService {
     }
 
     voidCurrentOrder() {
-        this.checkoutService.voidOrder(this.order);
-        this.order = {} as Order;
+        this.checkoutService.voidOrder(this.order1);
+        this.order1 = {} as Order;
     }
 
     voidOrder(order: Order) {
@@ -62,7 +68,7 @@ export class CheckoutService {
     }
 
     clear() {
-        this.order = {} as Order;
+        this.order1 = {} as Order;
         this.shipAddress = {} as Address;
         this.billAddress = {} as Address;
         this.shipper = {} as Shipper;
@@ -81,8 +87,8 @@ export class CheckoutService {
     }
 
     getTotalPrice() {
-        if (this.order.id) {
-            return this.order.grandTotal;
+        if (this.order().id) {
+            return this.order().grandTotal;
         }
         const price = this.cartService.getTotalPrice();
         if (this.shipper.id) {
@@ -93,12 +99,12 @@ export class CheckoutService {
     }
 
     createOrder() {
-        this.order = {} as Order;
-        this.order.shipAddress = this.shipAddress;
-        this.order.billAddress = this.billAddress;
+        this.order1 = {} as Order;
+        this.order1.shipAddress = this.shipAddress;
+        this.order1.billAddress = this.billAddress;
         // SPOK old order object
         // this.order.shipper = this.shipper;
-        this.order.lines = this.cartService.getCart();
+        this.order1.lines = this.cartService.getCart();
 
         /*
        this.accountService.getOrder(1000000).subscribe(

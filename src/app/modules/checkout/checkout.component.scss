@@ -38,7 +38,6 @@
 .orderStep li.active a:after {
     top: 100%;
     left: 50%;
-    border: solid transparent;
     content: " ";
     height: 0;
     width: 0;
@@ -60,15 +59,15 @@
     vertical-align: middle;
     width: 100%;
     text-transform: uppercase;
-    font-size: 13px;
+    text-decoration: none;
 }
 
 .orderStep li a i {
     background: rgba(0, 0, 0, 0.05);
 }
 
-.orderStep li.active a i {
-    background: rgba(0, 0, 0, 0.1);
+.orderStep li.active a {
+    background: #e1625b;
     color: #FFFFFF;
 }
 
@@ -90,5 +89,4 @@
     display: block;
     padding: 5px 0;
 }
-
 

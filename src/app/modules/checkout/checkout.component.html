@@ -56,58 +56,57 @@
     <div>
       <table class="std table">
         <tbody>
-        <tr *ngIf="checkoutService.order.id">
+        <tr *ngIf="order.id > 0">
           <td>Order : </td>
-          <td class="price" >{{checkoutService.order?.documentNo}}</td>
+          <td class="price" >{{ order.documentNo}}</td>
         </tr>
-        <tr *ngIf="checkoutService.shipper?.price">
+        <tr *ngIf="order.shipper">
           <td>Shipper:</td>
-          <td *ngIf="checkoutService.shipper.price === 0" class="price"><span class="success">Free!</span></td>
-          <td *ngIf="checkoutService.shipper.price > 0" class="price"><span class="price">{{checkoutService.shipper.price | currency}}</span></td>
+          <td class="price"><span class="success">{{ order.shipper.name }}</span></td>
+<!--          <td *ngIf="order.shipper.price === 0" class="price"><span class="success">Free!</span></td>-->
+<!--          <td *ngIf="order.shipper.price > 0" class="price"><span class="price">{{ order.shipper.price | currency }}</span></td>-->
         </tr>
-        <tr *ngIf="checkoutService.order.id">
+        <tr *ngIf="order.id">
             <td>Net Price : </td>
-            <td class="price" >{{checkoutService.order?.totalLines | currency}}</td>
+            <td class="price" >{{ order?.totalLines | currency }}</td>
         </tr>
-        <tr *ngFor="let tax of checkoutService.order?.taxes">
+        <tr *ngFor="let tax of order?.taxes">
           <td>{{tax.name}}</td>
-          <td class="price">{{tax.tax | currency}}</td>
+          <td class="price">{{ tax.taxAmt | currency }}</td>
         </tr>
         <tr>
           <td>Total Price:</td>
-          <td class="price">{{checkoutService.getTotalPrice() | currency}}</td>
+          <td class="price">{{ order.grandTotal | currency}}</td>
         </tr>
         </tbody>
       </table>
 
-      <table *ngIf="checkoutService.shipAddress?.address1" class="std table">
+      <table *ngIf="order.shipAddress?.location.address1" class="std table">
         <thead><h3>Delivery Address</h3></thead>
         <tbody>
         <tr>
           <td>
             <ul class="list-inline">
-              <li *ngIf="checkoutService.shipAddress.name"><span><strong>{{checkoutService.shipAddress.name}}</strong></span></li>
-              <li *ngIf="checkoutService.shipAddress.address1"><span>{{checkoutService.shipAddress.address1}}</span></li>
-              <li *ngIf="checkoutService.shipAddress.address2"><span>{{checkoutService.shipAddress.address2}}</span></li>
-              <li *ngIf="checkoutService.shipAddress.postal"><span>{{checkoutService.shipAddress.postal}} {{checkoutService.shipAddress.city}}</span></li>
-              <li *ngIf="checkoutService.shipAddress.countryName"><span>{{checkoutService.shipAddress.countryName}}</span></li>
+              <li *ngIf="order.shipAddress.location.address1"><span>{{ order.shipAddress.location.address1 }}</span></li>
+              <li *ngIf="order.shipAddress.location.address2"><span>{{ order.shipAddress.location.address2 }}</span></li>
+              <li *ngIf="order.shipAddress.location.postal"><span>{{ order.shipAddress.location.postal }} {{ order.shipAddress.location.city }}</span></li>
+              <li *ngIf="order.shipAddress.location.country.name"><span>{{ order.shipAddress.location.country.name }}</span></li>
             </ul>
           </td>
         </tr>
         </tbody>
       </table>
 
-      <table *ngIf="checkoutService.billAddress?.address1" class="std table">
+      <table *ngIf="order.billAddress?.location.address1" class="std table">
         <thead><h3>Invoice Address</h3></thead>
         <tbody>
         <tr>
           <td>
             <ul class="list-inline">
-              <li *ngIf="checkoutService.billAddress.name"><span> <strong>{{checkoutService.billAddress.name}}</strong></span></li>
-              <li *ngIf="checkoutService.billAddress.address1"><span>{{checkoutService.billAddress.address1}}</span></li>
-              <li *ngIf="checkoutService.billAddress.address2"><span>{{checkoutService.billAddress.address2}}</span></li>
-              <li *ngIf="checkoutService.billAddress.postal"><span>{{checkoutService.billAddress.postal}} {{checkoutService.billAddress.city}}</span></li>
-              <li *ngIf="checkoutService.billAddress.countryName"><span>{{checkoutService.billAddress.countryName}}</span></li>
+              <li *ngIf="order.billAddress.location.address1"><span>{{ order.billAddress.location.address1 }}</span></li>
+              <li *ngIf="order.billAddress.location.address2"><span>{{ order.billAddress.location.address2 }}</span></li>
+              <li *ngIf="order.billAddress.location.postal"><span>{{ order.billAddress.location.postal }} {{ order.billAddress.location.city }}</span></li>
+              <li *ngIf="order.billAddress.location.country.name"><span>{{ order.billAddress.location.country.name }}</span></li>
              </ul>
           </td>
         </tr>
