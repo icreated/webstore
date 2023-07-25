@@ -59,6 +59,7 @@ export class CartService {
 
     clearCart() {
         this.cart.set([]);
+        this.storageService.save('cart', []);
     }
 
 

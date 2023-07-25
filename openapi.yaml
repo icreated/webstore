@@ -27,6 +27,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Document'
+    post:
+      tags:
+        - Account
+      summary: Order Creation
+      description: Create order
+      operationId: createOrder
+      requestBody:
+        description: Order Form
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+        required: true
+      responses:
+        '200':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '500':
+          description: Missing address or shipper or lines
   /account/orders/{id}:
     get:
       tags:
@@ -51,7 +73,7 @@ paths:
                 $ref: '#/components/schemas/Order'
     delete:
       tags:
-          - Account
+        - Account
       summary: Void order
       description: Void order
       operationId: voidOrder
@@ -63,6 +85,35 @@ paths:
           schema:
             type: integer
             format: int32
+      responses:
+        '200':
+          description: Order processed
+        '403':
+          description: Order forbidden
+        '500':
+          description: Order not processed
+  /account/orders/{id}/payment:
+    post:
+      tags:
+        - Account
+      summary: Payment Creation
+      description: Create simple payment
+      operationId: payment
+      parameters:
+        - name: id
+          in: path
+          description: C_Order_ID
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Payment Param
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentParam'
+        required: true
       responses:
         '200':
           description: Order processed
@@ -163,11 +214,11 @@ paths:
       operationId: getAddress
       responses:
         '200':
-            description: Address found
-            content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Address'
+          description: Address found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
     delete:
       tags:
         - Account
@@ -209,7 +260,7 @@ paths:
         - Account
       summary: Order Invoice PDF
       description: Get PDF File
-      operationId: getOrderFile
+      operationId: downloadDocument
       parameters:
         - name: type
           in: path
@@ -397,50 +448,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PriceListProduct'
-  /checkout/payment:
-    post:
-      tags:
-        - Checkout
-      summary: Payment Creation
-      description: Create simple payment
-      operationId: payment
-      requestBody:
-        description: Payment Param
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PaymentParam'
-        required: true
-      responses:
-        '200':
-          description: Order processed
-        '403':
-          description: Order forbidden
-        '500':
-          description: Order not processed
-  /checkout/order:
-    post:
-      tags:
-        - Checkout
-      summary: Order Creation
-      description: Create order
-      operationId: createOrder
-      requestBody:
-        description: Order Form
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-        required: true
-      responses:
-        '200':
-          description: Order created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '500':
-          description: Missing address or shipper or lines
   /common/countries:
     get:
       tags:
@@ -778,9 +785,9 @@ components:
       properties:
         type:
           type: string
-        orderId:
-          type: integer
-          format: int32
+          enum:
+            - check
+            - deposit
     IdNamePair:
       type: object
       properties:

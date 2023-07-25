@@ -9,17 +9,17 @@
     <div>
       <table class="table">
         <tbody>
-          <tr *ngIf="order">
-            <td>Order #: </td>
-            <td>{{order?.documentNo}}</td>
+          <tr>
+            <th>Order #: </th>
+            <td>{{ order.documentNo }}</td>
           </tr>
           <tr>
-            <td>Date: </td>
-            <td class="price">{{order.date  | date: 'MM/dd/yyyy'}}</td>
+            <th>Date: </th>
+            <td class="price">{{ order.date | date: 'MM/dd/yyyy' }}</td>
           </tr>
           <tr>
-            <td>Status</td>
-            <td class="price"><span class="success">{{order.docStatus | docStatus}}</span></td>
+            <th>Status</th>
+            <td class="price"><span class="success">{{ order.docStatusName }}</span></td>
           </tr>
           <tr>
             <td colspan="2">
@@ -36,17 +36,16 @@
       <table class="table">
         <tbody>
         <tr>
-          <td>Delivery address :</td>
+          <th>Delivery address :</th>
         </tr>
         <tr *ngIf="order.shipAddress">
           <td>
             <ul class="list-inline">
-              <li *ngIf="order.shipAddress.name"><strong>{{order.shipAddress.name}}</strong></li>
-              <li>{{order.shipAddress.address1}}</li>
-              <li *ngIf="order.shipAddress.address2">{{order.shipAddress.address2}}</li>
-              <li>{{order.shipAddress.postal}} {{order.shipAddress.city}}</li>
-              <li>{{order.shipAddress.countryName}}</li>
-              <li *ngIf="!order.shipAddress.address2">&nbsp;</li>
+              <li>{{ order.shipAddress.location.address1 }}</li>
+              <li *ngIf="order.shipAddress.location.address2">{{order.shipAddress.location.address2 }}</li>
+              <li>{{ order.shipAddress.location.postal }} {{ order.shipAddress.location.city }}</li>
+              <li>{{ order.shipAddress.location.country.name }}</li>
+              <li *ngIf="!order.shipAddress.location.address2">&nbsp;</li>
             </ul>
           </td>
         </tr>
@@ -60,18 +59,16 @@
       <table class="table">
         <tbody>
           <tr>
-            <td>Invoice address :</td>
+            <th>Invoice address :</th>
           </tr>
           <tr *ngIf="order.billAddress">
             <td>
               <ul class="list-inline">
-                <li *ngIf="order.billAddress.name"><strong>{{order.billAddress.name}}</strong></li>
-                <li *ngIf="!order.billAddress.name">&nbsp;</li>
-                <li>{{order.billAddress.address1}}</li>
-                <li *ngIf="order.billAddress.address2">{{order.billAddress.address2}}</li>
-                <li>{{order.billAddress.postal}} {{order.billAddress.city}}</li>
-                <li>{{order.billAddress.countryName}}</li>
-                <li *ngIf="!order.billAddress.address2">&nbsp;</li>
+                <li>{{ order.billAddress.location.address1 }}</li>
+                <li *ngIf="order.billAddress.location.address2">{{ order.billAddress.location.address2 }}</li>
+                <li>{{ order.billAddress.location.postal }} {{ order.billAddress.location.city }}</li>
+                <li>{{ order.billAddress.location.country.name }}</li>
+                <li *ngIf="!order.billAddress.location.address2">&nbsp;</li>
               </ul>
             </td>
           </tr>
@@ -95,12 +92,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let line of order.lines" >
-            <td class="d-none d-sm-table-cell">{{line.line}}</td>
-            <td><h4>{{line.name}}</h4></td>
-            <td>{{line.description}}</td>
-            <td class="d-none d-sm-table-cell"><div class="price">{{line.price | currency}}</div></td>
-            <td>{{line.qty}}</td>
-            <td>{{line.price*line.qty | currency}}</td>
+            <td class="d-none d-sm-table-cell">{{ line.line }}</td>
+            <td><h4>{{ line.name }}</h4></td>
+            <td>{{ line.description }}</td>
+            <td class="d-none d-sm-table-cell"><div class="price">{{ line.price | currency }}</div></td>
+            <td>{{ line.qty }}</td>
+            <td>{{ line.price*line.qty | currency }}</td>
           </tr>
         </tbody>
       </table>
@@ -111,16 +108,16 @@
         <table class="table">
           <tbody>
             <tr>
-              <td>Total Lines</td>
-              <td class="price">{{order.totalLines | currency}}</td>
+              <th>Total Lines</th>
+              <td class="price">{{ order.totalLines | currency }}</td>
             </tr>
             <tr *ngFor="let tax of order.taxes">
-                <td>{{tax.name}}</td>
-                <td class="price">{{tax.tax | currency}}</td>
+                <th>Tax {{ tax.name}}</th>
+                <td class="price">{{ tax.taxAmt | currency }}</td>
             </tr>
             <tr>
-              <td>Total</td>
-              <td class="price">{{order.grandTotal | currency}}</td>
+              <th>Total</th>
+              <td class="price">{{ order.grandTotal | currency }}</td>
             </tr>
           </tbody>
         </table>
@@ -129,13 +126,3 @@
 
 </div>
 
-
-<div class="cartFooter">
-    <div class="box-footer">
-      <div class="pull-left">
-        <a class="btn btn-default" [routerLink]="['/checkout/checkout4']">
-          <i class="fa fa-arrow-left me-2"></i> Return to payment
-        </a>
-      </div>
-    </div>
-</div>

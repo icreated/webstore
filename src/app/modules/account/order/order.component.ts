@@ -30,6 +30,6 @@ export class OrderComponent implements OnInit {
     }
 
     downloadOrder() {
-        this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo || 'order');
+        this.fileService.downloadFile(this.order.id, 'order', this.order.documentNo || 'order');
     }
 }

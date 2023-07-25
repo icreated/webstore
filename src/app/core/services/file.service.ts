@@ -10,9 +10,9 @@ export class FileService {
     constructor(private accountService: AccountService) {
     }
 
-    downloadfile(id: number, type: 'order' | 'invoice', documentNo: string) {
+    downloadFile(id: number, type: 'order' | 'invoice', documentNo: string) {
         const reader = new FileReader();
-        this.accountService.getOrderFile({type, id})
+        this.accountService.downloadDocument({type, id})
             .subscribe(
                 (response) => {
                     saveAs(response, documentNo);

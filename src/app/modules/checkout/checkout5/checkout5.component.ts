@@ -1,12 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, effect, untracked} from '@angular/core';
+import {Router} from '@angular/router';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {AuthService} from 'src/app/core/authentication/auth.service';
-import {CartService} from 'src/app/core/services/cart.service';
 import {FileService} from 'src/app/core/services/file.service';
 import {Order} from '../../../api/models/order';
-import {AccountService} from '../../../api/services/account.service';
-import {AlertService} from '../../../core/services/alert.service';
 
 @Component({
     selector: 'app-checkout5',
@@ -14,41 +10,19 @@ import {AlertService} from '../../../core/services/alert.service';
     templateUrl: './checkout5.component.html',
     styleUrls: ['./checkout5.component.scss']
 })
-export class Checkout5Component implements OnInit {
+export class Checkout5Component {
 
     order: Order = {shipAddress: {}, billAddress: {}} as Order;
 
-    constructor(private router: Router, private checkoutService: CheckoutService, private route: ActivatedRoute,
-        private accountService: AccountService, private alertService: AlertService,
-        private cartService: CartService, private fileService: FileService) {
+    constructor(private router: Router, private checkoutService: CheckoutService, private fileService: FileService) {
+      effect(() => {
+        this.order = this.checkoutService.getOrder();
+      });
     }
 
-    ngOnInit() {
-        this.route
-            .params
-            .subscribe(params => {
-                const id = params['id'];
-                if (id > 0) {
-                    this.accountService.getOrder(id)
-                        .subscribe(
-                            (data: Order) => {
-                                this.order = data;
-                                if (this.order.docStatus === 'CO') {
-                                    this.alertService.showAlert({type: 'success', msg: 'Order ' + this.order.documentNo + ' is validated'});
-                                    this.cartService.clearCart();
-                                    this.checkoutService.clear();
-                                } else if (this.order.docStatus === 'VO') {
-                                    this.alertService.showAlert({type: 'warning', msg: 'Order ' + this.order.documentNo + ' is validated'});
-                                    this.checkoutService.voidCurrentOrder();
-                                }
-                            });
-                }
-            });
-    }
 
     downloadOrder() {
-        // TODO: SPOK check if this is correct
-        // this.fileService.downloadfile(this.order.id, 'order', this.order.documentNo);
+        this.fileService.downloadFile(this.order.id, 'order', this.order.documentNo || 'order');
     }
 
 }

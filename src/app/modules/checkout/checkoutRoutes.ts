@@ -21,8 +21,7 @@ export const CHECKOUT_ROUTES: Routes = [
             {path: 'checkout2', component: Checkout2Component, canActivate: [AuthGuard, CheckoutGuard]},
             {path: 'checkout3', component: Checkout3Component, canActivate: [AuthGuard, CheckoutGuard]},
             {path: 'checkout4', component: Checkout4Component, canActivate: [AuthGuard, CheckoutGuard]}, // , canDeactivate: [CanDeactiva..
-            {path: 'checkout4i/:orderId', component: Checkout4Component, canActivate: [AuthGuard, CheckoutGuard]},
-            {path: 'checkout5/:id', component: Checkout5Component, canActivate: [CheckoutGuard]},
+            {path: 'checkout5', component: Checkout5Component, canActivate: [CheckoutGuard]},
             {path: '**', redirectTo: '/checkout/checkout1', pathMatch: 'full'}
         ]
     }

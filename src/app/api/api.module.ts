@@ -7,7 +7,6 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { AccountService } from './services/account.service';
 import { AuthenticationService } from './services/authentication.service';
 import { CatalogService } from './services/catalog.service';
-import { CheckoutService } from './services/checkout.service';
 import { CommonService } from './services/common.service';
 
 /**
@@ -21,7 +20,6 @@ import { CommonService } from './services/common.service';
     AccountService,
     AuthenticationService,
     CatalogService,
-    CheckoutService,
     CommonService,
     ApiConfiguration
   ],

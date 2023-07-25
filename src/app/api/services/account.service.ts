@@ -15,6 +15,7 @@ import { Document } from '../models/document';
 import { NewAccountForm } from '../models/new-account-form';
 import { Order } from '../models/order';
 import { Password } from '../models/password';
+import { PaymentParam } from '../models/payment-param';
 import { Token } from '../models/token';
 
 @Injectable({
@@ -81,6 +82,73 @@ export class AccountService extends BaseService {
 
     return this.getOrders$Response(params).pipe(
       map((r: StrictHttpResponse<Array<Document>>) => r.body as Array<Document>)
+    );
+  }
+
+  /**
+   * Path part for operation createOrder
+   */
+  static readonly CreateOrderPath = '/account/orders';
+
+  /**
+   * Order Creation.
+   *
+   * Create order
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `createOrder()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  createOrder$Response(params: {
+    context?: HttpContext
+
+    /**
+     * Order Form
+     */
+    body: Order
+  }
+): Observable<StrictHttpResponse<Order>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AccountService.CreateOrderPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Order>;
+      })
+    );
+  }
+
+  /**
+   * Order Creation.
+   *
+   * Create order
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `createOrder$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  createOrder(params: {
+    context?: HttpContext
+
+    /**
+     * Order Form
+     */
+    body: Order
+  }
+): Observable<Order> {
+
+    return this.createOrder$Response(params).pipe(
+      map((r: StrictHttpResponse<Order>) => r.body as Order)
     );
   }
 
@@ -214,6 +282,84 @@ export class AccountService extends BaseService {
 ): Observable<void> {
 
     return this.voidOrder$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation payment
+   */
+  static readonly PaymentPath = '/account/orders/{id}/payment';
+
+  /**
+   * Payment Creation.
+   *
+   * Create simple payment
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `payment()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  payment$Response(params: {
+
+    /**
+     * C_Order_ID
+     */
+    id: number;
+    context?: HttpContext
+
+    /**
+     * Payment Param
+     */
+    body: PaymentParam
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AccountService.PaymentPath, 'post');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Payment Creation.
+   *
+   * Create simple payment
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `payment$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  payment(params: {
+
+    /**
+     * C_Order_ID
+     */
+    id: number;
+    context?: HttpContext
+
+    /**
+     * Payment Param
+     */
+    body: PaymentParam
+  }
+): Observable<void> {
+
+    return this.payment$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
@@ -677,9 +823,9 @@ export class AccountService extends BaseService {
   }
 
   /**
-   * Path part for operation getOrderFile
+   * Path part for operation downloadDocument
    */
-  static readonly GetOrderFilePath = '/account/pdf/{type}/{id}';
+  static readonly DownloadDocumentPath = '/account/pdf/{type}/{id}';
 
   /**
    * Order Invoice PDF.
@@ -687,11 +833,11 @@ export class AccountService extends BaseService {
    * Get PDF File
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getOrderFile()` instead.
+   * To access only the response body, use `downloadDocument()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getOrderFile$Response(params: {
+  downloadDocument$Response(params: {
 
     /**
      * Choice between &#x27;order&#x27;, &#x27;invoice&#x27;
@@ -706,7 +852,7 @@ export class AccountService extends BaseService {
   }
 ): Observable<StrictHttpResponse<Blob>> {
 
-    const rb = new RequestBuilder(this.rootUrl, AccountService.GetOrderFilePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, AccountService.DownloadDocumentPath, 'get');
     if (params) {
       rb.path('type', params.type, {});
       rb.path('id', params.id, {});
@@ -730,11 +876,11 @@ export class AccountService extends BaseService {
    * Get PDF File
    *
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `getOrderFile$Response()` instead.
+   * To access the full response (for headers, for example), `downloadDocument$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getOrderFile(params: {
+  downloadDocument(params: {
 
     /**
      * Choice between &#x27;order&#x27;, &#x27;invoice&#x27;
@@ -749,7 +895,7 @@ export class AccountService extends BaseService {
   }
 ): Observable<Blob> {
 
-    return this.getOrderFile$Response(params).pipe(
+    return this.downloadDocument$Response(params).pipe(
       map((r: StrictHttpResponse<Blob>) => r.body as Blob)
     );
   }

@@ -44,7 +44,7 @@
 
 <div class="row d-flex justify-content-end" *ngIf="items.length > 0">
       <div class="ml-auto col-auto mx-2">
-        <a [routerLink]="['/checkout/checkout1']" class="btn btn-primary btn-lg btn-block"
-        title="checkout" style="margin-bottom: 20px"> Pay &nbsp; {{cartService.getTotalPrice() | currency}}</a>
+        <a (click)="checkout()" class="btn btn-primary btn-lg btn-block"
+        title="checkout" style="margin-bottom: 20px"> Pay &nbsp; {{ getTotalPrice() | currency }}</a>
       </div>
 </div>

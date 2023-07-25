@@ -13,7 +13,6 @@ import {Shipper} from '../../../api/models/shipper';
 })
 export class Checkout3Component implements OnInit {
 
-    selectedShipper: Shipper = {} as Shipper;
     shippers: Shipper[] = [];
 
     constructor(private router: Router, private commonService: CommonService, private cartService: CartService,
@@ -21,23 +20,12 @@ export class Checkout3Component implements OnInit {
     }
 
     ngOnInit(): void {
-        // let countryId = 0;
-        if (this.checkoutService.shipAddress) {
-            // TODO: SPOK check if this is correct
-            // countryId = this.checkoutService.shipAddress.location.country.id;
-        }
         this.commonService.getShippers()
-            .subscribe(
-                (shippers: Shipper[]) => {
-                    this.shippers = shippers;
-                    this.selectedShipper = this.shippers[0];
-                });
+            .subscribe(shippers => this.shippers = shippers);
     }
 
     validate(shipper: Shipper) {
         this.checkoutService.getOrder().shipper = shipper;
-        // this.checkoutService.createOrder();
-        // this.cartService.clearCart();
         this.router.navigate(['/checkout/checkout4']);
     }
 
