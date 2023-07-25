@@ -3,7 +3,7 @@
       <tabset [justified]="true">
         <tab heading="Sign In">
           <div class="d-flex justify-content-center my-5">
-            <form role="form" class="logForm"  (ngSubmit)='login()'>
+            <form role="form" class="logForm" (ngSubmit)='login()'>
                 <div class="form-group">
                   <label>Login</label>
                   <em [hidden]="username.valid || username.pristine" class="has-error mx-2">Mandatory</em>
@@ -22,7 +22,7 @@
           </div>
         </tab>
         <tab heading="Sign Up">
-          <form class="regForm" [formGroup]="accountForm" (ngSubmit)='signup(accountForm.value)'>
+          <form class="logForm" [formGroup]="accountForm" (ngSubmit)='signup(accountForm.value)'>
             <div class="container my-5">
               <div class="row justify-content-center">
 
