@@ -1,11 +1,8 @@
-import {Component, effect, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, effect, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {EMPTY, Observable} from 'rxjs';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {Address} from '../../api/models/address';
 import {AccountService} from '../../api/services/account.service';
-import {PriceListProduct} from '../../api/models/price-list-product';
 import {Order} from '../../api/models/order';
 import {CartService} from '../../core/services/cart.service';
 

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
-import {AuthService} from 'src/app/core/authentication/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {ValidationService} from 'src/app/core/services/validation.service';
 import {DBValidator} from 'src/app/shared/validators/db.validator';

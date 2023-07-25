@@ -4,7 +4,6 @@ import {AuthService} from '../authentication/auth.service';
 import {Router} from '@angular/router';
 import {CatalogService} from '../../api/services/catalog.service';
 import {ProductCategory} from '../../api/models/product-category';
-import {PriceListProduct} from '../../api/models/price-list-product';
 
 @Component({
     selector: 'app-header',

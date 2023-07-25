@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Address} from '../../../api/models/address';
-import {AccountService} from '../../../api/services/account.service';
-import {Router} from '@angular/router';
 
 export interface AddressAction {
   label: string;

@@ -3,7 +3,6 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {HttpResponse} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
-import {Alert} from 'src/app/shared/models/alert';
 import {UserCredentials} from '../../api/models/user-credentials';
 import {AuthenticationService} from '../../api/services/authentication.service';
 import {Token} from '../../api/models/token';
