@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Library} from '../library';
+import { environment } from 'src/environments/environment';
 import {ProductCategory} from '../../api/models/product-category';
 import {CatalogService} from '../../api/services/catalog.service';
 
@@ -11,7 +11,7 @@ import {CatalogService} from '../../api/services/catalog.service';
 export class FooterComponent implements OnInit {
 
     categories: ProductCategory[] = [];
-    email = Library.webMasterEmail;
+    email = environment.webmasterEmail;
     constructor(private catalogService: CatalogService) {
     }
 

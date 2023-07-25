@@ -2,13 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from 'src/app/core/services/cart.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {Library} from 'src/app/core/library';
 import {CommonService} from '../../../api/services/common.service';
 import {Address} from '../../../api/models/address';
 import {AccountService} from '../../../api/services/account.service';
-import {IdNamePair} from '../../../api/models/id-name-pair';
-import {AddressAction} from '../../../shared/components/address/address.component';
-import {FormAddressAction} from '../../../shared/components/form-address/form-address.component';
 
 
 @Component({

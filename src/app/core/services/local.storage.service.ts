@@ -1,6 +1,6 @@
 import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {isPlatformServer} from '@angular/common';
-import {Library} from '../library';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LocalStorageService {
@@ -18,7 +18,7 @@ export class LocalStorageService {
             return;
         }
 
-        const localDataString = localStorage.getItem(Library.storageKey);
+        const localDataString = localStorage.getItem(environment.storageKey);
         let localData: any;
         if (localDataString) {
             localData = JSON.parse(localDataString);
@@ -26,14 +26,14 @@ export class LocalStorageService {
             localData = {};
         }
         localData[name] = data;
-        localStorage.setItem(Library.storageKey, JSON.stringify(localData));
+        localStorage.setItem(environment.storageKey, JSON.stringify(localData));
     }
 
     get(name: any) {
         if (this.isNode) {
             return;
         }
-        const data = JSON.parse(localStorage.getItem(Library.storageKey) as string);
+        const data = JSON.parse(localStorage.getItem(environment.storageKey) as string);
         if (!data) {
             return undefined;
         }

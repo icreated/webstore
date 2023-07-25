@@ -481,6 +481,10 @@ paths:
       responses:
         '200':
           description: Email found
+          content:
+            application/text:
+                schema:
+                    type: boolean
   /common/shippers:
     get:
       tags:

@@ -5,9 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../../core/services/alert.service';
 import {CommonService} from '../../../api/services/common.service';
 import {switchMap} from 'rxjs/operators';
-import {Library} from '../../../core/library';
 import {IdNamePair} from '../../../api/models/id-name-pair';
 import {EMPTY} from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface FormAddressAction {
   label: string;
@@ -46,7 +46,7 @@ export class FormAddressComponent implements OnInit {
               return this.accountService.getAddress({ 'id': this.id });
             } else {
               this.address.location.country = this.countries.find( country =>
-                country.id === Library.defaultCountryId) || {} as IdNamePair;
+                country.id === environment.defaultCountryId) || {} as IdNamePair;
               return EMPTY;
             }
           }

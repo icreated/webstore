@@ -1,11 +1,7 @@
 import {effect, Injectable, signal, WritableSignal} from '@angular/core';
 import {LocalStorageService} from './local.storage.service';
 import {Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {HEADERS, Library} from '../library';
 import {SimpleItem} from 'src/app/shared/models/simple-item';
-import {AuthService} from '../authentication/auth.service';
 import {PriceListProduct} from '../../api/models/price-list-product';
 import {CatalogService} from '../../api/services/catalog.service';
 import {AlertService} from './alert.service';

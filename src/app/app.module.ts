@@ -11,13 +11,12 @@ import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {LocalStorageService} from './core/services/local.storage.service';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {SharedModule} from './shared/shared.module';
-import {Library} from './core/library';
 import {isPlatformBrowser} from '@angular/common';
 import {TokenInterceptor} from './core/interceptors/token.interceptor';
 import {HttpErrorInterceptor} from './core/interceptors/error.interceptor';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import {FormsModule} from '@angular/forms';
-
+import {environment} from '../environments/environment';
 
 export const jwtOptionsFactory = (platformId: any) => ({
     tokenGetter: () => {
@@ -27,7 +26,7 @@ export const jwtOptionsFactory = (platformId: any) => ({
         }
         return token;
     },
-    whitelistedDomains: [Library.apiDomain]
+    whitelistedDomains: environment.whitelistedDomains
 });
 
 

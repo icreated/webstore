@@ -103,7 +103,7 @@ export class CommonService extends BaseService {
      */
     body: Token
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<boolean>> {
 
     const rb = new RequestBuilder(this.rootUrl, CommonService.LookupEmailPath, 'post');
     if (params) {
@@ -111,13 +111,13 @@ export class CommonService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
+      responseType: 'blob',
+      accept: 'application/text',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
       })
     );
   }
@@ -140,10 +140,10 @@ export class CommonService extends BaseService {
      */
     body: Token
   }
-): Observable<void> {
+): Observable<boolean> {
 
     return this.lookupEmail$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<boolean>) => r.body as boolean)
     );
   }
 
