@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "json-server": "node server/server.js"
   },
   "private": true,
   "dependencies": {
@@ -33,7 +34,8 @@
     "ngx-bootstrap": "^11.0.2",
     "rxjs": "^6.5.3",
     "tslib": "^2.2.0",
-    "zone.js": "^0.13.1"
+    "zone.js": "^0.13.1",
+    "json-server": "^0.17.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.1.4",

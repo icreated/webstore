@@ -5,9 +5,10 @@
 export const environment = {
     production: false,
     api: {
-      baseUrl: 'http://localhost:8080/services/api/',
+      // baseUrl: 'http://localhost:8080/services/api/',
+      baseUrl: 'http://localhost:3000',
     },
-    whitelistedDomains: ['localhost:8080'],
+    whitelistedDomains: ['localhost:3000', 'localhost:8080'],
     storageKey: 'webStore',
     defaultCountryId: 100,
     webmasterEmail: 'webmaster@amazzing-company.comm',
