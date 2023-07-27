@@ -33,7 +33,6 @@ server.get('/catalog/cart', (req, res) => {
 });
 
 
-
 server.get('/account/orders', (req, res) => {
   checkIfAuthorized(req, res)
   res.send(account.orderHeaders);
