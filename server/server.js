@@ -1,6 +1,5 @@
 const jsonServer = require('json-server');
 const server = jsonServer.create();
-const router = jsonServer.router('./routes.json');
 const middlewares = jsonServer.defaults();
 const catalog = require('./catalog.json');
 const account = require('./account.json');
@@ -54,7 +53,6 @@ server.post('/auth/login', (req, res, next) => {
 });
 
 
-server.use(router);
 server.listen(3000, () => {
   console.log('JSON Server is running');
 });
