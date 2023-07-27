@@ -1,3 +1,6 @@
 export const environment = {
-    production: true
+    production: true,
+    api: {
+      baseUrl: 'https://webstore-json-server.icreated.co',
+    }
 };

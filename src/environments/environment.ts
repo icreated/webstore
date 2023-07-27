@@ -8,7 +8,7 @@ export const environment = {
       // baseUrl: 'http://localhost:8080/services/api/',
       baseUrl: 'http://localhost:3000',
     },
-    whitelistedDomains: ['localhost:3000', 'localhost:8080'],
+    whitelistedDomains: ['localhost:3000', 'localhost:8080', 'webstore-json-server.icreated.co'],
     storageKey: 'webStore',
     defaultCountryId: 100,
     webmasterEmail: 'webmaster@amazzing-company.comm',
