@@ -6,7 +6,7 @@ export const environment = {
     production: false,
     api: {
       // baseUrl: 'http://localhost:8080/services/api/',
-      baseUrl: 'http://localhost:3000',
+      baseUrl: 'http://localhost:3000'
     },
     whitelistedDomains: ['localhost:3000', 'localhost:8080', 'webstore-json-server.icreated.co'],
     storageKey: 'webStore',
