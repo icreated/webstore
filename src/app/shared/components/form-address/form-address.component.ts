@@ -60,7 +60,7 @@ export class FormAddressComponent implements OnInit {
 
   onSubmit(address: Address) {
     if (this.isUpdate) {
-      this.accountService.updateAddress({body: address}).subscribe(
+      this.accountService.updateAddress({id: this.id, body: address}).subscribe(
         () => {
           this.router.navigate(['/account/addresses']);
           this.alertService.showAlert({type: 'success', msg: 'Address updated'});

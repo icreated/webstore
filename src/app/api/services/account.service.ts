@@ -488,73 +488,6 @@ export class AccountService extends BaseService {
   }
 
   /**
-   * Path part for operation updateAddress
-   */
-  static readonly UpdateAddressPath = '/account/addresses';
-
-  /**
-   * Update address info.
-   *
-   * Updating address info
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `updateAddress()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  updateAddress$Response(params: {
-    context?: HttpContext
-
-    /**
-     * Address Form
-     */
-    body: Address
-  }
-): Observable<StrictHttpResponse<void>> {
-
-    const rb = new RequestBuilder(this.rootUrl, AccountService.UpdateAddressPath, 'put');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
-      context: params?.context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-      })
-    );
-  }
-
-  /**
-   * Update address info.
-   *
-   * Updating address info
-   *
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `updateAddress$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  updateAddress(params: {
-    context?: HttpContext
-
-    /**
-     * Address Form
-     */
-    body: Address
-  }
-): Observable<void> {
-
-    return this.updateAddress$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
-    );
-  }
-
-  /**
    * Path part for operation createAddress
    */
   static readonly CreateAddressPath = '/account/addresses';
@@ -685,6 +618,84 @@ export class AccountService extends BaseService {
 
     return this.getAddress$Response(params).pipe(
       map((r: StrictHttpResponse<Address>) => r.body as Address)
+    );
+  }
+
+  /**
+   * Path part for operation updateAddress
+   */
+  static readonly UpdateAddressPath = '/account/addresses/{id}';
+
+  /**
+   * Update address info.
+   *
+   * Updating address info
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateAddress()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateAddress$Response(params: {
+
+    /**
+     * C_BPartner_Location_ID
+     */
+    id: number;
+    context?: HttpContext
+
+    /**
+     * Address Form
+     */
+    body: Address
+  }
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AccountService.UpdateAddressPath, 'put');
+    if (params) {
+      rb.path('id', params.id, {});
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: params?.context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Update address info.
+   *
+   * Updating address info
+   *
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `updateAddress$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateAddress(params: {
+
+    /**
+     * C_BPartner_Location_ID
+     */
+    id: number;
+    context?: HttpContext
+
+    /**
+     * Address Form
+     */
+    body: Address
+  }
+): Observable<void> {
+
+    return this.updateAddress$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 
