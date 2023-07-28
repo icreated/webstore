@@ -17,6 +17,7 @@ import {HttpErrorInterceptor} from './core/interceptors/error.interceptor';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import {FormsModule} from '@angular/forms';
 import {environment} from '../environments/environment';
+import {ApiModule} from './api/api.module';
 
 export const jwtOptionsFactory = (platformId: any) => ({
     tokenGetter: () => {
@@ -44,6 +45,7 @@ export const jwtOptionsFactory = (platformId: any) => ({
         BrowserAnimationsModule,
         CollapseModule.forRoot(),
         BsDropdownModule.forRoot(),
+        ApiModule.forRoot({rootUrl: environment.api.baseUrl}),
         JwtModule.forRoot({
             jwtOptionsProvider: {
                 provide: JWT_OPTIONS,
