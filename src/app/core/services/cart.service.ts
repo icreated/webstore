@@ -43,6 +43,8 @@ export class CartService {
           return {id: item.id, qty: item.qty};
         });
         this.storageService.save('cart', simpleCart);
+      } else {
+        this.storageService.save('cart', []);
       }
     }
 
