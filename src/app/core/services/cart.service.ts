@@ -11,7 +11,7 @@ import {AlertService} from './alert.service';
 })
 export class CartService {
 
-    private cart: WritableSignal<PriceListProduct[]> = signal([]);
+    private cart: WritableSignal<PriceListProduct[]> = signal(this.storageService.get('cart'));
 
     constructor(private catalogService: CatalogService, private storageService: LocalStorageService, private router: Router,
         private alertService: AlertService) {
@@ -38,14 +38,11 @@ export class CartService {
 
 
     saveCartToStorage() {
-      if (this.cart().length > 0) {
         const simpleCart = this.cart().map((item) => {
           return {id: item.id, qty: item.qty};
         });
         this.storageService.save('cart', simpleCart);
-      } else {
-        this.storageService.save('cart', []);
-      }
+
     }
 
 
