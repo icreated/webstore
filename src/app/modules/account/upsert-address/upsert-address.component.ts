@@ -8,12 +8,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class UpsertAddressComponent implements OnInit {
 
-    id = 0;
-    isUpdate = false;
+  id = 0;
+  isUpdate = false;
 
 
-    constructor(private router: Router, private route: ActivatedRoute) {
-    }
+  constructor(private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
