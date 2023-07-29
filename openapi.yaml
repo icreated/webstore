@@ -89,12 +89,12 @@ paths:
             type: integer
             format: int32
       responses:
-        '200':
-          description: Order processed
-        '403':
-          description: Order forbidden
-        '500':
-          description: Order not processed
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
   /account/orders/{id}/payment:
     post:
       tags:

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FileService} from 'src/app/core/services/file.service';
 import {AccountService} from '../../../api/services/account.service';
 import {Order} from '../../../api/models/order';
+import {AlertService} from '../../../core/services/alert.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class OrderComponent implements OnInit {
     order!: Order;
 
     constructor(private accountService: AccountService, private route: ActivatedRoute, private router: Router,
-                private fileService: FileService) {
+                private fileService: FileService, private alertService: AlertService) {
     }
 
     ngOnInit() {
@@ -26,7 +27,12 @@ export class OrderComponent implements OnInit {
     }
 
     voidOrder() {
-        this.accountService.voidOrder({id: this.order.id});
+      this.accountService.voidOrder({ id: this.order.id }).subscribe(
+        (order) => {
+          this.order = order;
+          this.alertService.showAlert({type: 'success', msg: 'Order has been voided'});
+        }
+      );
     }
 
     downloadOrder() {

@@ -242,7 +242,7 @@ export class AccountService extends BaseService {
     id: number;
     context?: HttpContext
   }
-): Observable<StrictHttpResponse<void>> {
+): Observable<StrictHttpResponse<Order>> {
 
     const rb = new RequestBuilder(this.rootUrl, AccountService.VoidOrderPath, 'delete');
     if (params) {
@@ -250,13 +250,13 @@ export class AccountService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*',
+      responseType: 'json',
+      accept: 'application/json',
       context: params?.context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<Order>;
       })
     );
   }
@@ -279,10 +279,10 @@ export class AccountService extends BaseService {
     id: number;
     context?: HttpContext
   }
-): Observable<void> {
+): Observable<Order> {
 
     return this.voidOrder$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<Order>) => r.body as Order)
     );
   }
 

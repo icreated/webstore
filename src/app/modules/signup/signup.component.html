@@ -4,6 +4,7 @@
         <tab heading="Sign In">
           <div class="d-flex justify-content-center my-5">
             <form role="form" class="logForm" (ngSubmit)='login()'>
+              <p class="text-danger">Credentials: user@gardenworld.com / GardenUser</p>
                 <div class="form-group">
                   <label>Login</label>
                   <em [hidden]="username.valid || username.pristine" class="has-error mx-2">Mandatory</em>
