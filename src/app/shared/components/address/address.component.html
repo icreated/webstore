@@ -13,7 +13,5 @@
   </div>
   <div class="panel-footer">
     <button *ngFor="let action of actions" (click)="onClick(action)" class="btn btn-sm me-2 {{action.buttonClass}}"><i class="fa {{action.icon}} me-2"></i>{{action.label}}</button>
-<!--    <button (click)="updateAddress(address)" class="btn btn-sm btn-success me-2"><i class="fa fa-edit me-2"> </i>Update</button>-->
-<!--    <button (click)="deleteAddress(address)" class="btn btn-sm btn-danger"> <i class="fa fa-minus-circle me-2"></i>Delete</button>-->
   </div>
 </div>

@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
         private authService: AuthService) {
 
       effect(() => {
-        this.cartCount = this.cartService.getCart().length;
+        this.cartCount = this.cartService.getCart()?.length || 0;
       });
     }
 

@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthService} from './authentication/auth.service';
+import {LocalStorageService} from './services/local.storage.service';
 
 @NgModule({
     declarations: [],
@@ -18,7 +19,7 @@ import {AuthService} from './authentication/auth.service';
         ReactiveFormsModule,
         CollapseModule.forRoot()
     ],
-    providers: []
+    providers: [AuthService, LocalStorageService],
 })
 export class CoreModule {
 
@@ -32,10 +33,7 @@ export class CoreModule {
 
     static forRoot(): ModuleWithProviders<CoreModule> {
         return {
-            ngModule: CoreModule,
-            providers: [
-                AuthService
-            ]
+            ngModule: CoreModule
         };
     }
 }

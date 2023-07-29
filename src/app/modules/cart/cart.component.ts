@@ -17,7 +17,7 @@ export class CartComponent {
 
     constructor(private cartService: CartService, private checkoutService: CheckoutService, private router: Router) {
       effect(() => {
-        this.items = this.cartService.getCart();
+        this.items = this.cartService.getCart() || [];
       });
     }
 
@@ -27,7 +27,6 @@ export class CartComponent {
     }
 
     increment(item: PriceListProduct) {
-        // @ts-ignore
       item.qty = item.qty + 1;
     }
 
@@ -35,7 +34,6 @@ export class CartComponent {
         if (item.qty === 1) {
             return;
         }
-        // @ts-ignore
       item.qty = item.qty - 1;
     }
 

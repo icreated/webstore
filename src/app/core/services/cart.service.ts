@@ -38,11 +38,12 @@ export class CartService {
 
 
     saveCartToStorage() {
-        const simpleCart = this.cart().map((item) => {
-          return {id: item.id, qty: item.qty};
-        });
-        this.storageService.save('cart', simpleCart);
-
+        if (Array.isArray(this.cart())) {
+          const simpleCart = this.cart().map((item) => {
+            return {id: item.id, qty: item.qty};
+          });
+          this.storageService.save('cart', simpleCart);
+        }
     }
 
 

@@ -8,7 +8,6 @@ import {HeaderComponent} from './core/header/header.component';
 import {FooterComponent} from './core/footer/footer.component';
 import {CoreModule} from './core/core.module';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
-import {LocalStorageService} from './core/services/local.storage.service';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {SharedModule} from './shared/shared.module';
 import {isPlatformBrowser} from '@angular/common';
@@ -55,7 +54,6 @@ export const jwtOptionsFactory = (platformId: any) => ({
         })
     ],
     providers: [
-        LocalStorageService,
         {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
     ],
