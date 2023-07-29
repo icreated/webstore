@@ -3,11 +3,19 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7TYVAGLZ7XATQ&source=url)
 
 
-# Icreated WebStore for Idempiere 
+# Icreated WebStore Angular / Bootstrap
 > The full information about this project is available here: [https://icreated.co/projects/webstore](https://icreated.co/projects/webstore)
 
-Idempiere Angular WebStore is a frontend application created as responsive angular / bootstrap seed for your projects. 
-This applications shows standard web sites features:
+> The demo is available here: [https://webstore.icreated.co](https://webstore.icreated.co)
+
+> The very simple backend API REST services for DEMO is available here: [https://github.com/icreated/webstore-json-server](https://github.com/icreated/webstore-json-server)
+
+> The original Idempiere backend API REST services is available here:
+[https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api)
+
+Angular WebStore is a frontend application created as responsive angular / bootstrap seed for your projects. 
+It can be used as a starting point for your WebStore project with custom backend API REST services. It is possible thankfully to OpenApi first approach.
+This application shows standard web sites features:
 * product catalog
 * product search
 * user authentication
@@ -22,9 +30,6 @@ This applications shows standard web sites features:
 
 ![WebStore Architecture](https://icreated.co/assets/images/projects/webstore/screenshot_architecture.png?raw=true "Webstore Architecture")
 
-Server side WebStore API REST services project for Idempiere is available here:
-
-[https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api)
 
 ## Some snapshots:
 
@@ -52,12 +57,21 @@ Run `npm install`.
 
 This will create the node_modules directory in your current directory (if one doesn’t exist yet) and will download packages to that directory.
 
+Install also backend API REST services. There are two options:
+* Simple Json Server: [https://github.com/icreated/webstore-json-server](https://github.com/icreated/webstore-json-server) available at port 3000
+* Idempiere Webstore API REST plugin: [https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api) In this case you have to:
+  * Install Postgresql
+  * Install Idempiere
+  * Install Webstore API REST plugin
+  * Configure all these components
 
-By default, Idempiere Webstore API REST endpoints are installed here:
-
-[http://localhost:8080/services/api/](http://localhost:8080/services/api/)
-
-Change constant `API_ENDPOINT` in `app/core/library.ts` if different
+The backend endpoint is configured in the environment.ts file:
+```
+    api: {
+      baseUrl: 'http://localhost:3000' // for Json Server
+      // baseUrl: 'http://localhost:8080/services/api/', // for Idempiere Webstore API REST plugin
+    }
+```
 
 
 
