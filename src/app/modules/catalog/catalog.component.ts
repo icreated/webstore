@@ -36,8 +36,7 @@ export class CatalogComponent implements OnInit {
             });
     }
 
-    add(event: Event, item: PriceListProduct ) {
-      alert(item)
+    add(item: PriceListProduct ) {
       this.cartService.addItem(item);
     }
 

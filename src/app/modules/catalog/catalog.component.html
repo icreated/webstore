@@ -13,8 +13,7 @@
               <td>{{line.name}}</td>
               <td>{{line.description}}</td>
               <td>{{line.price | currency}}</td>
-              <td><a class="btn btn-primary" role="button" (click)="add($event, line)" title="Add to Cart"><i class="fa fa-shopping-cart"></i></a></td>
-
+              <td><button type="button" class="btn btn-primary" (click)="add(line)" title="Add to Cart"><i class="fa fa-shopping-cart"></i></button></td>
             </tr>
         </tbody>
       </table>
