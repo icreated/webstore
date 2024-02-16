@@ -36,8 +36,11 @@ export class CatalogComponent implements OnInit {
             });
     }
 
-    add(item: PriceListProduct) {
-        this.cartService.addItem(item);
+    add(event: Event ) {
+      alert(event.target)
+      const item = (event.target as any).item;
+      alert('Item added to cart' + item)
+      this.cartService.addItem(item);
     }
 
 }
