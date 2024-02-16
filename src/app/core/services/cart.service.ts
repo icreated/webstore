@@ -22,9 +22,9 @@ export class CartService {
     }
 
     addItem(item: PriceListProduct) {
-      alert("Item:" + item.id + " " + item.name + " " + item.price + " " + item.qty);
-      alert ("Cart:" + this.cart());
         this.cart.mutate((basket) => {
+          alert ("Cart:" + this.cart);
+          alert ("Basket:" + basket);
             const productIn = basket
               .find((product) => product.id === item.id);
             if (productIn) {
