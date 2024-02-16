@@ -35,13 +35,14 @@ export class LocalStorageService {
         }
         const data = JSON.parse(localStorage.getItem(environment.storageKey) as string);
         if (!data) {
+            localStorage.setItem(environment.storageKey, JSON.stringify({}));
             return undefined;
         }
         if (name) {
             if (data[name]) {
                 return data[name];
             } else {
-                return {};
+                return name.endsWith('Array') ? [] : {};
             }
         }
         return data;

@@ -6,12 +6,14 @@ import {PriceListProduct} from '../../api/models/price-list-product';
 import {CatalogService} from '../../api/services/catalog.service';
 import {AlertService} from './alert.service';
 
+const CART_STORAGE_KEY = 'cartArray';
+
 @Injectable({
     providedIn: 'root'
 })
 export class CartService {
 
-    private cart: WritableSignal<PriceListProduct[]> = signal(this.storageService.get('cart'));
+    private cart: WritableSignal<PriceListProduct[]> = signal(this.storageService.get(CART_STORAGE_KEY));
 
     constructor(private catalogService: CatalogService, private storageService: LocalStorageService, private router: Router,
         private alertService: AlertService) {
@@ -23,9 +25,6 @@ export class CartService {
 
     addItem(item: PriceListProduct) {
         this.cart.mutate((basket) => {
-            if(!basket) {
-              basket = [];
-            }
             const productIn = basket
               .find((product) => product.id === item.id);
             if (productIn) {
@@ -45,7 +44,7 @@ export class CartService {
           const simpleCart = this.cart().map((item) => {
             return {id: item.id, qty: item.qty};
           });
-          this.storageService.save('cart', simpleCart);
+          this.storageService.save(CART_STORAGE_KEY, simpleCart);
         }
     }
 
@@ -58,7 +57,7 @@ export class CartService {
 
     clearCart() {
         this.cart.set([]);
-        this.storageService.save('cart', []);
+        this.storageService.save(CART_STORAGE_KEY, []);
     }
 
 
@@ -68,7 +67,7 @@ export class CartService {
 
 
     getCartFromStorage() {
-        const cart: SimpleItem[] = this.storageService.get('cart');
+        const cart: SimpleItem[] = this.storageService.get(CART_STORAGE_KEY);
         let ids: number[] = [];
         if (typeof cart !== 'undefined') {
           ids = cart.map(item => item.id);
