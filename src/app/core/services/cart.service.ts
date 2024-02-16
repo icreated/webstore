@@ -23,8 +23,9 @@ export class CartService {
 
     addItem(item: PriceListProduct) {
         this.cart.mutate((basket) => {
-          alert ("Cart:" + this.cart);
-          alert ("Basket:" + basket);
+            if(!basket) {
+              basket = [];
+            }
             const productIn = basket
               .find((product) => product.id === item.id);
             if (productIn) {
