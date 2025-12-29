@@ -30,12 +30,12 @@ export class CartService {
             if (productIn) {
               productIn.qty += 1;
               this.alertService.showAlert({type: 'success', msg: 'Quantity has been updated'});
+              return [...basket];
             } else {
               item.qty = 1;
-              basket.push(item);
               this.alertService.showAlert({type: 'success', msg: 'Item has been added to shopping cart'});
+              return [...basket, item];
             }
-            return basket;
         });
     }
 
@@ -51,10 +51,8 @@ export class CartService {
 
 
     deleteItem(item: PriceListProduct) {
-        const index = this.cart().indexOf(item);
         this.cart.update((basket) => {
-            basket.splice(index, 1);
-            return basket;
+            return basket.filter((product) => product !== item);
         });
         this.alertService.showAlert({type: 'success', msg: 'Item has been removed from shopping cart'});
     }
