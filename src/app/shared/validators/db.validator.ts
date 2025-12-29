@@ -1,6 +1,6 @@
 import {FormGroup} from '@angular/forms';
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AccountInfo} from '../../api/models/account-info';
 import {CommonService} from '../../api/services/common.service';

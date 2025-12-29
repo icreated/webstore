@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {HttpResponse} from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {UserCredentials} from '../../api/models/user-credentials';
