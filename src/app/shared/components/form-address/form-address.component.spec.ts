@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormAddressComponent } from './form-address.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('FormAddressComponent', () => {
   let component: FormAddressComponent;
@@ -11,9 +12,10 @@ describe('FormAddressComponent', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      declarations: [FormAddressComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule]
-    });
+    declarations: [FormAddressComponent],
+    imports: [RouterTestingModule, FormsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     fixture = TestBed.createComponent(FormAddressComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

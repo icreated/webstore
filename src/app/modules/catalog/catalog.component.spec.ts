@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CatalogComponent } from './catalog.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {CoreModule} from '../../core/core.module';
 import {RouterTestingModule} from '@angular/router/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('CatalogComponent', () => {
     let component: CatalogComponent;
@@ -11,9 +12,10 @@ describe('CatalogComponent', () => {
 
     beforeEach(async() => {
         await TestBed.configureTestingModule({
-          declarations: [CatalogComponent],
-          imports: [RouterTestingModule, HttpClientTestingModule, CoreModule]
-        })
+    declarations: [CatalogComponent],
+    imports: [RouterTestingModule, CoreModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
           .compileComponents();
     });
 

@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {CoreModule} from '../../../core/core.module';
 import {Checkout4Component} from './checkout4.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('Checkout4Component', () => {
     let component: Checkout4Component;
@@ -10,9 +11,10 @@ describe('Checkout4Component', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        declarations: [ Checkout4Component ],
-        imports: [RouterTestingModule, HttpClientTestingModule, CoreModule]
-      }).compileComponents();
+    declarations: [Checkout4Component],
+    imports: [RouterTestingModule, CoreModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
       fixture = TestBed.createComponent(Checkout4Component);
       component = fixture.componentInstance;
