@@ -4,23 +4,16 @@ import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {AuthService} from './authentication/auth.service';
 import {LocalStorageService} from './services/local.storage.service';
 
-@NgModule({
-    declarations: [],
-    imports: [
-        HttpClientModule,
-        RouterModule,
+@NgModule({ declarations: [], imports: [RouterModule,
         CommonModule,
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-        CollapseModule.forRoot()
-    ],
-    providers: [AuthService, LocalStorageService],
-})
+        CollapseModule.forRoot()], providers: [AuthService, LocalStorageService, provideHttpClient(withInterceptorsFromDi())] })
 export class CoreModule {
 
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, PLATFORM_ID} from '@angular/core';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -30,13 +30,10 @@ export const jwtOptionsFactory = (platformId: any) => ({
 });
 
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent, FooterComponent, HeaderComponent
     ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
+    bootstrap: [AppComponent], imports: [BrowserModule,
         CoreModule.forRoot(),
         FormsModule,
         SharedModule,
@@ -44,21 +41,18 @@ export const jwtOptionsFactory = (platformId: any) => ({
         BrowserAnimationsModule,
         CollapseModule.forRoot(),
         BsDropdownModule.forRoot(),
-        ApiModule.forRoot({rootUrl: environment.api.baseUrl}),
+        ApiModule.forRoot({ rootUrl: environment.api.baseUrl }),
         JwtModule.forRoot({
             jwtOptionsProvider: {
                 provide: JWT_OPTIONS,
                 useFactory: jwtOptionsFactory,
                 deps: [PLATFORM_ID]
             }
-        })
-    ],
-    providers: [
-        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}
-    ],
-    bootstrap: [AppComponent]
-})
+        })], providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }
 
