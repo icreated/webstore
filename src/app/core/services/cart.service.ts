@@ -24,7 +24,7 @@ export class CartService {
     }
 
     addItem(item: PriceListProduct) {
-        this.cart.mutate((basket) => {
+        this.cart.update((basket) => {
             const productIn = basket
               .find((product) => product.id === item.id);
             if (productIn) {
@@ -35,6 +35,7 @@ export class CartService {
               basket.push(item);
               this.alertService.showAlert({type: 'success', msg: 'Item has been added to shopping cart'});
             }
+            return basket;
         });
     }
 
@@ -51,7 +52,10 @@ export class CartService {
 
     deleteItem(item: PriceListProduct) {
         const index = this.cart().indexOf(item);
-        this.cart.mutate((basket) => basket.splice(index, 1));
+        this.cart.update((basket) => {
+            basket.splice(index, 1);
+            return basket;
+        });
         this.alertService.showAlert({type: 'success', msg: 'Item has been removed from shopping cart'});
     }
 
