@@ -25,7 +25,7 @@ export class Checkout3Component implements OnInit {
     }
 
     validate(shipper: Shipper) {
-        this.checkoutService.getOrder().shipper = shipper;
+        this.checkoutService.setOrder({...this.checkoutService.order(), shipper: shipper});
         this.router.navigate(['/checkout/checkout4']);
     }
 

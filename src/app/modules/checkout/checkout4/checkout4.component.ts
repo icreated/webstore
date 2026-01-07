@@ -1,4 +1,4 @@
-import {Component, effect} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from 'src/app/core/services/cart.service';
 import {AccountService} from '../../../api/services/account.service';
@@ -17,18 +17,15 @@ import {PaymentParam} from '../../../api/models/payment-param';
 
 export class Checkout4Component {
 
-  order: Order = {} as Order;
+  order = this.checkoutService.order;
 
   constructor(private route: ActivatedRoute, private router: Router, private checkoutService: CheckoutService,
               private accountService: AccountService, private cartService: CartService, private alertService: AlertService) {
-    effect(() => {
-      this.order = this.checkoutService.getOrder();
-    });
   }
 
 
   payBy(type: string) {
-    this.accountService.createOrder({body: this.order})
+    this.accountService.createOrder({body: this.order()})
       .pipe(
         switchMap((order: Order) => {
             this.cartService.clearCart();
@@ -38,7 +35,7 @@ export class Checkout4Component {
         )).subscribe(
       resp => {
         if (resp.status === 200) {
-          this.alertService.showAlert({type: 'success', msg: 'Order ' + this.order.documentNo + ' is generated'});
+          this.alertService.showAlert({type: 'success', msg: 'Order ' + this.order().documentNo + ' is generated'});
           this.router.navigate(['/checkout/checkout5']);
         }
       }

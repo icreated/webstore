@@ -1,4 +1,4 @@
-import {Component, effect} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
 import {FileService} from 'src/app/core/services/file.service';
@@ -12,17 +12,14 @@ import {Order} from '../../../api/models/order';
 })
 export class Checkout5Component {
 
-    order: Order = {shipAddress: {}, billAddress: {}} as Order;
+    order = this.checkoutService.order;
 
     constructor(private router: Router, private checkoutService: CheckoutService, private fileService: FileService) {
-      effect(() => {
-        this.order = this.checkoutService.getOrder();
-      });
     }
 
 
     downloadOrder() {
-        this.fileService.downloadFile(this.order.id, 'order', this.order.documentNo || 'order');
+        this.fileService.downloadFile(this.order().id, 'order', this.order().documentNo || 'order');
     }
 
 }

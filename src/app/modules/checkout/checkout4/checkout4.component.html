@@ -13,10 +13,10 @@
           </div>
           <div class="panel-body">
             <p>
-              Send your check {{order?.grandTotal | currency}} to <strong>Icreated</strong>:<br/>
+              Send your check {{order()?.grandTotal | currency}} to <strong>Icreated</strong>:<br/>
               1, avenue Général John Doe<br/>
               69000 LYON<br/><br/>
-              Don't forget your order # <strong>{{order?.documentNo}}</strong>.
+              Don't forget your order # <strong>{{order()?.documentNo}}</strong>.
               Your order will be sent after the check reception
               Click the button to validate the order
             </p>
@@ -38,11 +38,11 @@
           </div>
           <div class="panel-body">
             <p>
-              Do the transfer of {{order?.grandTotal | currency}} to this bank account:<br/>
+              Do the transfer of {{order()?.grandTotal | currency}} to this bank account:<br/>
               Best World Bank<br/>
               IBAN: FR11 2222 3333 4444 5555 6666 777<br/>
               BIC: CCBPFRAABBC<br/><br/>
-              Don't forget your order # <strong>{{order?.documentNo}}</strong>.
+              Don't forget your order # <strong>{{order()?.documentNo}}</strong>.
               Your order will be sent after the bank transfer
               Click the button to validate the order
             </p>

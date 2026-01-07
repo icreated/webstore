@@ -1,4 +1,4 @@
-import {Component, effect, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
@@ -17,18 +17,14 @@ export class CheckoutComponent implements OnInit {
 
     disabled = true;
     currentUrl = '/checkout/checkout1';
-    order: Order = {} as Order;
+    order = this.checkoutService.order;
 
     constructor(private route: ActivatedRoute, private router: Router, private accountService: AccountService,
         private authService: AuthService, private checkoutService: CheckoutService, private cartService: CartService) {
-
-      effect(() => {
-          this.order = this.checkoutService.getOrder();
-      });
     }
 
     ngOnInit(): void {
-      this.order.grandTotal = this.cartService.getTotalPrice();
+      this.checkoutService.setOrder({...this.order(), grandTotal: this.cartService.getTotalPrice()});
     }
 
     routeIsActive(routePath: string) {

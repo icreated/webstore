@@ -13,14 +13,12 @@ export class CheckoutService {
     billAddress: Address = {} as Address;
     shipper: Shipper = {} as Shipper;
 
-    private order: WritableSignal<Order> = signal({id: 0} as Order);
+    private orderSignal: WritableSignal<Order> = signal({id: 0} as Order);
+
+    readonly order = this.orderSignal.asReadonly();
 
     setOrder(order: Order) {
-      this.order.set(order);
-    }
-
-    getOrder() {
-      return this.order();
+      this.orderSignal.set(order);
     }
 
     clear() {
