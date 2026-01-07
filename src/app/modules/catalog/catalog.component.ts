@@ -7,7 +7,8 @@ import {CatalogService} from '../../api/services/catalog.service';
 @Component({
     selector: 'app-catalog',
     templateUrl: './catalog.component.html',
-    styleUrls: ['./catalog.component.scss']
+    styleUrls: ['./catalog.component.scss'],
+    standalone: false
 })
 export class CatalogComponent implements OnInit {
 

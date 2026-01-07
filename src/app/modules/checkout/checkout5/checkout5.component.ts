@@ -8,7 +8,8 @@ import {Order} from '../../../api/models/order';
     selector: 'app-checkout5',
     providers: [FileService],
     templateUrl: './checkout5.component.html',
-    styleUrls: ['./checkout5.component.scss']
+    styleUrls: ['./checkout5.component.scss'],
+    standalone: false
 })
 export class Checkout5Component {
 

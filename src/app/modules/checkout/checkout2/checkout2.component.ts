@@ -9,7 +9,8 @@ import {AccountService} from '../../../api/services/account.service';
 @Component({
     selector: 'app-checkout2',
     templateUrl: './checkout2.component.html',
-    styleUrls: ['./checkout2.component.scss']
+    styleUrls: ['./checkout2.component.scss'],
+    standalone: false
 })
 export class Checkout2Component implements OnInit {
 

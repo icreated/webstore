@@ -16,9 +16,10 @@ export interface FormAddressAction {
 }
 
 @Component({
-  selector: 'app-form-address',
-  templateUrl: './form-address.component.html',
-  styleUrls: ['./form-address.component.css']
+    selector: 'app-form-address',
+    templateUrl: './form-address.component.html',
+    styleUrls: ['./form-address.component.css'],
+    standalone: false
 })
 export class FormAddressComponent implements OnInit {
 

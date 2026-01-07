@@ -7,7 +7,8 @@ import {AlertService} from '../../../core/services/alert.service';
 
 @Component({
     selector: 'app-orders',
-    templateUrl: './orders.component.html'
+    templateUrl: './orders.component.html',
+    standalone: false
 })
 export class OrdersComponent implements OnInit {
 

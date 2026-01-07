@@ -10,7 +10,8 @@ const DELETE = 'Delete';
 
 @Component({
     selector: 'app-addresses',
-    templateUrl: './addresses.component.html'
+    templateUrl: './addresses.component.html',
+    standalone: false
 })
 export class AddressesComponent implements OnInit {
 

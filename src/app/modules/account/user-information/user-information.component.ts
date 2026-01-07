@@ -12,7 +12,8 @@ import {AlertService} from '../../../core/services/alert.service';
 
 @Component({
     selector: 'app-user-information',
-    templateUrl: './user-information.component.html'
+    templateUrl: './user-information.component.html',
+    standalone: false
 })
 export class UserInformationComponent implements OnInit {
 

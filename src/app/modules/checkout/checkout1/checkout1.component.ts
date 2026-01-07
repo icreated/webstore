@@ -11,6 +11,7 @@ import {AccountService} from '../../../api/services/account.service';
     selector: 'app-checkout1',
     templateUrl: './checkout1.component.html',
     styleUrls: ['./checkout1.component.scss'],
+    standalone: false
 })
 export class Checkout1Component implements OnInit {
 

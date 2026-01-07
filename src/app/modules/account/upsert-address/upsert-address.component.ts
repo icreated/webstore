@@ -4,7 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'app-upsert-address',
-    templateUrl: './upsert-address.component.html'
+    templateUrl: './upsert-address.component.html',
+    standalone: false
 })
 export class UpsertAddressComponent implements OnInit {
 

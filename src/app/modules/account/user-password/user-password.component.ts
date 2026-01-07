@@ -9,7 +9,8 @@ import {AlertService} from '../../../core/services/alert.service';
 
 @Component({
     selector: 'app-user-password',
-    templateUrl: './user-password.component.html'
+    templateUrl: './user-password.component.html',
+    standalone: false
 })
 export class UserPasswordComponent {
 

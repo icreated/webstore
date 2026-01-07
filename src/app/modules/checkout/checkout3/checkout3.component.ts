@@ -9,7 +9,8 @@ import {Shipper} from '../../../api/models/shipper';
 @Component({
     selector: 'app-checkout3',
     templateUrl: './checkout3.component.html',
-    styleUrls: ['./checkout3.component.scss']
+    styleUrls: ['./checkout3.component.scss'],
+    standalone: false
 })
 export class Checkout3Component implements OnInit {
 

@@ -12,7 +12,8 @@ import {PaymentParam} from '../../../api/models/payment-param';
 @Component({
     selector: 'app-checkout4',
     templateUrl: './checkout4.component.html',
-    styleUrls: ['./checkout4.component.scss']
+    styleUrls: ['./checkout4.component.scss'],
+    standalone: false
 })
 
 export class Checkout4Component {
