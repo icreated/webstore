@@ -6,7 +6,7 @@ const routes: Routes = [
     {path: 'home', loadComponent: () => import('./modules/home/home.component').then(m => m.HomeComponent)},
     {path: 'catalog/:categoryId', loadChildren: () => import('./modules/catalog/catalog.module').then(m => m.CatalogModule)},
     {path: 'catalog/search', loadChildren: () => import('./modules/catalog/catalog.module').then(m => m.CatalogModule)},
-    {path: 'cart', loadChildren: () => import('./modules/cart/cart.module').then(m => m.CartModule)},
+    {path: 'cart', loadComponent: () => import('./modules/cart/cart.component').then(m => m.CartComponent)},
     {path: 'signup', loadChildren: () => import('./modules/signup/signup.module').then(m => m.SignupModule)},
     {path: 'checkout', loadChildren: () => import('./modules/checkout/checkout.module').then(m => m.CheckoutModule)},
     {path: 'account', loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule)},
