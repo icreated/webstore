@@ -14,10 +14,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let shipper of shippers">
-              <td>{{shipper.name}}</td>
-              <td><button (click)="validate(shipper)" class="btn btn-sm btn-success"><i class="fa fa-edit"> </i> Validate</button></td>
-            </tr>
+            @for (shipper of shippers; track shipper) {
+              <tr>
+                <td>{{shipper.name}}</td>
+                <td><button (click)="validate(shipper)" class="btn btn-sm btn-success"><i class="fa fa-edit"> </i> Validate</button></td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>

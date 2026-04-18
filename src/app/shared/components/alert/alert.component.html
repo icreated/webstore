@@ -1,7 +1,11 @@
-<div id="myAlert" class="alert my-alert fade2" role="alert" [ngClass]="classes" *ngIf="!closed">
+@if (!closed) {
+  <div id="myAlert" class="alert my-alert fade2" role="alert" [ngClass]="classes">
     <span class="alert-text"> {{alert.msg}}</span>
-    <button *ngIf="dismissible" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-            (click)="onClose()">
-    </button>
-</div>
+    @if (dismissible) {
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="onClose()">
+      </button>
+    }
+  </div>
+}
 

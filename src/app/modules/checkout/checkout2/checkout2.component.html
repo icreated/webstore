@@ -1,8 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-4 col-md-4" *ngFor="let address of addresses">
-      <app-address [address]="address" [actions]="actions" (actionEvent)="validateAddress(address)"></app-address>
-    </div>
+    @for (address of addresses; track address) {
+      <div class="col-lg-4 col-md-4">
+        <app-address [address]="address" [actions]="actions" (actionEvent)="validateAddress(address)"></app-address>
+      </div>
+    }
     <div class="row justify-content-center mx-2">
       <app-form-address [action]="newAddressAction" (actionEvent)="validateAddress($event)"></app-form-address>
     </div>

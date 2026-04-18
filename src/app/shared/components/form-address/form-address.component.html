@@ -11,7 +11,7 @@
         <label for="addressLabel">Address Label<sup>*</sup></label>
         <em [hidden]="label.valid || label.pristine" class="has-error">Label is mandatory</em>
         <input [(ngModel)]="address.name" #label="ngModel" type="text" value="My address" name="name"
-               class="form-control" id="addressLabel" required>
+          class="form-control" id="addressLabel" required>
       </div>
     </div>
     <div class="col-lg-6 col-xs-6 col-sm-12 d-grid gap-2">
@@ -19,13 +19,13 @@
         <label for="InputAddress">Address <sup>*</sup> </label>
         <em [hidden]="address1.valid || address1.pristine" class="has-error">Your address is mandatory</em>
         <input [(ngModel)]="address.location.address1" #address1="ngModel" name="address1" type="text"
-               class="form-control" id="InputAddress" placeholder="Address" required>
+          class="form-control" id="InputAddress" placeholder="Address" required>
       </div>
 
       <div class="form-group">
         <label for="InputAddress2">Address 2</label>
         <input [(ngModel)]="address.location.address2" name="address2" type="text" class="form-control" id="InputAddress2"
-               placeholder="Address 2">
+          placeholder="Address 2">
       </div>
 
       <div class="form-group required">
@@ -51,7 +51,9 @@
       <div class="form-group required">
         <label for="InputCountry">Country <sup>*</sup> </label>
         <select [(ngModel)]="address.location.country"  name="selectedCountry" class="form-control" id="InputCountry">
-          <option [ngValue]="country" *ngFor="let country of countries">{{country.name}}</option>
+          @for (country of countries; track country) {
+            <option [ngValue]="country">{{country.name}}</option>
+          }
         </select>
       </div>
     </div>

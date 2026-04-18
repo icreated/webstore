@@ -52,70 +52,96 @@
     </div>
 
   </div>
-  <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar" *ngIf="!routeIsActive('/checkout/checkout5')">
-    <div>
-      <table class="std table">
-        <tbody>
-        <tr *ngIf="order().id > 0">
-          <td>Order : </td>
-          <td class="price" >{{ order().documentNo}}</td>
-        </tr>
-        <tr *ngIf="order().shipper">
-          <td>Shipper:</td>
-          <td class="price"><span class="success">{{ order().shipper.name }}</span></td>
-<!--          <td *ngIf="order().shipper.price === 0" class="price"><span class="success">Free!</span></td>-->
-<!--          <td *ngIf="order().shipper.price > 0" class="price"><span class="price">{{ order().shipper.price | currency }}</span></td>-->
-        </tr>
-        <tr *ngIf="order().id">
-            <td>Net Price : </td>
-            <td class="price" >{{ order()?.totalLines | currency }}</td>
-        </tr>
-        <tr *ngFor="let tax of order()?.taxes">
-          <td>{{tax.name}}</td>
-          <td class="price">{{ tax.taxAmt | currency }}</td>
-        </tr>
-        <tr>
-          <td>Total Price:</td>
-          <td class="price">{{ order().grandTotal | currency}}</td>
-        </tr>
-        </tbody>
-      </table>
-
-      <table *ngIf="order().shipAddress?.location.address1" class="std table">
-        <thead><h3>Delivery Address</h3></thead>
-        <tbody>
-        <tr>
-          <td>
-            <ul class="list-inline">
-              <li *ngIf="order().shipAddress.location.address1"><span>{{ order().shipAddress.location.address1 }}</span></li>
-              <li *ngIf="order().shipAddress.location.address2"><span>{{ order().shipAddress.location.address2 }}</span></li>
-              <li *ngIf="order().shipAddress.location.postal"><span>{{ order().shipAddress.location.postal }} {{ order().shipAddress.location.city }}</span></li>
-              <li *ngIf="order().shipAddress.location.country.name"><span>{{ order().shipAddress.location.country.name }}</span></li>
-            </ul>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
-      <table *ngIf="order().billAddress?.location.address1" class="std table">
-        <thead><h3>Invoice Address</h3></thead>
-        <tbody>
-        <tr>
-          <td>
-            <ul class="list-inline">
-              <li *ngIf="order().billAddress.location.address1"><span>{{ order().billAddress.location.address1 }}</span></li>
-              <li *ngIf="order().billAddress.location.address2"><span>{{ order().billAddress.location.address2 }}</span></li>
-              <li *ngIf="order().billAddress.location.postal"><span>{{ order().billAddress.location.postal }} {{ order().billAddress.location.city }}</span></li>
-              <li *ngIf="order().billAddress.location.country.name"><span>{{ order().billAddress.location.country.name }}</span></li>
-             </ul>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
+  @if (!routeIsActive('/checkout/checkout5')) {
+    <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar">
+      <div>
+        <table class="std table">
+          <tbody>
+            @if (order().id > 0) {
+              <tr>
+                <td>Order : </td>
+                <td class="price" >{{ order().documentNo}}</td>
+              </tr>
+            }
+            @if (order().shipper) {
+              <tr>
+                <td>Shipper:</td>
+                <td class="price"><span class="success">{{ order().shipper.name }}</span></td>
+                <!--          <td *ngIf="order().shipper.price === 0" class="price"><span class="success">Free!</span></td>-->
+                <!--          <td *ngIf="order().shipper.price > 0" class="price"><span class="price">{{ order().shipper.price | currency }}</span></td>-->
+              </tr>
+            }
+            @if (order().id) {
+              <tr>
+                <td>Net Price : </td>
+                <td class="price" >{{ order()?.totalLines | currency }}</td>
+              </tr>
+            }
+            @for (tax of order()?.taxes; track tax) {
+              <tr>
+                <td>{{tax.name}}</td>
+                <td class="price">{{ tax.taxAmt | currency }}</td>
+              </tr>
+            }
+            <tr>
+              <td>Total Price:</td>
+              <td class="price">{{ order().grandTotal | currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+        @if (order().shipAddress?.location.address1) {
+          <table class="std table">
+            <thead><h3>Delivery Address</h3></thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ul class="list-inline">
+                    @if (order().shipAddress.location.address1) {
+                      <li><span>{{ order().shipAddress.location.address1 }}</span></li>
+                    }
+                    @if (order().shipAddress.location.address2) {
+                      <li><span>{{ order().shipAddress.location.address2 }}</span></li>
+                    }
+                    @if (order().shipAddress.location.postal) {
+                      <li><span>{{ order().shipAddress.location.postal }} {{ order().shipAddress.location.city }}</span></li>
+                    }
+                    @if (order().shipAddress.location.country.name) {
+                      <li><span>{{ order().shipAddress.location.country.name }}</span></li>
+                    }
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        }
+        @if (order().billAddress?.location.address1) {
+          <table class="std table">
+            <thead><h3>Invoice Address</h3></thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ul class="list-inline">
+                    @if (order().billAddress.location.address1) {
+                      <li><span>{{ order().billAddress.location.address1 }}</span></li>
+                    }
+                    @if (order().billAddress.location.address2) {
+                      <li><span>{{ order().billAddress.location.address2 }}</span></li>
+                    }
+                    @if (order().billAddress.location.postal) {
+                      <li><span>{{ order().billAddress.location.postal }} {{ order().billAddress.location.city }}</span></li>
+                    }
+                    @if (order().billAddress.location.country.name) {
+                      <li><span>{{ order().billAddress.location.country.name }}</span></li>
+                    }
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        }
+      </div>
     </div>
-
-  </div>
+  }
 
 
 </div>

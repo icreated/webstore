@@ -1,20 +1,22 @@
 <div class="row mx-2">
-    <table class="table table-striped">
-        <thead>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (line of products; track line) {
         <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th></th>
+          <td>{{line.name}}</td>
+          <td>{{line.description}}</td>
+          <td>{{line.price | currency}}</td>
+          <td><button type="button" class="btn btn-primary" (click)="add(line)" title="Add to Cart"><i class="fa fa-shopping-cart"></i></button></td>
         </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let line of products">
-              <td>{{line.name}}</td>
-              <td>{{line.description}}</td>
-              <td>{{line.price | currency}}</td>
-              <td><button type="button" class="btn btn-primary" (click)="add(line)" title="Add to Cart"><i class="fa fa-shopping-cart"></i></button></td>
-            </tr>
-        </tbody>
-      </table>
+      }
+    </tbody>
+  </table>
 </div>

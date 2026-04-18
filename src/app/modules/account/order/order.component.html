@@ -9,82 +9,92 @@
   </div>
 </div>
 
-<div class="container" *ngIf="order">
+@if (order) {
+  <div class="container">
     <div class="row">
-        <div class="col-12">
-          <h1><span><i class="fa fa-list-alt me-2"></i> My order </span></h1>
-
-          <div class="row">
-            <div class="col-lg-12">
-              <h2 class="block-title-2"> Order description </h2>
+      <div class="col-12">
+        <h1><span><i class="fa fa-list-alt me-2"></i> My order </span></h1>
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="block-title-2"> Order description </h2>
+          </div>
+          <div class="col-sm-12">
+            <div class="statusTop">
+              <p><strong>Status: </strong>{{order.docStatusName}}</p>
+              <p><strong>Date: </strong> {{order.date | date:'MM/dd/yyyy'}}</p>
+              <p><strong># </strong> {{order.documentNo}}</p>
+              <p><strong>
+                @if (order.docStatus === 'IP') {
+                  <button class="btn btn-sm btn-warning me-2" (click)="voidOrder()">Void</button>
+                }
+              </strong></p>
+              <p><strong>
+                <button class="btn btn-sm btn-success me-2" (click)="downloadOrder()">PDF</button>
+              </strong></p>
             </div>
-
-            <div class="col-sm-12">
-              <div class="statusTop">
-                <p><strong>Status: </strong>{{order.docStatusName}}</p>
-                <p><strong>Date: </strong> {{order.date | date:'MM/dd/yyyy'}}</p>
-                <p><strong># </strong> {{order.documentNo}}</p>
-                <p><strong>
-                  <button class="btn btn-sm btn-warning me-2" *ngIf="order.docStatus === 'IP'" (click)="voidOrder()">Void</button>
-                </strong></p>
-                <p><strong>
-                  <button class="btn btn-sm btn-success me-2" (click)="downloadOrder()">PDF</button>
-                </strong></p>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="order-box">
-                <div class="order-box-header">Delivery address</div>
-                <div class="order-box-content">
-                  <div>
-                      {{order.shipAddress?.name}}<br/>
-                      {{order.shipAddress?.location?.address1}}<br>
-                      <span *ngIf="order.shipAddress?.location?.address2">{{order.shipAddress?.location?.address2}}</span><br *ngIf="order.shipAddress?.location?.address2"/>
-                      {{order.shipAddress?.location?.postal}} &nbsp;&nbsp; {{order.shipAddress?.location?.city}}<br>
-                      {{order.shipAddress?.location?.country?.name}}
-                  </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="order-box">
+              <div class="order-box-header">Delivery address</div>
+              <div class="order-box-content">
+                <div>
+                  {{order.shipAddress?.name}}<br/>
+                  {{order.shipAddress?.location?.address1}}<br>
+                  @if (order.shipAddress?.location?.address2) {
+                    <span>{{order.shipAddress?.location?.address2}}</span>
+                    }@if (order.shipAddress?.location?.address2) {
+                    <br/>
+                  }
+                  {{order.shipAddress?.location?.postal}} &nbsp;&nbsp; {{order.shipAddress?.location?.city}}<br>
+                  {{order.shipAddress?.location?.country?.name}}
                 </div>
               </div>
             </div>
-
-            <div class="col-lg-6">
-              <div class="order-box">
-                <div class="order-box-header">Invoice address</div>
-                <div class="order-box-content">
-                  <div>
-                      {{order.billAddress?.name}}<br/>
-                      {{order.billAddress?.location?.address1}}<br>
-                      <span *ngIf="order.billAddress?.location?.address2">{{order.billAddress?.location?.address2}}</span><br *ngIf="order.billAddress?.location?.address2"/>
-                      {{order.billAddress?.location?.postal}}  {{order.billAddress?.location?.city}}<br>
-                      {{order.billAddress?.location?.country?.name}}
-                  </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="order-box">
+              <div class="order-box-header">Invoice address</div>
+              <div class="order-box-content">
+                <div>
+                  {{order.billAddress?.name}}<br/>
+                  {{order.billAddress?.location?.address1}}<br>
+                  @if (order.billAddress?.location?.address2) {
+                    <span>{{order.billAddress?.location?.address2}}</span>
+                    }@if (order.billAddress?.location?.address2) {
+                    <br/>
+                  }
+                  {{order.billAddress?.location?.postal}}  {{order.billAddress?.location?.city}}<br>
+                  {{order.billAddress?.location?.country?.name}}
                 </div>
               </div>
             </div>
-
-
-            <div *ngIf="order.shipments?.length" class="col-sm-6">
+          </div>
+          @if (order.shipments?.length) {
+            <div class="col-sm-6">
               <div class="order-box">
                 <div class="order-box-header">Delivery</div>
                 <div class="order-box-content">
-                  <div class="address" *ngFor="let shipment of order.shipments">
-                    <p>Status<span> <strong>({{shipment.docStatusName}})</strong> </span></p>
-                    <p><strong># : </strong>{{shipment.documentNo}}</p>
-                    <p><strong>Date : </strong>{{shipment.date | date:'MM/dd/yyyy'}}</p>
-                    <p><strong># tracking : </strong>{{shipment.trackingNo}}</p>
-                  </div>
+                  @for (shipment of order.shipments; track shipment) {
+                    <div class="address">
+                      <p>Status<span> <strong>({{shipment.docStatusName}})</strong> </span></p>
+                      <p><strong># : </strong>{{shipment.documentNo}}</p>
+                      <p><strong>Date : </strong>{{shipment.date | date:'MM/dd/yyyy'}}</p>
+                      <p><strong># tracking : </strong>{{shipment.trackingNo}}</p>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
-
-            <div class="col-sm-12 clearfix">
-              <div class="order-box">
-                <div class="order-box-header">Lines</div>
-                <div class="order-box-content">
-                  <div class="table-responsive">
-                    <table class="order-details-cart">
-                      <tbody>
-                        <tr *ngFor="let line of order.lines">
+          }
+          <div class="col-sm-12 clearfix">
+            <div class="order-box">
+              <div class="order-box-header">Lines</div>
+              <div class="order-box-content">
+                <div class="table-responsive">
+                  <table class="order-details-cart">
+                    <tbody>
+                      @for (line of order.lines; track line) {
+                        <tr>
                           <td class="w-60">
                             <div class="miniCartDescription">
                               <h4>{{line.name}}</h4>
@@ -94,38 +104,38 @@
                           <td class="w-20">{{line.price | currency}}  X {{line.qty}}</td>
                           <td class="w-20"><span>{{line.lineNetAmt | currency}}</span></td>
                         </tr>
-
-
+                      }
                       <tr>
                         <td colspan="2"><div class="text-right">Total Lines</div></td>
                         <td><span> {{order.totalLines | currency}}</span></td>
                       </tr>
-                      <tr *ngFor="let tax of order.taxes">
+                      @for (tax of order.taxes; track tax) {
+                        <tr>
                           <td colspan="2"><div class="text-right">{{tax.name}}</div></td>
                           <td class="price">{{tax.taxAmt | currency}}</td>
-                      </tr>
+                        </tr>
+                      }
                       <tr>
                         <td colspan="2"><div class="text-right">Total</div></td>
                         <td><span class="price">{{order.grandTotal | currency}}</span></td>
                       </tr>
-
-                      </tbody>
-                    </table>
-                  </div>
-
+                    </tbody>
+                  </table>
                 </div>
               </div>
-          </div>
+            </div>
           </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+}
 
 <div class="col-lg-12 my-2">
-    <ul class="contentFooter list-inline">
-      <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home me-2"></i> Home</a>
-      </li>
-      <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left me-2"></i> Account</a></li>
-    </ul>
+  <ul class="contentFooter list-inline">
+    <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home me-2"></i> Home</a>
+  </li>
+  <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left me-2"></i> Account</a></li>
+</ul>
 </div>
 
