@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Address } from '@api/models/address';
 import { AccountService } from '@api/services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +20,8 @@ export interface FormAddressAction {
     selector: 'app-form-address',
     templateUrl: './form-address.component.html',
     styleUrls: ['./form-address.component.css'],
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormAddressComponent implements OnInit {

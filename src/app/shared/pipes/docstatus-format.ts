@@ -10,7 +10,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
     name: 'docStatus',
-    standalone: false
+    standalone: true
 })
 export class DocStatusFormat implements PipeTransform {
     transform(value: any) {

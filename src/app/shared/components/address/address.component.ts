@@ -11,7 +11,7 @@ export interface AddressAction {
     selector: 'app-address',
     templateUrl: './address.component.html',
     styleUrls: ['./address.component.css'],
-    standalone: false,
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddressComponent {

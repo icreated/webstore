@@ -1,12 +1,14 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
-import {Alert} from '@shared/models/alert';
-import {AlertService} from '@core/services/alert.service';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Alert } from '@shared/models/alert';
+import { AlertService } from '@core/services/alert.service';
 
 @Component({
     selector: 'app-alert',
     templateUrl: './alert.component.html',
     styleUrls: ['./alert.component.scss'],
-    standalone: false,
+    standalone: true,
+    imports: [NgClass],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlertComponent implements OnInit {
