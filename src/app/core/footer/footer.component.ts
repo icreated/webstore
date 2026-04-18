@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
-import { environment } from 'src/environments/environment';
-import {ProductCategory} from '../../api/models/product-category';
-import {CatalogService} from '../../api/services/catalog.service';
+import { environment } from '@env/environment';
+import {ProductCategory} from '@api/models/product-category';
+import {CatalogService} from '@api/services/catalog.service';
 
 @Component({
     selector: 'app-footer',

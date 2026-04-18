@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Alert} from '../../shared/models/alert';
+import {Alert} from '@shared/models/alert';
 import {Subject} from 'rxjs';
 
 @Injectable({

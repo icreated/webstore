@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
-import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {CommonService} from '../../../api/services/common.service';
-import {Shipper} from '../../../api/models/shipper';
+import {CheckoutService} from '@core/services/checkout.service';
+import {CommonService} from '@api/services/common.service';
+import {Shipper} from '@api/models/shipper';
 
 @Component({
     selector: 'app-checkout3',

@@ -4,7 +4,7 @@ import {SignupComponent} from './signup.component';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TabsModule} from 'ngx-bootstrap/tabs';
-import {SharedModule} from 'src/app/shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 
 const routes: Routes = [
     {

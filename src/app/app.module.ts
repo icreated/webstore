@@ -4,19 +4,19 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HeaderComponent} from './core/header/header.component';
-import {FooterComponent} from './core/footer/footer.component';
-import {CoreModule} from './core/core.module';
+import {HeaderComponent} from '@core/header/header.component';
+import {FooterComponent} from '@core/footer/footer.component';
+import {CoreModule} from '@core/core.module';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import {SharedModule} from './shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 import {isPlatformBrowser} from '@angular/common';
-import {TokenInterceptor} from './core/interceptors/token.interceptor';
-import {HttpErrorInterceptor} from './core/interceptors/error.interceptor';
+import {TokenInterceptor} from '@core/interceptors/token.interceptor';
+import {HttpErrorInterceptor} from '@core/interceptors/error.interceptor';
 import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
 import {FormsModule} from '@angular/forms';
-import {environment} from '../environments/environment';
-import {ApiModule} from './api/api.module';
+import {environment} from '@env/environment';
+import {ApiModule} from '@api/api.module';
 
 export const jwtOptionsFactory = (platformId: any) => ({
     tokenGetter: () => {

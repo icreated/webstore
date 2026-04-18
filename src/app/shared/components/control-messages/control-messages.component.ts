@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ValidationService} from 'src/app/core/services/validation.service';
+import {ValidationService} from '@core/services/validation.service';
 
 @Component({
     selector: 'app-control-messages',

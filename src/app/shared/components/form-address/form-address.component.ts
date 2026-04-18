@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Address} from '../../../api/models/address';
-import {AccountService} from '../../../api/services/account.service';
+import {Address} from '@api/models/address';
+import {AccountService} from '@api/services/account.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AlertService} from '../../../core/services/alert.service';
-import {CommonService} from '../../../api/services/common.service';
+import {AlertService} from '@core/services/alert.service';
+import {CommonService} from '@api/services/common.service';
 import {switchMap} from 'rxjs/operators';
-import {IdNamePair} from '../../../api/models/id-name-pair';
+import {IdNamePair} from '@api/models/id-name-pair';
 import {EMPTY} from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 
 export interface FormAddressAction {
   label: string;

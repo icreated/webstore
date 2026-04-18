@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {AuthService} from 'src/app/core/authentication/auth.service';
+import {AuthService} from '@core/authentication/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ValidationService} from 'src/app/core/services/validation.service';
-import {UserCredentials} from '../../api/models/user-credentials';
+import {ValidationService} from '@core/services/validation.service';
+import {UserCredentials} from '@api/models/user-credentials';
 
 
 @Component({

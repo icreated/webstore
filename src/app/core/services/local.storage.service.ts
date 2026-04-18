@@ -1,6 +1,6 @@
 import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {isPlatformServer} from '@angular/common';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env/environment';
 
 @Injectable()
 export class LocalStorageService {

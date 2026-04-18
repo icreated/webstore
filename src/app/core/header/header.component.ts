@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
-import {CatalogService} from '../../api/services/catalog.service';
-import {CartService} from '../services/cart.service';
-import {AuthService} from '../authentication/auth.service';
-import {ProductCategory} from '../../api/models/product-category';
+import {CatalogService} from '@api/services/catalog.service';
+import {CartService} from '@core/services/cart.service';
+import {AuthService} from '@core/authentication/auth.service';
+import {ProductCategory} from '@api/models/product-category';
 
 @Component({
     selector: 'app-header',

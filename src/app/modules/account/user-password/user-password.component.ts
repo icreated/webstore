@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from 'src/app/core/authentication/auth.service';
-import {ValidationService} from 'src/app/core/services/validation.service';
-import {AccountService} from '../../../api/services/account.service';
-import {Password} from '../../../api/models/password';
-import {AlertService} from '../../../core/services/alert.service';
+import {AuthService} from '@core/authentication/auth.service';
+import {ValidationService} from '@core/services/validation.service';
+import {AccountService} from '@api/services/account.service';
+import {Password} from '@api/models/password';
+import {AlertService} from '@core/services/alert.service';
 
 @Component({
     selector: 'app-user-password',

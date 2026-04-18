@@ -2,10 +2,10 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {AuthService} from '../authentication/auth.service';
+import {AuthService} from '@core/authentication/auth.service';
 import {Router} from '@angular/router';
-import {AlertService} from '../services/alert.service';
-import {isJson} from '../../shared/utils/utils';
+import {AlertService} from '@core/services/alert.service';
+import {isJson} from '@shared/utils/utils';
 
 
 @Injectable()

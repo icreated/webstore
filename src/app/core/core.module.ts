@@ -5,8 +5,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import {AuthService} from './authentication/auth.service';
-import {LocalStorageService} from './services/local.storage.service';
+import {AuthService} from '@core/authentication/auth.service';
+import {LocalStorageService} from '@core/services/local.storage.service';
 
 @NgModule({ declarations: [], imports: [RouterModule,
         CommonModule,

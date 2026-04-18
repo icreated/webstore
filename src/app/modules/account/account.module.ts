@@ -10,7 +10,7 @@ import {RouterModule} from '@angular/router';
 import {OrdersComponent} from './orders/orders.component';
 import {AddressesComponent} from './addresses/addresses.component';
 import {UpsertAddressComponent} from './upsert-address/upsert-address.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, RouterModule, accountRoutes], // , AccountRoutes

@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {CartService} from 'src/app/core/services/cart.service';
-import {CatalogService} from '../../api/services/catalog.service';
-import {PriceListProduct} from '../../api/models/price-list-product';
+import {CartService} from '@core/services/cart.service';
+import {CatalogService} from '@api/services/catalog.service';
+import {PriceListProduct} from '@api/models/price-list-product';
 
 @Component({
     selector: 'app-home',

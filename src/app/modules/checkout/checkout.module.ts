@@ -9,7 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CheckoutComponent} from './checkout.component';
 import {checkoutRoutes} from './checkoutRoutes';
-import {SharedModule} from 'src/app/shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 
 
 @NgModule({

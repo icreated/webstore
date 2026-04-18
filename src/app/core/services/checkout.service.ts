@@ -1,7 +1,7 @@
 import {Injectable, signal, WritableSignal} from '@angular/core';
-import {Shipper} from '../../api/models/shipper';
-import {Order} from '../../api/models/order';
-import {Address} from '../../api/models/address';
+import {Shipper} from '@api/models/shipper';
+import {Order} from '@api/models/order';
+import {Address} from '@api/models/address';
 
 
 @Injectable({

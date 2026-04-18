@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {Address} from '../../../api/models/address';
+import {Address} from '@api/models/address';
 
 export interface AddressAction {
   label: string;

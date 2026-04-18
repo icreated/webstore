@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from 'src/app/core/authentication/auth.service';
-import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {AccountService} from '../../api/services/account.service';
-import {Order} from '../../api/models/order';
-import {CartService} from '../../core/services/cart.service';
+import {AuthService} from '@core/authentication/auth.service';
+import {CheckoutService} from '@core/services/checkout.service';
+import {AccountService} from '@api/services/account.service';
+import {Order} from '@api/models/order';
+import {CartService} from '@core/services/cart.service';
 
 
 @Component({

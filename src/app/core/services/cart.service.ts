@@ -1,10 +1,10 @@
 import {effect, Injectable, signal, WritableSignal} from '@angular/core';
-import {LocalStorageService} from './local.storage.service';
+import {LocalStorageService} from '@core/services/local.storage.service';
 import {Router} from '@angular/router';
-import {SimpleItem} from 'src/app/shared/models/simple-item';
-import {PriceListProduct} from '../../api/models/price-list-product';
-import {CatalogService} from '../../api/services/catalog.service';
-import {AlertService} from './alert.service';
+import {SimpleItem} from '@shared/models/simple-item';
+import {PriceListProduct} from '@api/models/price-list-product';
+import {CatalogService} from '@api/services/catalog.service';
+import {AlertService} from '@core/services/alert.service';
 
 const CART_STORAGE_KEY = 'cartArray';
 

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {saveAs} from 'file-saver';
-import {AccountService} from '../../api/services/account.service';
+import {AccountService} from '@api/services/account.service';
 
 @Injectable({
     providedIn: 'root'

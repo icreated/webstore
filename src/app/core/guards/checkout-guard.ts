@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {CheckoutService} from '../services/checkout.service';
+import {CheckoutService} from '@core/services/checkout.service';
 
 
 @Injectable({

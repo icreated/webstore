@@ -6,8 +6,8 @@ import {Checkout4Component} from './checkout4/checkout4.component';
 import {Checkout5Component} from './checkout5/checkout5.component';
 import {CheckoutComponent} from './checkout.component';
 import {ModuleWithProviders} from '@angular/core';
-import {CheckoutGuard} from 'src/app/core/guards/checkout-guard';
-import {AuthGuard} from 'src/app/core/guards/auth-guard';
+import {CheckoutGuard} from '@core/guards/checkout-guard';
+import {AuthGuard} from '@core/guards/auth-guard';
 
 
 export const CHECKOUT_ROUTES: Routes = [

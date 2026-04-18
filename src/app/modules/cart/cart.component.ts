@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
-import {CartService} from 'src/app/core/services/cart.service';
-import {PriceListProduct} from '../../api/models/price-list-product';
-import {CheckoutService} from '../../core/services/checkout.service';
-import {Order} from '../../api/models/order';
+import {CartService} from '@core/services/cart.service';
+import {PriceListProduct} from '@api/models/price-list-product';
+import {CheckoutService} from '@core/services/checkout.service';
+import {Order} from '@api/models/order';
 import {Router} from '@angular/router';
-import {DocumentLine} from '../../api/models/document-line';
+import {DocumentLine} from '@api/models/document-line';
 
 @Component({
     selector: 'app-cart',

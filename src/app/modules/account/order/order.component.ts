@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FileService} from 'src/app/core/services/file.service';
-import {AccountService} from '../../../api/services/account.service';
-import {Order} from '../../../api/models/order';
-import {AlertService} from '../../../core/services/alert.service';
+import {FileService} from '@core/services/file.service';
+import {AccountService} from '@api/services/account.service';
+import {Order} from '@api/models/order';
+import {AlertService} from '@core/services/alert.service';
 
 @Component({
     selector: 'app-order',

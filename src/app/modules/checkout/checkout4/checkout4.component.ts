@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CartService} from 'src/app/core/services/cart.service';
-import {AccountService} from '../../../api/services/account.service';
-import {Order} from '../../../api/models/order';
-import {CheckoutService} from 'src/app/core/services/checkout.service';
+import {CartService} from '@core/services/cart.service';
+import {AccountService} from '@api/services/account.service';
+import {Order} from '@api/models/order';
+import {CheckoutService} from '@core/services/checkout.service';
 import {switchMap} from 'rxjs/operators';
-import {AlertService} from '../../../core/services/alert.service';
-import {PaymentParam} from '../../../api/models/payment-param';
+import {AlertService} from '@core/services/alert.service';
+import {PaymentParam} from '@api/models/payment-param';
 
 
 @Component({

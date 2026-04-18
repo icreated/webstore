@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {Router} from '@angular/router';
-import {Address} from '../../../api/models/address';
-import {AccountService} from '../../../api/services/account.service';
-import {AddressAction} from '../../../shared/components/address/address.component';
-import {AlertService} from '../../../core/services/alert.service';
+import {Address} from '@api/models/address';
+import {AccountService} from '@api/services/account.service';
+import {AddressAction} from '@shared/components/address/address.component';
+import {AlertService} from '@core/services/alert.service';
 
 const EDIT = 'Edit';
 const DELETE = 'Delete';

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
-import {Document} from 'src/app/api/models';
-import {AccountService} from '../../../api/services/account.service';
-import {AlertService} from '../../../core/services/alert.service';
+import {Document} from '@api/models';
+import {AccountService} from '@api/services/account.service';
+import {AlertService} from '@core/services/alert.service';
 
 @Component({
     selector: 'app-orders',

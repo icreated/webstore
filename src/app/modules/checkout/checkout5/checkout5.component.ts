@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {FileService} from 'src/app/core/services/file.service';
-import {Order} from '../../../api/models/order';
+import {CheckoutService} from '@core/services/checkout.service';
+import {FileService} from '@core/services/file.service';
+import {Order} from '@api/models/order';
 
 @Component({
     selector: 'app-checkout5',

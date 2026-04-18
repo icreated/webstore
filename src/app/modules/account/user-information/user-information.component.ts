@@ -2,12 +2,12 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {ValidationService} from 'src/app/core/services/validation.service';
-import {DBValidator} from 'src/app/shared/validators/db.validator';
-import {AccountInfo} from '../../../api/models/account-info';
-import {AccountService} from '../../../api/services/account.service';
-import {Token} from '../../../api/models/token';
-import {AlertService} from '../../../core/services/alert.service';
+import {ValidationService} from '@core/services/validation.service';
+import {DBValidator} from '@shared/validators/db.validator';
+import {AccountInfo} from '@api/models/account-info';
+import {AccountService} from '@api/services/account.service';
+import {Token} from '@api/models/token';
+import {AlertService} from '@core/services/alert.service';
 
 
 @Component({

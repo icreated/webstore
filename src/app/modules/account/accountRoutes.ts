@@ -7,7 +7,7 @@ import {UserPasswordComponent} from './user-password/user-password.component';
 import {AddressesComponent} from './addresses/addresses.component';
 import {UpsertAddressComponent} from './upsert-address/upsert-address.component';
 import {ModuleWithProviders} from '@angular/core';
-import {AuthGuard} from 'src/app/core/guards/auth-guard';
+import {AuthGuard} from '@core/guards/auth-guard';
 
 export const ACCOUNT_ROUTES: Routes = [
     {

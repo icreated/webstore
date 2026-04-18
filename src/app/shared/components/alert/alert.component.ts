@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
-import {Alert} from '../../models/alert';
-import {AlertService} from '../../../core/services/alert.service';
+import {Alert} from '@shared/models/alert';
+import {AlertService} from '@core/services/alert.service';
 
 @Component({
     selector: 'app-alert',
