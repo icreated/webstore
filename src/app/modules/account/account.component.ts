@@ -1,11 +1,12 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-account',
     templateUrl: './account.component.html',
     styleUrls: ['./account.component.scss'],
-    standalone: false,
+    standalone: true,
+    imports: [RouterLink],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountComponent  {
-}
+export class AccountComponent {}

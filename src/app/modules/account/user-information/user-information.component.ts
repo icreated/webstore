@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ValidationService } from '@core/services/validation.service';
 import { DBValidator } from '@shared/validators/db.validator';
@@ -7,12 +8,14 @@ import { AccountInfo } from '@api/models/account-info';
 import { AccountService } from '@api/services/account.service';
 import { Token } from '@api/models/token';
 import { AlertService } from '@core/services/alert.service';
+import { ControlMessagesComponent } from '@shared/components/control-messages/control-messages.component';
 
 
 @Component({
     selector: 'app-user-information',
     templateUrl: './user-information.component.html',
-    standalone: false,
+    standalone: true,
+    imports: [RouterLink, ReactiveFormsModule, ControlMessagesComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInformationComponent implements OnInit {

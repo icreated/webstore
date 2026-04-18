@@ -9,7 +9,7 @@ const routes: Routes = [
     {path: 'cart', loadComponent: () => import('./modules/cart/cart.component').then(m => m.CartComponent)},
     {path: 'signup', loadComponent: () => import('./modules/signup/signup.component').then(m => m.SignupComponent)},
     {path: 'checkout', loadChildren: () => import('./modules/checkout/checkout.module').then(m => m.CheckoutModule)},
-    {path: 'account', loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule)},
+    {path: 'account', loadChildren: () => import('./modules/account/accountRoutes').then(m => m.ACCOUNT_ROUTES)},
 ];
 
 @NgModule({

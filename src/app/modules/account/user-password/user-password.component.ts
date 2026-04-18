@@ -1,15 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '@core/authentication/auth.service';
 import { ValidationService } from '@core/services/validation.service';
 import { AccountService } from '@api/services/account.service';
 import { Password } from '@api/models/password';
 import { AlertService } from '@core/services/alert.service';
+import { ControlMessagesComponent } from '@shared/components/control-messages/control-messages.component';
 
 @Component({
     selector: 'app-user-password',
     templateUrl: './user-password.component.html',
-    standalone: false,
+    standalone: true,
+    imports: [RouterLink, ReactiveFormsModule, ControlMessagesComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserPasswordComponent {

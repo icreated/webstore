@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { FormAddressComponent } from '@shared/components/form-address/form-address.component';
 
 
 @Component({
     selector: 'app-upsert-address',
     templateUrl: './upsert-address.component.html',
-    standalone: false,
+    standalone: true,
+    imports: [RouterLink, FormAddressComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UpsertAddressComponent implements OnInit {

@@ -1,28 +1,31 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
-import {Document} from '@api/models';
-import {AccountService} from '@api/services/account.service';
-import {AlertService} from '@core/services/alert.service';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { Document } from '@api/models';
+import { AccountService } from '@api/services/account.service';
+import { AlertService } from '@core/services/alert.service';
 
 @Component({
     selector: 'app-orders',
     templateUrl: './orders.component.html',
-    standalone: false,
+    standalone: true,
+    imports: [RouterLink, CurrencyPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrdersComponent implements OnInit {
-    private accountService = inject(AccountService);
-    private alertService = inject(AlertService);
+    private readonly accountService = inject(AccountService);
+    private readonly alertService = inject(AlertService);
 
     orders = signal<Document[]>([]);
 
-    voidOrder(id: number) {
-        this.accountService.voidOrder({id}).subscribe(order => {
-            this.orders.update(list => list.map(o => o.id === order.id ? order : o));
-            this.alertService.showAlert({type: 'success', msg: 'Order has been voided'});
-        });
+    ngOnInit() {
+        this.accountService.getOrders().subscribe(orders => this.orders.set(orders));
     }
 
-    ngOnInit(): void {
-        this.accountService.getOrders().subscribe(orders => this.orders.set(orders));
+    voidOrder(id: number) {
+        this.accountService.voidOrder({ id }).subscribe(order => {
+            this.orders.update(list => list.map(o => o.id === order.id ? order : o));
+            this.alertService.showAlert({ type: 'success', msg: 'Order has been voided' });
+        });
     }
 }
