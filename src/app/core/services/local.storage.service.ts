@@ -1,50 +1,34 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {isPlatformServer} from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 import { environment } from '@env/environment';
 
 @Injectable()
 export class LocalStorageService {
 
-    private readonly isNode: boolean;
+    private readonly isServer = isPlatformServer(inject(PLATFORM_ID));
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {
-    //   this.isNode = typeof module !== 'undefined'
-        this.isNode = isPlatformServer(this.platformId);
+    save(name: string, data: unknown) {
+        if (this.isServer) return;
+
+        const raw = localStorage.getItem(environment.storageKey);
+        const store = raw ? JSON.parse(raw) : {};
+        store[name] = data;
+        localStorage.setItem(environment.storageKey, JSON.stringify(store));
     }
 
+    get(name: string) {
+        if (this.isServer) return undefined;
 
-    save(name: any, data: any) {
-        if (this.isNode) {
-            return;
-        }
-
-        const localDataString = localStorage.getItem(environment.storageKey);
-        let localData: any;
-        if (localDataString) {
-            localData = JSON.parse(localDataString);
-        } else {
-            localData = {};
-        }
-        localData[name] = data;
-        localStorage.setItem(environment.storageKey, JSON.stringify(localData));
-    }
-
-    get(name: any) {
-        if (this.isNode) {
-            return;
-        }
-        const data = JSON.parse(localStorage.getItem(environment.storageKey) as string);
-        if (!data) {
+        const raw = localStorage.getItem(environment.storageKey);
+        if (!raw) {
             localStorage.setItem(environment.storageKey, JSON.stringify({}));
             return undefined;
         }
-        if (name) {
-            if (data[name]) {
-                return data[name];
-            } else {
-                return name.endsWith('Array') ? [] : {};
-            }
+
+        const store = JSON.parse(raw);
+        if (!store[name]) {
+            return name.endsWith('Array') ? [] : {};
         }
-        return data;
+        return store[name];
     }
 }

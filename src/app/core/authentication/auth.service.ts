@@ -1,77 +1,75 @@
-import {Injectable} from '@angular/core';
-import {JwtHelperService} from '@auth0/angular-jwt';
+import { inject, Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpResponse } from '@angular/common/http';
-import {Subject} from 'rxjs';
-import {Router} from '@angular/router';
-import {UserCredentials} from '@api/models/user-credentials';
-import {AuthenticationService} from '@api/services/authentication.service';
-import {Token} from '@api/models/token';
-import {AccountService} from '@api/services/account.service';
-import {NewAccountForm} from '@api/models/new-account-form';
-import {AlertService} from '@core/services/alert.service';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { UserCredentials } from '@api/models/user-credentials';
+import { AuthenticationService } from '@api/services/authentication.service';
+import { Token } from '@api/models/token';
+import { AccountService } from '@api/services/account.service';
+import { NewAccountForm } from '@api/models/new-account-form';
+import { AlertService } from '@core/services/alert.service';
 
 
 @Injectable()
 export class AuthService {
 
     decodedToken: any;
-    decodedTokenSource = new Subject<string>();
-    decodedToken$ = this.decodedTokenSource.asObservable();
-    jwtHelper: JwtHelperService = new JwtHelperService();
 
-    logoutSource = new Subject<boolean>();
-    logout$ = this.logoutSource.asObservable();
+    private readonly decodedTokenSource = new Subject<string>();
+    readonly decodedToken$ = this.decodedTokenSource.asObservable();
 
+    private readonly logoutSource = new Subject<boolean>();
+    readonly logout$ = this.logoutSource.asObservable();
 
+    private readonly jwtHelper = new JwtHelperService();
     private loggedIn = false;
     private name = '';
 
-    constructor(private authenticationService: AuthenticationService, private accountService: AccountService,
-                private alertService: AlertService, private router: Router) {
-    }
-
+    private readonly authenticationService = inject(AuthenticationService);
+    private readonly accountService = inject(AccountService);
+    private readonly alertService = inject(AlertService);
+    private readonly router = inject(Router);
 
     login(userCredentials: UserCredentials, redirectTo: string) {
-
-        this.authenticationService.authenticateUser$Response({body: userCredentials}).subscribe(
-            (response: HttpResponse<Token>) => {
+        this.authenticationService.authenticateUser$Response({ body: userCredentials }).subscribe({
+            next: (response: HttpResponse<Token>) => {
                 this.loggedIn = true;
-                localStorage.setItem('jwt', response.body?.token || '');
-                this.onDecodedToken(response.body?.token || '');
-                this.alertService.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
+                localStorage.setItem('jwt', response.body?.token ?? '');
+                this.onDecodedToken(response.body?.token ?? '');
+                this.alertService.showAlert({ type: 'success', msg: 'Welcome ' + this.decodedToken.name });
                 this.router.navigateByUrl('/' + redirectTo);
             },
-            error => {
+            error: () => {
                 this.loggedIn = false;
-                this.router.navigateByUrl('/signup');
                 this.decodedToken = null;
-                this.alertService.showAlert({type: 'warning', msg: 'Credentials are wrong'});
+                this.router.navigateByUrl('/signup');
+                this.alertService.showAlert({ type: 'warning', msg: 'Credentials are wrong' });
             }
-        );
-
+        });
     }
 
     signup(account: NewAccountForm, redirectTo: string) {
         delete account.confirmPassword;
-        this.accountService.signup$Response({body: account}).subscribe(
-            (response: HttpResponse<Token>) => {
+        this.accountService.signup$Response({ body: account }).subscribe({
+            next: (response: HttpResponse<Token>) => {
                 this.loggedIn = true;
-                localStorage.setItem('jwt', response.body?.token || '');
-                this.onDecodedToken(response.body?.token || '');
-                this.alertService.showAlert({type: 'success', msg: 'Welcome ' + this.decodedToken.name});
+                localStorage.setItem('jwt', response.body?.token ?? '');
+                this.onDecodedToken(response.body?.token ?? '');
+                this.alertService.showAlert({ type: 'success', msg: 'Welcome ' + this.decodedToken.name });
                 this.router.navigateByUrl('/' + redirectTo);
             },
-            error => {
+            error: () => {
                 this.loggedIn = false;
-                this.router.navigateByUrl('/signup');
                 this.decodedToken = null;
+                this.router.navigateByUrl('/signup');
             }
-        );
+        });
     }
 
     updateToken(tokenJson: Token) {
-        localStorage.setItem('jwt', tokenJson.token || '');
-        this.onDecodedToken(tokenJson.token || '');
+        localStorage.setItem('jwt', tokenJson.token ?? '');
+        this.onDecodedToken(tokenJson.token ?? '');
     }
 
     testIsAuthenticated() {
@@ -90,20 +88,19 @@ export class AuthService {
         return this.name;
     }
 
-    public getToken(): string {
-        return localStorage.getItem('jwt') as string;
+    getToken(): string {
+        return localStorage.getItem('jwt') ?? '';
     }
 
     onDecodedToken(token: string) {
         try {
-            this.decodedToken = token ? this.jwtHelper.decodeToken(token) : this.decodedToken = null;
+            this.decodedToken = token ? this.jwtHelper.decodeToken(token) : null;
             this.name = this.decodedToken.name;
             this.decodedTokenSource.next(this.decodedToken);
-        } catch (e) {
+        } catch {
             this.logout();
             this.router.navigateByUrl('/auth');
         }
-
     }
 
     logout() {
@@ -113,6 +110,4 @@ export class AuthService {
         this.decodedTokenSource.next(null as any);
         this.logoutSource.next(true);
     }
-
 }
-

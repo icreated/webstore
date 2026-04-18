@@ -1,10 +1,10 @@
-import {effect, Injectable, signal, WritableSignal} from '@angular/core';
-import {LocalStorageService} from '@core/services/local.storage.service';
-import {Router} from '@angular/router';
-import {SimpleItem} from '@shared/models/simple-item';
-import {PriceListProduct} from '@api/models/price-list-product';
-import {CatalogService} from '@api/services/catalog.service';
-import {AlertService} from '@core/services/alert.service';
+import { effect, inject, Injectable, signal } from '@angular/core';
+import { LocalStorageService } from '@core/services/local.storage.service';
+import { Router } from '@angular/router';
+import { SimpleItem } from '@shared/models/simple-item';
+import { PriceListProduct } from '@api/models/price-list-product';
+import { CatalogService } from '@api/services/catalog.service';
+import { AlertService } from '@core/services/alert.service';
 
 const CART_STORAGE_KEY = 'cartArray';
 
@@ -13,48 +13,32 @@ const CART_STORAGE_KEY = 'cartArray';
 })
 export class CartService {
 
-    private cart: WritableSignal<PriceListProduct[]> = signal(this.storageService.get(CART_STORAGE_KEY));
+    private readonly storageService = inject(LocalStorageService);
+    private readonly catalogService = inject(CatalogService);
+    private readonly alertService = inject(AlertService);
+    private readonly router = inject(Router);
 
-    constructor(private catalogService: CatalogService, private storageService: LocalStorageService, private router: Router,
-        private alertService: AlertService) {
+    private readonly cart = signal<PriceListProduct[]>(this.storageService.get(CART_STORAGE_KEY) ?? []);
 
-        effect(() => {
-            this.saveCartToStorage();
-        } );
+    constructor() {
+        effect(() => this.saveCartToStorage());
     }
 
     addItem(item: PriceListProduct) {
-        this.cart.update((basket) => {
-            const productIn = basket
-              .find((product) => product.id === item.id);
-            if (productIn) {
-              productIn.qty += 1;
-              this.alertService.showAlert({type: 'success', msg: 'Quantity has been updated'});
-              return [...basket];
-            } else {
-              item.qty = 1;
-              this.alertService.showAlert({type: 'success', msg: 'Item has been added to shopping cart'});
-              return [...basket, item];
+        this.cart.update(basket => {
+            const existing = basket.find(p => p.id === item.id);
+            if (existing) {
+                this.alertService.showAlert({ type: 'success', msg: 'Quantity has been updated' });
+                return basket.map(p => p === existing ? { ...p, qty: p.qty + 1 } : p);
             }
+            this.alertService.showAlert({ type: 'success', msg: 'Item has been added to shopping cart' });
+            return [...basket, { ...item, qty: 1 }];
         });
     }
-
-
-    saveCartToStorage() {
-        if (Array.isArray(this.cart())) {
-          const simpleCart = this.cart().map((item) => {
-            return {id: item.id, qty: item.qty};
-          });
-          this.storageService.save(CART_STORAGE_KEY, simpleCart);
-        }
-    }
-
 
     deleteItem(item: PriceListProduct) {
-        this.cart.update((basket) => {
-            return basket.filter((product) => product !== item);
-        });
-        this.alertService.showAlert({type: 'success', msg: 'Item has been removed from shopping cart'});
+        this.cart.update(basket => basket.filter(p => p !== item));
+        this.alertService.showAlert({ type: 'success', msg: 'Item has been removed from shopping cart' });
     }
 
     clearCart() {
@@ -62,33 +46,35 @@ export class CartService {
         this.storageService.save(CART_STORAGE_KEY, []);
     }
 
-
     getCart() {
         return this.cart();
     }
 
-
-    getCartFromStorage() {
-        const cart: SimpleItem[] = this.storageService.get(CART_STORAGE_KEY);
-        let ids: number[] = [];
-        if (typeof cart !== 'undefined') {
-          ids = cart.map(item => item.id);
-          this.catalogService.getCart({'ids': ids})
-            .subscribe((list) => {
-              list.forEach((item) => {
-                item.qty = cart.find(sItem => sItem.id === item.id)?.qty || 1;
-              } );
-              this.cart.set(list);
-            });
-        }
-    }
-
     updateItemQty(item: PriceListProduct, qty: number) {
-        this.cart.update(list => list.map(p => p === item ? {...p, qty} : p));
+        this.cart.update(list => list.map(p => p === item ? { ...p, qty } : p));
     }
 
     getTotalPrice() {
-      return this.cart().reduce((sum, item) => (sum += item.price * item?.qty, sum), 0);
+        return this.cart().reduce((sum, item) => sum + item.price * item.qty, 0);
     }
 
+    getCartFromStorage() {
+        const cart: SimpleItem[] = this.storageService.get(CART_STORAGE_KEY);
+        if (!cart?.length) return;
+
+        const ids = cart.map(item => item.id);
+        this.catalogService.getCart({ ids }).subscribe(list => {
+            const hydrated = list.map(item => ({
+                ...item,
+                qty: cart.find(s => s.id === item.id)?.qty ?? 1
+            }));
+            this.cart.set(hydrated);
+        });
+    }
+
+    private saveCartToStorage() {
+        if (!Array.isArray(this.cart())) return;
+        const simpleCart = this.cart().map(({ id, qty }) => ({ id, qty }));
+        this.storageService.save(CART_STORAGE_KEY, simpleCart);
+    }
 }

@@ -20,7 +20,7 @@ export class AlertComponent implements OnInit {
     private alertService = inject(AlertService);
 
     ngOnInit() {
-        this.alertService.alertSource.subscribe(alert => {
+        this.alertService.alert$.subscribe(alert => {
             this.closed.set(false);
             this.alert.set(alert);
 

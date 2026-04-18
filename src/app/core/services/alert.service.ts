@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Alert} from '@shared/models/alert';
-import {Subject} from 'rxjs';
+import { Alert } from '@shared/models/alert';
+import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AlertService {
+    private readonly alertSource = new Subject<Alert>();
+    readonly alert$ = this.alertSource.asObservable();
 
-  alertSource = new Subject<Alert>();
-  alert$ = this.alertSource.asObservable();
-
-  constructor() { }
-
-  showAlert(alert: Alert) {
-    this.alertSource.next(alert);
-  }
+    showAlert(alert: Alert) {
+        this.alertSource.next(alert);
+    }
 }
