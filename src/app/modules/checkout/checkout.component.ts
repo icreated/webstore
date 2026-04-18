@@ -1,10 +1,9 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '@core/authentication/auth.service';
-import {CheckoutService} from '@core/services/checkout.service';
-import {AccountService} from '@api/services/account.service';
-import {Order} from '@api/models/order';
-import {CartService} from '@core/services/cart.service';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '@core/authentication/auth.service';
+import { CheckoutService } from '@core/services/checkout.service';
+import { AccountService } from '@api/services/account.service';
+import { CartService } from '@core/services/cart.service';
 
 
 @Component({
@@ -14,28 +13,25 @@ import {CartService} from '@core/services/cart.service';
     standalone: false,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class CheckoutComponent implements OnInit {
 
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+    private readonly accountService = inject(AccountService);
+    private readonly authService = inject(AuthService);
+    private readonly checkoutService = inject(CheckoutService);
+    private readonly cartService = inject(CartService);
+
     disabled = true;
-    currentUrl = '/checkout/checkout1';
-    order = this.checkoutService.order;
+    readonly order = this.checkoutService.order;
 
-    constructor(private route: ActivatedRoute, private router: Router, private accountService: AccountService,
-        private authService: AuthService, private checkoutService: CheckoutService, private cartService: CartService) {
-    }
-
-    ngOnInit(): void {
-      this.checkoutService.setOrder({...this.order(), grandTotal: this.cartService.getTotalPrice()});
+    ngOnInit() {
+        this.checkoutService.setOrder({ ...this.order(), grandTotal: this.cartService.getTotalPrice() });
     }
 
     routeIsActive(routePath: string) {
-        if (routePath === '/checkout/checkout5' && this.router.url.startsWith('/checkout/checkout5')) {
-            return true;
-        } else {
-            return this.router.url === routePath;
-        }
+        return routePath === '/checkout/checkout5'
+            ? this.router.url.startsWith('/checkout/checkout5')
+            : this.router.url === routePath;
     }
-
-
 }

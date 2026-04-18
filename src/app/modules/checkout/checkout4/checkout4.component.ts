@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CartService} from '@core/services/cart.service';
-import {AccountService} from '@api/services/account.service';
-import {Order} from '@api/models/order';
-import {CheckoutService} from '@core/services/checkout.service';
-import {switchMap} from 'rxjs/operators';
-import {AlertService} from '@core/services/alert.service';
-import {PaymentParam} from '@api/models/payment-param';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from '@core/services/cart.service';
+import { AccountService } from '@api/services/account.service';
+import { Order } from '@api/models/order';
+import { CheckoutService } from '@core/services/checkout.service';
+import { switchMap } from 'rxjs/operators';
+import { AlertService } from '@core/services/alert.service';
+import { PaymentParam } from '@api/models/payment-param';
 
 
 @Component({
@@ -16,32 +16,29 @@ import {PaymentParam} from '@api/models/payment-param';
     standalone: false,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class Checkout4Component {
 
-  order = this.checkoutService.order;
+    private readonly route = inject(ActivatedRoute);
+    private readonly router = inject(Router);
+    private readonly checkoutService = inject(CheckoutService);
+    private readonly accountService = inject(AccountService);
+    private readonly cartService = inject(CartService);
+    private readonly alertService = inject(AlertService);
 
-  constructor(private route: ActivatedRoute, private router: Router, private checkoutService: CheckoutService,
-              private accountService: AccountService, private cartService: CartService, private alertService: AlertService) {
-  }
+    readonly order = this.checkoutService.order;
 
-
-  payBy(type: string) {
-    this.accountService.createOrder({body: this.order()})
-      .pipe(
-        switchMap((order: Order) => {
-            this.cartService.clearCart();
-            this.checkoutService.setOrder(order);
-            return this.accountService.payment$Response({id: order.id, body: {type: type} as PaymentParam});
-          }
-        )).subscribe(
-      resp => {
-        if (resp.status === 200) {
-          this.alertService.showAlert({type: 'success', msg: 'Order ' + this.order().documentNo + ' is generated'});
-          this.router.navigate(['/checkout/checkout5']);
-        }
-      }
-    );
-
-  }
+    payBy(type: string) {
+        this.accountService.createOrder({ body: this.order() }).pipe(
+            switchMap((order: Order) => {
+                this.cartService.clearCart();
+                this.checkoutService.setOrder(order);
+                return this.accountService.payment$Response({ id: order.id, body: { type } as PaymentParam });
+            })
+        ).subscribe(resp => {
+            if (resp.status === 200) {
+                this.alertService.showAlert({ type: 'success', msg: 'Order ' + this.order().documentNo + ' is generated' });
+                this.router.navigate(['/checkout/checkout5']);
+            }
+        });
+    }
 }

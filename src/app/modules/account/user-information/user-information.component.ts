@@ -1,13 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Subject} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import {ValidationService} from '@core/services/validation.service';
-import {DBValidator} from '@shared/validators/db.validator';
-import {AccountInfo} from '@api/models/account-info';
-import {AccountService} from '@api/services/account.service';
-import {Token} from '@api/models/token';
-import {AlertService} from '@core/services/alert.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { ValidationService } from '@core/services/validation.service';
+import { DBValidator } from '@shared/validators/db.validator';
+import { AccountInfo } from '@api/models/account-info';
+import { AccountService } from '@api/services/account.service';
+import { Token } from '@api/models/token';
+import { AlertService } from '@core/services/alert.service';
 
 
 @Component({
@@ -18,24 +17,21 @@ import {AlertService} from '@core/services/alert.service';
 })
 export class UserInformationComponent implements OnInit {
 
+    private readonly accountService = inject(AccountService);
+    private readonly alertService = inject(AlertService);
+    private readonly dbValidator = inject(DBValidator);
+    private readonly builder = inject(FormBuilder);
+    private readonly cdr = inject(ChangeDetectorRef);
+
     account: AccountInfo = {};
-    accountForm: FormGroup;
 
-    accountSource = new Subject<AccountInfo>();
-    account$ = this.accountSource.asObservable();
+    private readonly accountSource = new Subject<AccountInfo>();
+    private readonly account$ = this.accountSource.asObservable();
 
-    constructor(private accountService: AccountService, private alertService: AlertService,
-                private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator,
-                private cdr: ChangeDetectorRef) {
-
-        this.accountForm = this.builder.group({
-            name: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(60)])],
-            email: ['', Validators.compose([Validators.required, ValidationService.emailValidator, Validators.minLength(4),
-                Validators.maxLength(60)])],
-        },
-        {validator: this.dbvalidator.valueAndEmailExists('email', 'value', this.account$)}
-        );
-    }
+    accountForm: FormGroup = this.builder.group({
+        name: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(60)])],
+        email: ['', Validators.compose([Validators.required, ValidationService.emailValidator, Validators.minLength(4), Validators.maxLength(60)])],
+    }, { validator: this.dbValidator.valueAndEmailExists('email', 'value', this.account$) });
 
     ngOnInit() {
         this.accountService.getInfo().subscribe((data: AccountInfo) => {
@@ -48,13 +44,12 @@ export class UserInformationComponent implements OnInit {
     }
 
     save(accountBean: AccountInfo) {
-        if (this.accountForm.dirty && this.accountForm.valid) {
-            this.accountService.updateAccount({body: accountBean}).subscribe((data: Token) => {
-                this.accountSource.next(this.account);
-                this.alertService.showAlert({type: 'success', msg: 'Account updated'});
-                this.cdr.markForCheck();
-            });
-        }
-    }
+        if (!this.accountForm.dirty || !this.accountForm.valid) return;
 
+        this.accountService.updateAccount({ body: accountBean }).subscribe((_data: Token) => {
+            this.accountSource.next(this.account);
+            this.alertService.showAlert({ type: 'success', msg: 'Account updated' });
+            this.cdr.markForCheck();
+        });
+    }
 }

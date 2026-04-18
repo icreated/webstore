@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -10,23 +10,18 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class UpsertAddressComponent implements OnInit {
 
-  id = 0;
-  isUpdate = false;
+    private readonly router = inject(Router);
+    private readonly route = inject(ActivatedRoute);
 
+    id = 0;
+    isUpdate = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-  }
+    ngOnInit() {
+        this.id = this.route.snapshot.params['id'];
+        this.isUpdate = this.id > 0;
+    }
 
-  ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    this.isUpdate = this.id > 0;
-  }
-
-  actionEvent() {
-    this.router.navigate(['/account/addresses']);
-  }
-
-
-
-
+    actionEvent() {
+        this.router.navigate(['/account/addresses']);
+    }
 }

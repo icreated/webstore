@@ -1,8 +1,7 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {CheckoutService} from '@core/services/checkout.service';
-import {FileService} from '@core/services/file.service';
-import {Order} from '@api/models/order';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { CheckoutService } from '@core/services/checkout.service';
+import { FileService } from '@core/services/file.service';
 
 @Component({
     selector: 'app-checkout5',
@@ -14,14 +13,13 @@ import {Order} from '@api/models/order';
 })
 export class Checkout5Component {
 
-    order = this.checkoutService.order;
+    private readonly router = inject(Router);
+    private readonly checkoutService = inject(CheckoutService);
+    private readonly fileService = inject(FileService);
 
-    constructor(private router: Router, private checkoutService: CheckoutService, private fileService: FileService) {
-    }
-
+    readonly order = this.checkoutService.order;
 
     downloadOrder() {
-        this.fileService.downloadFile(this.order().id, 'order', this.order().documentNo || 'order');
+        this.fileService.downloadFile(this.order().id, 'order', this.order().documentNo ?? 'order');
     }
-
 }
