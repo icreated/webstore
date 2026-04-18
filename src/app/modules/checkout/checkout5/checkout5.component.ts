@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { CheckoutService } from '@core/services/checkout.service';
 import { FileService } from '@core/services/file.service';
@@ -8,7 +9,8 @@ import { FileService } from '@core/services/file.service';
     providers: [FileService],
     templateUrl: './checkout5.component.html',
     styleUrls: ['./checkout5.component.scss'],
-    standalone: false,
+    standalone: true,
+    imports: [CurrencyPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Checkout5Component {

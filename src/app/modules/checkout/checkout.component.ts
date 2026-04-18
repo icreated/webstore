@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '@core/authentication/auth.service';
 import { CheckoutService } from '@core/services/checkout.service';
 import { AccountService } from '@api/services/account.service';
@@ -10,7 +11,8 @@ import { CartService } from '@core/services/cart.service';
     selector: 'app-checkout',
     templateUrl: './checkout.component.html',
     styleUrls: ['./checkout.component.scss'],
-    standalone: false,
+    standalone: true,
+    imports: [RouterLink, RouterOutlet, CurrencyPipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckoutComponent implements OnInit {

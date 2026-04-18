@@ -8,7 +8,7 @@ const routes: Routes = [
     {path: 'catalog/search', loadComponent: () => import('./modules/catalog/catalog.component').then(m => m.CatalogComponent)},
     {path: 'cart', loadComponent: () => import('./modules/cart/cart.component').then(m => m.CartComponent)},
     {path: 'signup', loadComponent: () => import('./modules/signup/signup.component').then(m => m.SignupComponent)},
-    {path: 'checkout', loadChildren: () => import('./modules/checkout/checkout.module').then(m => m.CheckoutModule)},
+    {path: 'checkout', loadChildren: () => import('./modules/checkout/checkoutRoutes').then(m => m.CHECKOUT_ROUTES)},
     {path: 'account', loadChildren: () => import('./modules/account/accountRoutes').then(m => m.ACCOUNT_ROUTES)},
 ];
 

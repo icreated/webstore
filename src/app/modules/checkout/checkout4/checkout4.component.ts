@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '@core/services/cart.service';
 import { AccountService } from '@api/services/account.service';
@@ -8,12 +9,12 @@ import { switchMap } from 'rxjs/operators';
 import { AlertService } from '@core/services/alert.service';
 import { PaymentParam } from '@api/models/payment-param';
 
-
 @Component({
     selector: 'app-checkout4',
     templateUrl: './checkout4.component.html',
     styleUrls: ['./checkout4.component.scss'],
-    standalone: false,
+    standalone: true,
+    imports: [CurrencyPipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Checkout4Component {
