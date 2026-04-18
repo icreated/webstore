@@ -5,13 +5,13 @@
 </div>
 
 
-@if (items.length === 0) {
+@if (items().length === 0) {
   <div class="alert alert-warning mx-2">
     <strong>Empty</strong>
   </div>
 }
 
-@if (items.length > 0) {
+@if (items().length > 0) {
   <div class="row mx-2">
     <table class="table table-striped">
       <tbody>
@@ -23,7 +23,7 @@
           <th>Total</th>
           <th>&nbsp;</th>
         </tr>
-        @for (line of items; track line) {
+        @for (line of items(); track line) {
           <tr>
             <td><h5>{{line.name}}</h5></td>
             <td scope="col" class="d-none d-sm-table-cell">{{line.description}}</td>
@@ -47,7 +47,7 @@
   </div>
 }
 
-@if (items.length > 0) {
+@if (items().length > 0) {
   <div class="row d-flex justify-content-end">
     <div class="ml-auto col-auto mx-2">
       <a (click)="checkout()" class="btn btn-primary btn-lg btn-block"

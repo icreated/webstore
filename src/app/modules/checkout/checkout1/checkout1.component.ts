@@ -1,41 +1,32 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CartService} from 'src/app/core/services/cart.service';
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {Router} from '@angular/router';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {CommonService} from '../../../api/services/common.service';
 import {Address} from '../../../api/models/address';
 import {AccountService} from '../../../api/services/account.service';
-
 
 @Component({
     selector: 'app-checkout1',
     templateUrl: './checkout1.component.html',
     styleUrls: ['./checkout1.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Checkout1Component implements OnInit {
+    private router = inject(Router);
+    private accountService = inject(AccountService);
+    private checkoutService = inject(CheckoutService);
 
-    address: Address = {} as Address;
-    addresses: Address[] = [];
-    actions = [
-      {label: 'Validate', icon: 'fa-truck', buttonClass: 'btn-success'},
-    ];
-    newAddressAction = {label: 'Create Delivery Address', icon: 'fa-plus', buttonClass: 'btn-primary'};
-
-    constructor(private router: Router, private route: ActivatedRoute, private commonService: CommonService,
-                public accountService: AccountService, private cartService: CartService, private checkoutService: CheckoutService) {
-    }
-
+    addresses = toSignal(this.accountService.getAddresses(), { initialValue: [] as Address[] });
+    actions = [{ label: 'Validate', icon: 'fa-truck', buttonClass: 'btn-success' }];
+    newAddressAction = { label: 'Create Delivery Address', icon: 'fa-plus', buttonClass: 'btn-primary' };
 
     ngOnInit(): void {
-      this.checkoutService.clear();
-      this.address = {label: 'My address', location: {} } as unknown as Address;
-      this.accountService.getAddresses()
-        .subscribe(addresses => this.addresses = addresses);
+        this.checkoutService.clear();
     }
 
     validateAddress(address: Address): void {
-      this.checkoutService.setOrder({...this.checkoutService.order(), shipAddress: address});
-      this.router.navigate(['/checkout/checkout2']);
+        this.checkoutService.setOrder({...this.checkoutService.order(), shipAddress: address});
+        this.router.navigate(['/checkout/checkout2']);
     }
 }

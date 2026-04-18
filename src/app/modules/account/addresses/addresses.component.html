@@ -16,7 +16,7 @@
       <h2 class="block-title-2"> Here you can add update your address</h2>
     </div>
 
-    @for (address of addresses; track address) {
+    @for (address of addresses(); track address) {
       <div class="col-lg-4 col-md-4">
         <app-address [address]="address" [actions]="actions" (actionEvent)="actionEvent($event, address)"></app-address>
       </div>

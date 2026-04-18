@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {ValidationService} from 'src/app/core/services/validation.service';
 
@@ -6,7 +6,8 @@ import {ValidationService} from 'src/app/core/services/validation.service';
     selector: 'app-control-messages',
     templateUrl: './control-messages.component.html',
     styleUrls: ['./control-messages.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlMessagesComponent {
 

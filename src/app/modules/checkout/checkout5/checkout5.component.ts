@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
 import {FileService} from 'src/app/core/services/file.service';
@@ -9,7 +9,8 @@ import {Order} from '../../../api/models/order';
     providers: [FileService],
     templateUrl: './checkout5.component.html',
     styleUrls: ['./checkout5.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Checkout5Component {
 

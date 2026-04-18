@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Address} from '../../../api/models/address';
 import {AccountService} from '../../../api/services/account.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -19,7 +19,8 @@ export interface FormAddressAction {
     selector: 'app-form-address',
     templateUrl: './form-address.component.html',
     styleUrls: ['./form-address.component.css'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormAddressComponent implements OnInit {
 
@@ -32,7 +33,8 @@ export class FormAddressComponent implements OnInit {
 
 
   constructor(private router: Router, private route: ActivatedRoute, private alertService: AlertService,
-              private accountService: AccountService, private commonService: CommonService) {
+              private accountService: AccountService, private commonService: CommonService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -48,6 +50,7 @@ export class FormAddressComponent implements OnInit {
             } else {
               this.address.location.country = this.countries.find( country =>
                 country.id === environment.defaultCountryId) || {} as IdNamePair;
+              this.cdr.markForCheck();
               return EMPTY;
             }
           }
@@ -55,6 +58,7 @@ export class FormAddressComponent implements OnInit {
       this.address = address;
       this.address.location.country = this.countries.find( country =>
         country.id === this.address?.location?.country?.id || 0) || {} as IdNamePair;
+      this.cdr.markForCheck();
     });
 
   }

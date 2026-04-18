@@ -1,38 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {Router} from '@angular/router';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
-import {CommonService} from '../../../api/services/common.service';
 import {Address} from '../../../api/models/address';
 import {AccountService} from '../../../api/services/account.service';
-
 
 @Component({
     selector: 'app-checkout2',
     templateUrl: './checkout2.component.html',
     styleUrls: ['./checkout2.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Checkout2Component implements OnInit {
+export class Checkout2Component {
+    private router = inject(Router);
+    private accountService = inject(AccountService);
+    private checkoutService = inject(CheckoutService);
 
-  address: Address = {} as Address;
-  addresses: Address[] = [];
-  actions = [
-    {label: 'Validate', icon: 'fa-bank', buttonClass: 'btn-success'},
-  ];
-  newAddressAction = {label: 'Create Invoice Address', icon: 'fa-plus', buttonClass: 'btn-primary'};
+    addresses = toSignal(this.accountService.getAddresses(), { initialValue: [] as Address[] });
+    actions = [{ label: 'Validate', icon: 'fa-bank', buttonClass: 'btn-success' }];
+    newAddressAction = { label: 'Create Invoice Address', icon: 'fa-plus', buttonClass: 'btn-primary' };
 
-    constructor(private router: Router, private route: ActivatedRoute, private commonService: CommonService,
-        public accountService: AccountService, private checkoutService: CheckoutService) {
+    validateAddress(address: Address): void {
+        this.checkoutService.setOrder({...this.checkoutService.order(), billAddress: address});
+        this.router.navigate(['/checkout/checkout3']);
     }
-
-  ngOnInit(): void {
-    this.address = {label: 'Invoice address', location: {} } as unknown as Address;
-    this.accountService.getAddresses()
-      .subscribe(addresses => this.addresses = addresses);
-  }
-
-  validateAddress(address: Address): void {
-    this.checkoutService.setOrder({...this.checkoutService.order(), billAddress: address});
-    this.router.navigate(['/checkout/checkout3']);
-  }
 }

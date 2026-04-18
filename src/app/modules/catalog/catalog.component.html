@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (line of products; track line) {
+      @for (line of products(); track line) {
         <tr>
           <td>{{line.name}}</td>
           <td>{{line.description}}</td>

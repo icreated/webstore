@@ -110,6 +110,7 @@ export class AuthService {
         this.loggedIn = false;
         this.decodedToken = null;
         localStorage.removeItem('jwt');
+        this.decodedTokenSource.next(null as any);
         this.logoutSource.next(true);
     }
 

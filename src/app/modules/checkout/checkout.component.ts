@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {CheckoutService} from 'src/app/core/services/checkout.service';
@@ -11,7 +11,8 @@ import {CartService} from '../../core/services/cart.service';
     selector: 'app-checkout',
     templateUrl: './checkout.component.html',
     styleUrls: ['./checkout.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CheckoutComponent implements OnInit {

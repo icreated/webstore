@@ -6,7 +6,7 @@
 
   <div class="collapse navbar-collapse d-lg-flex" [collapse]="isCollapsed">
     <ul class="navbar-nav mr-auto flex-grow-1">
-      @for (item of categories; track item) {
+      @for (item of categories(); track item) {
         <li class="nav-item active">
           <a class="nav-link" [routerLink]="['/catalog', item.id]">{{item.name}}<span class="sr-only" title="{{item.name}}">(current)</span></a>
         </li>
@@ -24,20 +24,20 @@
     </div>
 
     <form class="form-inline my-2 my-lg-0">
-      @if (cartCount > 0) {
+      @if (cartCount() > 0) {
         <button class="btn my-2 my-sm-0" [routerLink]="['/cart']" title="Cart">
           <i class="fa fa-shopping-cart"></i>
-          <span class='badge bg-warning'>{{ cartCount }}</span>
+          <span class='badge bg-warning'>{{ cartCount() }}</span>
         </button>
       }
-      @if (!isLogged()) {
+      @if (!loggedUser()) {
         <button class="btn my-2 mr-sm-1" [routerLink]="['/signup']" title="Sign In"><i class="fa fa-sign-in"></i></button>
       }
 
-      @if (isLogged()) {
+      @if (loggedUser()) {
         <div class="btn-group" dropdown>
           <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-basic">
-            {{getConnectedUser()}} <span class="caret"></span>
+            {{loggedUser()?.name}} <span class="caret"></span>
           </button>
           <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="button-basic">
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/account']">Account</a></li>

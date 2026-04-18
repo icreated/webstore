@@ -14,7 +14,7 @@
             </tr>
           </thead>
           <tbody>
-            @for (shipper of shippers; track shipper) {
+            @for (shipper of shippers(); track shipper) {
               <tr>
                 <td>{{shipper.name}}</td>
                 <td><button (click)="validate(shipper)" class="btn btn-sm btn-success"><i class="fa fa-edit"> </i> Validate</button></td>

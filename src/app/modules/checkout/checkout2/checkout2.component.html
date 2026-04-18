@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    @for (address of addresses; track address) {
+    @for (address of addresses(); track address) {
       <div class="col-lg-4 col-md-4">
         <app-address [address]="address" [actions]="actions" (actionEvent)="validateAddress(address)"></app-address>
       </div>

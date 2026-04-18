@@ -9,7 +9,7 @@
   </div>
 </div>
 
-@if (order) {
+@if (order(); as o) {
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -20,11 +20,11 @@
           </div>
           <div class="col-sm-12">
             <div class="statusTop">
-              <p><strong>Status: </strong>{{order.docStatusName}}</p>
-              <p><strong>Date: </strong> {{order.date | date:'MM/dd/yyyy'}}</p>
-              <p><strong># </strong> {{order.documentNo}}</p>
+              <p><strong>Status: </strong>{{o.docStatusName}}</p>
+              <p><strong>Date: </strong> {{o.date | date:'MM/dd/yyyy'}}</p>
+              <p><strong># </strong> {{o.documentNo}}</p>
               <p><strong>
-                @if (order.docStatus === 'IP') {
+                @if (o.docStatus === 'IP') {
                   <button class="btn btn-sm btn-warning me-2" (click)="voidOrder()">Void</button>
                 }
               </strong></p>
@@ -38,15 +38,15 @@
               <div class="order-box-header">Delivery address</div>
               <div class="order-box-content">
                 <div>
-                  {{order.shipAddress?.name}}<br/>
-                  {{order.shipAddress?.location?.address1}}<br>
-                  @if (order.shipAddress?.location?.address2) {
-                    <span>{{order.shipAddress?.location?.address2}}</span>
-                    }@if (order.shipAddress?.location?.address2) {
+                  {{o.shipAddress?.name}}<br/>
+                  {{o.shipAddress?.location?.address1}}<br>
+                  @if (o.shipAddress?.location?.address2) {
+                    <span>{{o.shipAddress?.location?.address2}}</span>
+                    }@if (o.shipAddress?.location?.address2) {
                     <br/>
                   }
-                  {{order.shipAddress?.location?.postal}} &nbsp;&nbsp; {{order.shipAddress?.location?.city}}<br>
-                  {{order.shipAddress?.location?.country?.name}}
+                  {{o.shipAddress?.location?.postal}} &nbsp;&nbsp; {{o.shipAddress?.location?.city}}<br>
+                  {{o.shipAddress?.location?.country?.name}}
                 </div>
               </div>
             </div>
@@ -56,25 +56,25 @@
               <div class="order-box-header">Invoice address</div>
               <div class="order-box-content">
                 <div>
-                  {{order.billAddress?.name}}<br/>
-                  {{order.billAddress?.location?.address1}}<br>
-                  @if (order.billAddress?.location?.address2) {
-                    <span>{{order.billAddress?.location?.address2}}</span>
-                    }@if (order.billAddress?.location?.address2) {
+                  {{o.billAddress?.name}}<br/>
+                  {{o.billAddress?.location?.address1}}<br>
+                  @if (o.billAddress?.location?.address2) {
+                    <span>{{o.billAddress?.location?.address2}}</span>
+                    }@if (o.billAddress?.location?.address2) {
                     <br/>
                   }
-                  {{order.billAddress?.location?.postal}}  {{order.billAddress?.location?.city}}<br>
-                  {{order.billAddress?.location?.country?.name}}
+                  {{o.billAddress?.location?.postal}}  {{o.billAddress?.location?.city}}<br>
+                  {{o.billAddress?.location?.country?.name}}
                 </div>
               </div>
             </div>
           </div>
-          @if (order.shipments?.length) {
+          @if (o.shipments?.length) {
             <div class="col-sm-6">
               <div class="order-box">
                 <div class="order-box-header">Delivery</div>
                 <div class="order-box-content">
-                  @for (shipment of order.shipments; track shipment) {
+                  @for (shipment of o.shipments; track shipment) {
                     <div class="address">
                       <p>Status<span> <strong>({{shipment.docStatusName}})</strong> </span></p>
                       <p><strong># : </strong>{{shipment.documentNo}}</p>
@@ -93,7 +93,7 @@
                 <div class="table-responsive">
                   <table class="order-details-cart">
                     <tbody>
-                      @for (line of order.lines; track line) {
+                      @for (line of o.lines; track line) {
                         <tr>
                           <td class="w-60">
                             <div class="miniCartDescription">
@@ -107,9 +107,9 @@
                       }
                       <tr>
                         <td colspan="2"><div class="text-right">Total Lines</div></td>
-                        <td><span> {{order.totalLines | currency}}</span></td>
+                        <td><span> {{o.totalLines | currency}}</span></td>
                       </tr>
-                      @for (tax of order.taxes; track tax) {
+                      @for (tax of o.taxes; track tax) {
                         <tr>
                           <td colspan="2"><div class="text-right">{{tax.name}}</div></td>
                           <td class="price">{{tax.taxAmt | currency}}</td>
@@ -117,7 +117,7 @@
                       }
                       <tr>
                         <td colspan="2"><div class="text-right">Total</div></td>
-                        <td><span class="price">{{order.grandTotal | currency}}</span></td>
+                        <td><span class="price">{{o.grandTotal | currency}}</span></td>
                       </tr>
                     </tbody>
                   </table>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/core/authentication/auth.service';
 import {ValidationService} from 'src/app/core/services/validation.service';
@@ -6,16 +6,15 @@ import {AccountService} from '../../../api/services/account.service';
 import {Password} from '../../../api/models/password';
 import {AlertService} from '../../../core/services/alert.service';
 
-
 @Component({
     selector: 'app-user-password',
     templateUrl: './user-password.component.html',
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserPasswordComponent {
-
     passwordForm: FormGroup;
-    active = true;
+    active = signal(true);
 
     constructor(private accountService: AccountService, private authService: AuthService,
                 private alertService: AlertService, private builder: FormBuilder) {
@@ -30,20 +29,17 @@ export class UserPasswordComponent {
 
     save(password: Password) {
         if (this.passwordForm.dirty && this.passwordForm.valid) {
-            this.accountService.changePassword({body: password})
-                .subscribe(
-                    resp => {
-                        if (!resp.token) {
-                            this.passwordForm.controls['password'].setErrors({invalidOldPassword: true});
-                        } else {
-                            this.authService.updateToken(resp);
-                            this.alertService.showAlert({type: 'success', msg: 'Password updated'});
-                            password = {} as Password;
-                            this.passwordForm.reset();
-                            this.active = false;
-                            setTimeout(() => this.active = true, 0);
-                        }
-                    });
+            this.accountService.changePassword({body: password}).subscribe(resp => {
+                if (!resp.token) {
+                    this.passwordForm.controls['password'].setErrors({invalidOldPassword: true});
+                } else {
+                    this.authService.updateToken(resp);
+                    this.alertService.showAlert({type: 'success', msg: 'Password updated'});
+                    this.passwordForm.reset();
+                    this.active.set(false);
+                    setTimeout(() => this.active.set(true), 0);
+                }
+            });
         }
     }
 }

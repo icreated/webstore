@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Subject} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,8 @@ import {AlertService} from '../../../core/services/alert.service';
 @Component({
     selector: 'app-user-information',
     templateUrl: './user-information.component.html',
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInformationComponent implements OnInit {
 
@@ -24,7 +25,8 @@ export class UserInformationComponent implements OnInit {
     account$ = this.accountSource.asObservable();
 
     constructor(private accountService: AccountService, private alertService: AlertService,
-                private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator) {
+                private builder: FormBuilder, private http: HttpClient, private dbvalidator: DBValidator,
+                private cdr: ChangeDetectorRef) {
 
         this.accountForm = this.builder.group({
             name: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(60)])],
@@ -36,22 +38,22 @@ export class UserInformationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.accountService.getInfo().subscribe(
-            (data: AccountInfo) => {
-                this.account = data;
-                this.accountSource.next(data);
-                this.accountForm.controls['name'].setValue(this.account.name);
-                this.accountForm.controls['email'].setValue(this.account.email);
-            });
+        this.accountService.getInfo().subscribe((data: AccountInfo) => {
+            this.account = data;
+            this.accountSource.next(data);
+            this.accountForm.controls['name'].setValue(this.account.name);
+            this.accountForm.controls['email'].setValue(this.account.email);
+            this.cdr.markForCheck();
+        });
     }
 
     save(accountBean: AccountInfo) {
         if (this.accountForm.dirty && this.accountForm.valid) {
-            this.accountService.updateAccount({body: accountBean}).subscribe(
-                (data: Token) => {
-                    this.accountSource.next(this.account);
-                    this.alertService.showAlert({type: 'success', msg: 'Account updated'});
-                });
+            this.accountService.updateAccount({body: accountBean}).subscribe((data: Token) => {
+                this.accountSource.next(this.account);
+                this.alertService.showAlert({type: 'success', msg: 'Account updated'});
+                this.cdr.markForCheck();
+            });
         }
     }
 

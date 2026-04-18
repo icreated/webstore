@@ -1,4 +1,4 @@
-import {Component, effect} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
 import {CartService} from 'src/app/core/services/cart.service';
 import {PriceListProduct} from '../../api/models/price-list-product';
 import {CheckoutService} from '../../core/services/checkout.service';
@@ -10,48 +10,40 @@ import {DocumentLine} from '../../api/models/document-line';
     selector: 'app-cart',
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartComponent {
+    private cartService = inject(CartService);
+    private checkoutService = inject(CheckoutService);
+    private router = inject(Router);
 
-    items: PriceListProduct[] = [];
-
-    constructor(private cartService: CartService, private checkoutService: CheckoutService, private router: Router) {
-      effect(() => {
-        this.items = this.cartService.getCart() || [];
-      });
-    }
-
+    items = computed(() => this.cartService.getCart() || []);
 
     deleteItem(item: PriceListProduct) {
         this.cartService.deleteItem(item);
     }
 
     increment(item: PriceListProduct) {
-      item.qty = item.qty + 1;
+        this.cartService.updateItemQty(item, item.qty + 1);
     }
 
     decrement(item: PriceListProduct) {
-        if (item.qty === 1) {
-            return;
-        }
-      item.qty = item.qty - 1;
+        if (item.qty === 1) return;
+        this.cartService.updateItemQty(item, item.qty - 1);
     }
 
     checkout() {
-      const order = {id: 0} as Order;
-      order.lines = this.cartService.getCart()
-          .map(item => {
-            return {
-              productId: item.id, name: item.name, description: item.description, qty: item.qty, price: item.price
-            } as DocumentLine;
-          });
+        const order = {id: 0} as Order;
+        order.lines = this.cartService.getCart()
+            .map(item => ({
+                productId: item.id, name: item.name, description: item.description, qty: item.qty, price: item.price
+            } as DocumentLine));
         this.checkoutService.setOrder(order);
         this.router.navigate(['/checkout/checkout1']);
     }
 
     getTotalPrice() {
-      return this.cartService.getTotalPrice();
+        return this.cartService.getTotalPrice();
     }
-
 }

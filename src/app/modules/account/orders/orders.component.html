@@ -30,7 +30,7 @@
               </tr>
             </thead>
             <tbody>
-              @for (order of orders; track order) {
+              @for (order of orders(); track order) {
                 <tr>
                   <td><a [routerLink]="['/account/order', order.id]">{{order.documentNo}}</a></td>
                   <td class="hidden-xs"><a [routerLink]="['/account/order', order.id]">{{order.description}}</a></td>

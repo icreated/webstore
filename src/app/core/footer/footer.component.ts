@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import { environment } from 'src/environments/environment';
 import {ProductCategory} from '../../api/models/product-category';
 import {CatalogService} from '../../api/services/catalog.service';
@@ -7,19 +8,10 @@ import {CatalogService} from '../../api/services/catalog.service';
     selector: 'app-footer',
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FooterComponent implements OnInit {
-
-    categories: ProductCategory[] = [];
+export class FooterComponent {
+    categories = toSignal(inject(CatalogService).getCategories(), { initialValue: [] as ProductCategory[] });
     email = environment.webmasterEmail;
-    constructor(private catalogService: CatalogService) {
-    }
-
-    ngOnInit() {
-        this.catalogService.getCategories().subscribe(data => {
-            this.categories = data;
-        });
-    }
-
 }

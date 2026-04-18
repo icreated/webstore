@@ -83,6 +83,10 @@ export class CartService {
         }
     }
 
+    updateItemQty(item: PriceListProduct, qty: number) {
+        this.cart.update(list => list.map(p => p === item ? {...p, qty} : p));
+    }
+
     getTotalPrice() {
       return this.cart().reduce((sum, item) => (sum += item.price * item?.qty, sum), 0);
     }

@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {CartService} from 'src/app/core/services/cart.service';
 import {CatalogService} from '../../api/services/catalog.service';
 import {PriceListProduct} from '../../api/models/price-list-product';
@@ -7,22 +8,16 @@ import {PriceListProduct} from '../../api/models/price-list-product';
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+    private catalogService = inject(CatalogService);
+    private cartService = inject(CartService);
 
-    featuredProducts: PriceListProduct[] = [];
-
-    constructor(private catalogService: CatalogService, private cartService: CartService) {
-    }
-
-    ngOnInit() {
-        this.catalogService.getProductsFeatured()
-            .subscribe(data => this.featuredProducts = data);
-    }
+    featuredProducts = toSignal(this.catalogService.getProductsFeatured(), { initialValue: [] as PriceListProduct[] });
 
     add(item: PriceListProduct) {
         this.cartService.addItem(item);
     }
-
 }

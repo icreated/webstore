@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Address} from '../../../api/models/address';
 
 export interface AddressAction {
@@ -11,7 +11,8 @@ export interface AddressAction {
     selector: 'app-address',
     templateUrl: './address.component.html',
     styleUrls: ['./address.component.css'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddressComponent {
 

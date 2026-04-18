@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from 'src/app/core/services/cart.service';
 import {AccountService} from '../../../api/services/account.service';
@@ -13,7 +13,8 @@ import {PaymentParam} from '../../../api/models/payment-param';
     selector: 'app-checkout4',
     templateUrl: './checkout4.component.html',
     styleUrls: ['./checkout4.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class Checkout4Component {

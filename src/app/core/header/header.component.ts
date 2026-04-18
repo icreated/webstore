@@ -1,43 +1,32 @@
-import {Component, effect, OnInit} from '@angular/core';
-import {CartService} from '../services/cart.service';
-import {AuthService} from '../authentication/auth.service';
+import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {Router} from '@angular/router';
 import {CatalogService} from '../../api/services/catalog.service';
+import {CartService} from '../services/cart.service';
+import {AuthService} from '../authentication/auth.service';
 import {ProductCategory} from '../../api/models/product-category';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-
     isCollapsed = false;
-    decodedToken: any;
 
-    categories: ProductCategory[] = [];
-    cartCount = 0;
+    private router = inject(Router);
+    private catalogService = inject(CatalogService);
+    private cartService = inject(CartService);
+    private authService = inject(AuthService);
 
-    constructor(private router: Router, private catalogService: CatalogService, private cartService: CartService,
-        private authService: AuthService) {
-
-      effect(() => {
-        this.cartCount = this.cartService.getCart()?.length || 0;
-      });
-    }
+    categories = toSignal(this.catalogService.getCategories(), { initialValue: [] as ProductCategory[] });
+    cartCount = computed(() => this.cartService.getCart()?.length || 0);
+    loggedUser = toSignal(this.authService.decodedToken$, { initialValue: null });
 
     ngOnInit() {
-        this.catalogService.getCategories().subscribe(data => {
-            this.categories = data;
-        });
-
         this.cartService.getCartFromStorage();
-
-        this.authService.decodedToken$.subscribe(
-            token => {
-                this.decodedToken = token;
-            });
         this.authService.testIsAuthenticated();
     }
 
@@ -46,19 +35,8 @@ export class HeaderComponent implements OnInit {
         event.target.search.value = '';
     }
 
-
-    isLogged() {
-        return this.authService.isAuthenticated();
-    }
-
-    getConnectedUser() {
-        return this.authService.getName();
-    }
-
     logout() {
-        this.decodedToken = null;
         this.authService.logout();
-        // this.checkoutService.clear();
         this.router.navigate(['/']);
     }
 }
