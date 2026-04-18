@@ -13,8 +13,6 @@ export class ControlMessagesComponent {
 
     @Input() control: FormControl | undefined;
 
-    constructor() { }
-
     get errorMessage(): any {
         if (this.control) {
             for (const propertyName in this.control.errors) {
