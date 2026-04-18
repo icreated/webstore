@@ -1,22 +1,23 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, PLATFORM_ID} from '@angular/core';
+import { NgModule, PLATFORM_ID } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HeaderComponent} from '@core/header/header.component';
-import {FooterComponent} from '@core/footer/footer.component';
-import {CoreModule} from '@core/core.module';
-import {CollapseModule} from 'ngx-bootstrap/collapse';
-import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import {SharedModule} from '@shared/shared.module';
-import {isPlatformBrowser} from '@angular/common';
-import {TokenInterceptor} from '@core/interceptors/token.interceptor';
-import {HttpErrorInterceptor} from '@core/interceptors/error.interceptor';
-import {JWT_OPTIONS, JwtModule} from '@auth0/angular-jwt';
-import {FormsModule} from '@angular/forms';
-import {environment} from '@env/environment';
-import {ApiModule} from '@api/api.module';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
+import { isPlatformBrowser } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HeaderComponent } from '@core/header/header.component';
+import { FooterComponent } from '@core/footer/footer.component';
+import { AlertComponent } from '@shared/components/alert/alert.component';
+import { RouterOutlet } from '@angular/router';
+import { TokenInterceptor } from '@core/interceptors/token.interceptor';
+import { HttpErrorInterceptor } from '@core/interceptors/error.interceptor';
+import { AuthService } from '@core/authentication/auth.service';
+import { LocalStorageService } from '@core/services/local.storage.service';
+import { ApiModule } from '@api/api.module';
+import { environment } from '@env/environment';
 
 export const jwtOptionsFactory = (platformId: any) => ({
     tokenGetter: () => {
@@ -29,16 +30,12 @@ export const jwtOptionsFactory = (platformId: any) => ({
     whitelistedDomains: environment.whitelistedDomains
 });
 
-
-@NgModule({ declarations: [
-        AppComponent, FooterComponent, HeaderComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        CoreModule.forRoot(),
-        FormsModule,
-        SharedModule,
-        AppRoutingModule,
+@NgModule({
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
         BrowserAnimationsModule,
+        AppRoutingModule,
         CollapseModule.forRoot(),
         BsDropdownModule.forRoot(),
         ApiModule.forRoot({ rootUrl: environment.api.baseUrl }),
@@ -48,11 +45,19 @@ export const jwtOptionsFactory = (platformId: any) => ({
                 useFactory: jwtOptionsFactory,
                 deps: [PLATFORM_ID]
             }
-        })], providers: [
+        }),
+        HeaderComponent,
+        FooterComponent,
+        AlertComponent,
+        RouterOutlet,
+    ],
+    providers: [
+        AuthService,
+        LocalStorageService,
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-        provideHttpClient(withInterceptorsFromDi())
-    ] })
-export class AppModule {
-}
-
+        provideHttpClient(withInterceptorsFromDi()),
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppModule {}
