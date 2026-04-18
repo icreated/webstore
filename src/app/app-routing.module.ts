@@ -7,7 +7,7 @@ const routes: Routes = [
     {path: 'catalog/:categoryId', loadComponent: () => import('./modules/catalog/catalog.component').then(m => m.CatalogComponent)},
     {path: 'catalog/search', loadComponent: () => import('./modules/catalog/catalog.component').then(m => m.CatalogComponent)},
     {path: 'cart', loadComponent: () => import('./modules/cart/cart.component').then(m => m.CartComponent)},
-    {path: 'signup', loadChildren: () => import('./modules/signup/signup.module').then(m => m.SignupModule)},
+    {path: 'signup', loadComponent: () => import('./modules/signup/signup.component').then(m => m.SignupComponent)},
     {path: 'checkout', loadChildren: () => import('./modules/checkout/checkout.module').then(m => m.CheckoutModule)},
     {path: 'account', loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule)},
 ];
