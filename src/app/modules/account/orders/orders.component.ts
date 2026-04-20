@@ -8,6 +8,7 @@ import { AlertService } from '@core/services/alert.service';
 @Component({
     selector: 'app-orders',
     templateUrl: './orders.component.html',
+    styleUrls: ['./orders.component.css'],
     standalone: true,
     imports: [RouterLink, CurrencyPipe, DatePipe],
     changeDetection: ChangeDetectionStrategy.OnPush
