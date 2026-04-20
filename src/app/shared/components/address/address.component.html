@@ -1,21 +1,23 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><strong>{{address.name}}</strong></h3>
+<div class="address-card">
+  <div class="address-card__header">
+    <i class="fa fa-map-marker address-card__icon"></i>
+    <strong class="address-card__name">{{ address.name }}</strong>
   </div>
-  <div class="panel-body">
-    <ul class="list-inline">
-      <li>{{address.location?.address1}}</li>
-      <li>{{address.location?.address2}}</li>
-      <li>{{address.location?.postal}} {{address.location?.city}}</li>
-      <li>{{address.location?.country?.name}}</li>
-      @if (!address.location?.address2) {
-        <li>&nbsp;</li>
+  <div class="address-card__body">
+    <address>
+      {{ address.location?.address1 }}<br>
+      @if (address.location?.address2) { {{ address.location?.address2 }}<br> }
+      {{ address.location?.postal }} {{ address.location?.city }}<br>
+      {{ address.location?.country?.name }}
+    </address>
+  </div>
+  @if (actions?.length) {
+    <div class="address-card__footer">
+      @for (action of actions; track action) {
+        <button (click)="onClick(action)" class="btn btn-sm me-2 {{ action.buttonClass }}">
+          <i class="fa {{ action.icon }} me-1"></i>{{ action.label }}
+        </button>
       }
-    </ul>
-  </div>
-  <div class="panel-footer">
-    @for (action of actions; track action) {
-      <button (click)="onClick(action)" class="btn btn-sm me-2 {{action.buttonClass}}"><i class="fa {{action.icon}} me-2"></i>{{action.label}}</button>
-    }
-  </div>
+    </div>
+  }
 </div>

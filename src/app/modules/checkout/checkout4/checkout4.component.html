@@ -1,62 +1,58 @@
-<div class="row userInfo">
-  <div class="col-lg-12">
-    <h2 class="block-title-2"> Payment </h2>
+<h2 class="step-title">Payment method</h2>
 
-    <p>Choose your payment method</p>
-    <hr>
+<div class="payment-list">
+
+  <!-- Pay by check -->
+  <div class="payment-card">
+    <div class="payment-card__header">
+      <div class="payment-card__icon">
+        <i class="fa fa-file-text-o"></i>
+      </div>
+      <div>
+        <h4 class="payment-card__title">Payment by Check</h4>
+        <p class="payment-card__amount">{{ order()?.grandTotal | currency }}</p>
+      </div>
+    </div>
+    <div class="payment-card__body">
+      <p>
+        Send your check to <strong>Icreated</strong>:<br>
+        1, avenue Général John Doe — 69000 LYON<br><br>
+        Include your order number <strong>{{ order()?.documentNo }}</strong>.
+        Your order will ship after we receive the check.
+      </p>
+    </div>
+    <div class="payment-card__footer">
+      <button class="btn-pay" (click)="payBy('check')">
+        Pay by Check <i class="fa fa-arrow-right ms-2"></i>
+      </button>
+    </div>
   </div>
-  <div class="col-12">
 
-        <div class="panel panel-primary my-2">
-          <div class="panel-heading">
-            <h4 class="panel-title"><strong> Payment by check</strong></h4>
-          </div>
-          <div class="panel-body">
-            <p>
-              Send your check {{order()?.grandTotal | currency}} to <strong>Icreated</strong>:<br/>
-              1, avenue Général John Doe<br/>
-              69000 LYON<br/><br/>
-              Don't forget your order # <strong>{{order()?.documentNo}}</strong>.
-              Your order will be sent after the check reception
-              Click the button to validate the order
-            </p>
-          </div>
-          <div class="panel-footer contentFooter">
-              <div class="box-footer">
-                <div class="pull-right">
-                    <button (click)="payBy('check')" class="btn btn-primary">
-                        Pay by check <i class="fa fa-arrow-circle-right ms-2"></i>
-                    </button>
-                </div>
-              </div>
-          </div>
-        </div>
-
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h4 class="panel-title"><strong> Payment by Back Transfer</strong></h4>
-          </div>
-          <div class="panel-body">
-            <p>
-              Do the transfer of {{order()?.grandTotal | currency}} to this bank account:<br/>
-              Best World Bank<br/>
-              IBAN: FR11 2222 3333 4444 5555 6666 777<br/>
-              BIC: CCBPFRAABBC<br/><br/>
-              Don't forget your order # <strong>{{order()?.documentNo}}</strong>.
-              Your order will be sent after the bank transfer
-              Click the button to validate the order
-            </p>
-          </div>
-          <div class="panel-footer contentFooter">
-              <div class="box-footer">
-                <div class="pull-right">
-                    <button (click)="payBy('deposit')" class="btn btn-primary">
-                        Pay by Bank Transfer <i class="fa fa-arrow-circle-right ms-2"></i>
-                      </button>
-                </div>
-              </div>
-          </div>
-        </div>
-
+  <!-- Pay by bank transfer -->
+  <div class="payment-card">
+    <div class="payment-card__header">
+      <div class="payment-card__icon">
+        <i class="fa fa-university"></i>
+      </div>
+      <div>
+        <h4 class="payment-card__title">Bank Transfer</h4>
+        <p class="payment-card__amount">{{ order()?.grandTotal | currency }}</p>
+      </div>
+    </div>
+    <div class="payment-card__body">
+      <p>
+        Transfer to <strong>Best World Bank</strong>:<br>
+        IBAN: FR11 2222 3333 4444 5555 6666 777<br>
+        BIC: CCBPFRAABBC<br><br>
+        Include your order number <strong>{{ order()?.documentNo }}</strong>.
+        Your order will ship after the transfer clears.
+      </p>
+    </div>
+    <div class="payment-card__footer">
+      <button class="btn-pay" (click)="payBy('deposit')">
+        Pay by Bank Transfer <i class="fa fa-arrow-right ms-2"></i>
+      </button>
+    </div>
   </div>
+
 </div>

@@ -1,0 +1,53 @@
+.address-card {
+  border: 1.5px solid var(--color-border, #d8e8e0);
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .15s, box-shadow .15s;
+  background: var(--color-bg, #fff);
+}
+
+.address-card:hover {
+  border-color: var(--color-primary-light, #52b788);
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.address-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1rem;
+  background: var(--color-bg-subtle, #f4f9f6);
+  border-bottom: 1px solid var(--color-border, #d8e8e0);
+}
+
+.address-card__icon {
+  color: var(--color-primary, #2d6a4f);
+  font-size: 0.9375rem;
+}
+
+.address-card__name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text, #1a2e22);
+}
+
+.address-card__body {
+  padding: 0.875rem 1rem;
+  flex: 1;
+}
+
+.address-card__body address {
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--color-text-muted, #5e7a6b);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.address-card__footer {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--color-border, #d8e8e0);
+}

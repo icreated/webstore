@@ -1,148 +1,125 @@
-<div class="row mx-2">
-  <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6 col-xxs-12 text-center-xs">
-    <h1><span><i class="fa fa-shopping-cart"></i> Checkout</span></h1>
+<!-- ===== Page header ===== -->
+<div class="checkout-header">
+  <div class="container">
+    <h1 class="checkout-title">
+      <i class="fa fa-shopping-cart me-2"></i>Checkout
+    </h1>
   </div>
 </div>
 
-
-<div class="row mx-2">
-  <div class="col-lg-9 col-md-9 col-sm-12">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12">
-        <div>
-          <ul class="orderStep">
-            <li [class.active]="routeIsActive('/checkout/checkout1') || routeIsActive('/checkout')">
-              <a [routerLink]="['./checkout1']" [class.disabled]="disabled">
-                <i class="fa fa-map-marker"></i>
-                <span class="d-xs-none">Delivery</span>
-              </a>
-            </li>
-            <li [class.active]="routeIsActive('/checkout/checkout2')">
-              <a [routerLink]="['./checkout2']" [class.disabled]="disabled">
-                <i class="fa fa fa-envelope"></i>
-                <span class="d-xs-none">Invoice</span>
-              </a>
-            </li>
-            <li [class.active]="routeIsActive('/checkout/checkout3')">
-              <a [routerLink]="['./checkout3']" [class.disabled]="disabled">
-                <i class="fa fa-truck"> </i>
-                <span class="d-xs-none">Shipper</span>
-              </a>
-            </li>
-            <li [class.active]="routeIsActive('/checkout/checkout4')">
-              <a [routerLink]="['./checkout4']" >
-                <i class="fa fa-money"></i>
-                <span class="d-xs-none">Payment</span>
-              </a>
-            </li>
-            <li [class.active]="routeIsActive('/checkout/checkout5')">
-              <a [routerLink]="['./checkout5']" >
-                <i class="fa fa-check-square"> </i>
-                <span class="d-xs-none">Order</span>
-              </a>
-            </li>
-          </ul>
+<!-- ===== Stepper ===== -->
+<div class="checkout-stepper">
+  <div class="container">
+    <div class="stepper">
+      @for (step of steps; track step.index) {
+        <div class="stepper__item"
+             [class.is-active]="isStepActive(step.index)"
+             [class.is-done]="isStepDone(step.index)">
+          <a class="stepper__link" [routerLink]="[step.route]" [class.disabled]="disabled && step.index > 1">
+            <div class="stepper__circle">
+              @if (isStepDone(step.index)) {
+                <i class="fa fa-check"></i>
+              } @else {
+                <span>{{ step.index }}</span>
+              }
+            </div>
+            <span class="stepper__label">{{ step.label }}</span>
+          </a>
+          @if (!$last) {
+            <div class="stepper__line"></div>
+          }
         </div>
-
-        <div class="clearfix mx-2">
-          <router-outlet></router-outlet>
-        </div>
-
-      </div>
+      }
     </div>
-
   </div>
-  @if (!routeIsActive('/checkout/checkout5')) {
-    <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar">
-      <div>
-        <table class="std table">
-          <tbody>
-            @if (order().id > 0) {
-              <tr>
-                <td>Order : </td>
-                <td class="price" >{{ order().documentNo}}</td>
-              </tr>
-            }
-            @if (order().shipper) {
-              <tr>
-                <td>Shipper:</td>
-                <td class="price"><span class="success">{{ order().shipper.name }}</span></td>
-                <!--          <td *ngIf="order().shipper.price === 0" class="price"><span class="success">Free!</span></td>-->
-                <!--          <td *ngIf="order().shipper.price > 0" class="price"><span class="price">{{ order().shipper.price | currency }}</span></td>-->
-              </tr>
-            }
-            @if (order().id) {
-              <tr>
-                <td>Net Price : </td>
-                <td class="price" >{{ order()?.totalLines | currency }}</td>
-              </tr>
-            }
-            @for (tax of order()?.taxes; track tax) {
-              <tr>
-                <td>{{tax.name}}</td>
-                <td class="price">{{ tax.taxAmt | currency }}</td>
-              </tr>
-            }
-            <tr>
-              <td>Total Price:</td>
-              <td class="price">{{ order().grandTotal | currency}}</td>
-            </tr>
-          </tbody>
-        </table>
-        @if (order().shipAddress?.location.address1) {
-          <table class="std table">
-            <thead><h3>Delivery Address</h3></thead>
-            <tbody>
-              <tr>
-                <td>
-                  <ul class="list-inline">
-                    @if (order().shipAddress.location.address1) {
-                      <li><span>{{ order().shipAddress.location.address1 }}</span></li>
-                    }
-                    @if (order().shipAddress.location.address2) {
-                      <li><span>{{ order().shipAddress.location.address2 }}</span></li>
-                    }
-                    @if (order().shipAddress.location.postal) {
-                      <li><span>{{ order().shipAddress.location.postal }} {{ order().shipAddress.location.city }}</span></li>
-                    }
-                    @if (order().shipAddress.location.country.name) {
-                      <li><span>{{ order().shipAddress.location.country.name }}</span></li>
-                    }
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        }
-        @if (order().billAddress?.location.address1) {
-          <table class="std table">
-            <thead><h3>Invoice Address</h3></thead>
-            <tbody>
-              <tr>
-                <td>
-                  <ul class="list-inline">
-                    @if (order().billAddress.location.address1) {
-                      <li><span>{{ order().billAddress.location.address1 }}</span></li>
-                    }
-                    @if (order().billAddress.location.address2) {
-                      <li><span>{{ order().billAddress.location.address2 }}</span></li>
-                    }
-                    @if (order().billAddress.location.postal) {
-                      <li><span>{{ order().billAddress.location.postal }} {{ order().billAddress.location.city }}</span></li>
-                    }
-                    @if (order().billAddress.location.country.name) {
-                      <li><span>{{ order().billAddress.location.country.name }}</span></li>
-                    }
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        }
-      </div>
-    </div>
-  }
-
-
 </div>
 
+<!-- ===== Content ===== -->
+<div class="container checkout-body">
+  <div class="row g-4">
+
+    <!-- Main step content -->
+    <div class="col-lg-8">
+      <div class="checkout-panel">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    <!-- Order summary sidebar -->
+    @if (!routeIsActive('/checkout/checkout5')) {
+      <div class="col-lg-4">
+        <div class="order-summary">
+          <h3 class="order-summary__title">
+            <i class="fa fa-receipt me-2"></i>Order Summary
+          </h3>
+
+          @if (order().id > 0) {
+            <div class="order-summary__row order-summary__row--highlight">
+              <span>Order</span>
+              <strong>{{ order().documentNo }}</strong>
+            </div>
+          }
+
+          @if (order().shipper) {
+            <div class="order-summary__row">
+              <span>Shipper</span>
+              <span class="text-success fw-semibold">{{ order().shipper.name }}</span>
+            </div>
+          }
+
+          @if (order().id) {
+            <div class="order-summary__row">
+              <span>Net price</span>
+              <span>{{ order()?.totalLines | currency }}</span>
+            </div>
+          }
+
+          @for (tax of order()?.taxes; track tax) {
+            <div class="order-summary__row">
+              <span>{{ tax.name }}</span>
+              <span>{{ tax.taxAmt | currency }}</span>
+            </div>
+          }
+
+          <div class="order-summary__total">
+            <span>Total</span>
+            <strong>{{ order().grandTotal | currency }}</strong>
+          </div>
+
+          @if (order().shipAddress?.location.address1) {
+            <div class="order-summary__address">
+              <p class="order-summary__address-label">
+                <i class="fa fa-map-marker me-1"></i>Delivery
+              </p>
+              <address>
+                {{ order().shipAddress.location.address1 }}<br>
+                @if (order().shipAddress.location.address2) {
+                  {{ order().shipAddress.location.address2 }}<br>
+                }
+                {{ order().shipAddress.location.postal }} {{ order().shipAddress.location.city }}<br>
+                {{ order().shipAddress.location.country.name }}
+              </address>
+            </div>
+          }
+
+          @if (order().billAddress?.location.address1) {
+            <div class="order-summary__address">
+              <p class="order-summary__address-label">
+                <i class="fa fa-envelope-o me-1"></i>Invoice
+              </p>
+              <address>
+                {{ order().billAddress.location.address1 }}<br>
+                @if (order().billAddress.location.address2) {
+                  {{ order().billAddress.location.address2 }}<br>
+                }
+                {{ order().billAddress.location.postal }} {{ order().billAddress.location.city }}<br>
+                {{ order().billAddress.location.country.name }}
+              </address>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+  </div>
+</div>

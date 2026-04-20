@@ -1,137 +1,108 @@
 @if (order()) {
-  <div class="row">
-    <div class="col-lg-12">
-      <h2 class="block-title-2"> Your order</h2>
+
+  <!-- Success banner -->
+  <div class="order-success">
+    <div class="order-success__icon"><i class="fa fa-check-circle"></i></div>
+    <div>
+      <h2 class="order-success__title">Order confirmed!</h2>
+      <p class="order-success__sub">Thank you — your order <strong>{{ order().documentNo }}</strong> has been placed.</p>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <div>
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>Order #: </th>
-              <td>{{ order().documentNo }}</td>
-            </tr>
-            <tr>
-              <th>Date: </th>
-              <td class="price">{{ order().date | date: 'MM/dd/yyyy' }}</td>
-            </tr>
-            <tr>
-              <th>Status</th>
-              <td class="price"><span class="success">{{ order().docStatusName }}</span></td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <button class="btn btn-sm btn-success me-2" (click)="downloadOrder()">PDF</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  </div>
+
+  <!-- Meta row -->
+  <div class="order-meta">
+    <div class="order-meta__item">
+      <span class="order-meta__label">Order #</span>
+      <span class="order-meta__value">{{ order().documentNo }}</span>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <div>
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>Delivery address :</th>
-            </tr>
-            @if (order().shipAddress) {
-              <tr>
-                <td>
-                  <ul class="list-inline">
-                    <li>{{ order().shipAddress.location.address1 }}</li>
-                    @if (order().shipAddress.location.address2) {
-                      <li>{{order().shipAddress.location.address2 }}</li>
-                    }
-                    <li>{{ order().shipAddress.location.postal }} {{ order().shipAddress.location.city }}</li>
-                    <li>{{ order().shipAddress.location.country.name }}</li>
-                    @if (!order().shipAddress.location.address2) {
-                      <li>&nbsp;</li>
-                    }
-                  </ul>
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+    <div class="order-meta__item">
+      <span class="order-meta__label">Date</span>
+      <span class="order-meta__value">{{ order().date | date: 'dd/MM/yyyy' }}</span>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <div>
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>Invoice address :</th>
-            </tr>
-            @if (order().billAddress) {
-              <tr>
-                <td>
-                  <ul class="list-inline">
-                    <li>{{ order().billAddress.location.address1 }}</li>
-                    @if (order().billAddress.location.address2) {
-                      <li>{{ order().billAddress.location.address2 }}</li>
-                    }
-                    <li>{{ order().billAddress.location.postal }} {{ order().billAddress.location.city }}</li>
-                    <li>{{ order().billAddress.location.country.name }}</li>
-                    @if (!order().billAddress.location.address2) {
-                      <li>&nbsp;</li>
-                    }
-                  </ul>
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+    <div class="order-meta__item">
+      <span class="order-meta__label">Status</span>
+      <span class="order-meta__value order-meta__value--status">{{ order().docStatusName }}</span>
     </div>
-    <div class="col-12">
-      <div>
-        <table class="table table-striped">
-          <thead>
-            <tr >
-              <th class="w-10 d-none d-sm-table-cell">Item</th>
-              <th class="w-20">Product</th>
-              <th class="w-40">Description</th>
-              <th class="w-10 d-none d-sm-table-cell">Unit Price</th>
-              <th class="w-10">Qty</th>
-              <th class="w-10">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (line of order().lines; track line) {
-              <tr >
-                <td class="d-none d-sm-table-cell">{{ line.line }}</td>
-                <td><h4>{{ line.name }}</h4></td>
-                <td>{{ line.description }}</td>
-                <td class="d-none d-sm-table-cell"><div class="price">{{ line.price | currency }}</div></td>
-                <td>{{ line.qty }}</td>
-                <td>{{ line.price*line.qty | currency }}</td>
-              </tr>
-            }
-          </tbody>
-        </table>
+    <div class="order-meta__item">
+      <button class="btn-pdf" (click)="downloadOrder()">
+        <i class="fa fa-download me-1"></i>PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Addresses -->
+  <div class="order-addresses">
+    @if (order().shipAddress) {
+      <div class="order-address-card">
+        <p class="order-address-card__label"><i class="fa fa-map-marker me-1"></i>Delivery address</p>
+        <address>
+          {{ order().shipAddress.location.address1 }}<br>
+          @if (order().shipAddress.location.address2) { {{ order().shipAddress.location.address2 }}<br> }
+          {{ order().shipAddress.location.postal }} {{ order().shipAddress.location.city }}<br>
+          {{ order().shipAddress.location.country.name }}
+        </address>
       </div>
-      <div>
-        <table class="table">
-          <tbody>
+    }
+    @if (order().billAddress) {
+      <div class="order-address-card">
+        <p class="order-address-card__label"><i class="fa fa-envelope-o me-1"></i>Invoice address</p>
+        <address>
+          {{ order().billAddress.location.address1 }}<br>
+          @if (order().billAddress.location.address2) { {{ order().billAddress.location.address2 }}<br> }
+          {{ order().billAddress.location.postal }} {{ order().billAddress.location.city }}<br>
+          {{ order().billAddress.location.country.name }}
+        </address>
+      </div>
+    }
+  </div>
+
+  <!-- Order lines -->
+  <div class="order-lines">
+    <h3 class="order-lines__title">Items ordered</h3>
+    <div class="order-lines__table-wrap">
+      <table class="order-lines__table">
+        <thead>
+          <tr>
+            <th class="d-none d-sm-table-cell">#</th>
+            <th>Product</th>
+            <th class="d-none d-md-table-cell">Description</th>
+            <th class="d-none d-sm-table-cell text-end">Unit price</th>
+            <th class="text-center">Qty</th>
+            <th class="text-end">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (line of order().lines; track line) {
             <tr>
-              <th>Total Lines</th>
-              <td class="price">{{ order().totalLines | currency }}</td>
+              <td class="d-none d-sm-table-cell text-muted">{{ line.line }}</td>
+              <td class="fw-semibold">{{ line.name }}</td>
+              <td class="d-none d-md-table-cell text-muted">{{ line.description }}</td>
+              <td class="d-none d-sm-table-cell text-end">{{ line.price | currency }}</td>
+              <td class="text-center">{{ line.qty }}</td>
+              <td class="text-end fw-semibold">{{ line.price * line.qty | currency }}</td>
             </tr>
-            @for (tax of order().taxes; track tax) {
-              <tr>
-                <th>Tax {{ tax.name}}</th>
-                <td class="price">{{ tax.taxAmt | currency }}</td>
-              </tr>
-            }
-            <tr>
-              <th>Total</th>
-              <td class="price">{{ order().grandTotal | currency }}</td>
-            </tr>
-          </tbody>
-        </table>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Totals -->
+    <div class="order-totals">
+      <div class="order-totals__row">
+        <span>Net price</span>
+        <span>{{ order().totalLines | currency }}</span>
+      </div>
+      @for (tax of order().taxes; track tax) {
+        <div class="order-totals__row">
+          <span>Tax {{ tax.name }}</span>
+          <span>{{ tax.taxAmt | currency }}</span>
+        </div>
+      }
+      <div class="order-totals__row order-totals__row--grand">
+        <span>Total</span>
+        <strong>{{ order().grandTotal | currency }}</strong>
       </div>
     </div>
   </div>
-}
 
+}
