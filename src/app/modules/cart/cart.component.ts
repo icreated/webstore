@@ -4,7 +4,7 @@ import { CartService } from '@core/services/cart.service';
 import { PriceListProduct } from '@api/models/price-list-product';
 import { CheckoutService } from '@core/services/checkout.service';
 import { Order } from '@api/models/order';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DocumentLine } from '@api/models/document-line';
 
 @Component({
@@ -12,7 +12,7 @@ import { DocumentLine } from '@api/models/document-line';
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.scss'],
     standalone: true,
-    imports: [CurrencyPipe],
+    imports: [CurrencyPipe, RouterLink],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartComponent {

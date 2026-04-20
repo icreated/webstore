@@ -1,57 +1,82 @@
-<div class="row mx-2">
-  <div class="col-lg-9 col-md-9 col-sm-7 col-xs-6 col-xxs-12 text-center-xs">
-    <h1><span><i class="fa fa-shopping-cart"></i> Cart </span></h1>
+<!-- ===== Header ===== -->
+<div class="cart-header">
+  <div class="container">
+    <h1 class="cart-title">
+      <i class="fa fa-shopping-cart me-2"></i>Your Cart
+      @if (items().length > 0) {
+        <span class="cart-count">{{ items().length }} item{{ items().length !== 1 ? 's' : '' }}</span>
+      }
+    </h1>
   </div>
 </div>
 
+<div class="container cart-body">
 
-@if (items().length === 0) {
-  <div class="alert alert-warning mx-2">
-    <strong>Empty</strong>
-  </div>
-}
-
-@if (items().length > 0) {
-  <div class="row mx-2">
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <th>Name</th>
-          <th scope="col" class="d-none d-sm-table-cell">Description</th>
-          <th scope="col" class="d-none d-sm-table-cell text-center">Price</th>
-          <th class="text-center">Qty</th>
-          <th>Total</th>
-          <th>&nbsp;</th>
-        </tr>
-        @for (line of items(); track line) {
-          <tr>
-            <td><h5>{{line.name}}</h5></td>
-            <td scope="col" class="d-none d-sm-table-cell">{{line.description}}</td>
-            <td scope="col" class="d-none d-sm-table-cell text-center">{{line.price | currency}}</td>
-            <td class="text-center">
-              <div class="counter">
-                <div class="counter__container btn-group">
-                  <button (click)="decrement(line);" type="button" class="btn btn-success" > - </button>
-                  &nbsp;&nbsp;{{line.qty}}&nbsp;&nbsp;
-                  <button (click)="increment(line);" type="button" class="btn btn-success" > + </button>
-                </div>
-              </div>
-            </td>
-            <td>{{line.price*line.qty | currency}}
-            </td>
-            <td><button type="button" class="btn btn-primary"  (click)="deleteItem(line)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-}
-
-@if (items().length > 0) {
-  <div class="row d-flex justify-content-end">
-    <div class="ml-auto col-auto mx-2">
-      <a (click)="checkout()" class="btn btn-primary btn-lg btn-block"
-      title="checkout" style="margin-bottom: 20px"> Pay &nbsp; {{ getTotalPrice() | currency }}</a>
+  <!-- ===== Empty state ===== -->
+  @if (items().length === 0) {
+    <div class="cart-empty">
+      <i class="fa fa-shopping-cart cart-empty__icon"></i>
+      <h2 class="cart-empty__title">Your cart is empty</h2>
+      <p class="cart-empty__sub">Add some products from the catalog to get started.</p>
+      <a class="btn-browse" routerLink="/catalog">Browse catalog</a>
     </div>
-  </div>
-}
+  }
+
+  <!-- ===== Cart lines ===== -->
+  @if (items().length > 0) {
+    <div class="row g-4 align-items-start">
+
+      <!-- Lines -->
+      <div class="col-lg-8">
+        <div class="cart-lines">
+          @for (line of items(); track line) {
+            <div class="cart-line">
+              <div class="cart-line__info">
+                <h5 class="cart-line__name">{{ line.name }}</h5>
+                <p class="cart-line__desc">{{ line.description }}</p>
+                <span class="cart-line__unit">{{ line.price | currency }} / unit</span>
+              </div>
+              <div class="cart-line__controls">
+                <div class="qty-stepper">
+                  <button class="qty-stepper__btn" (click)="decrement(line)" [disabled]="line.qty === 1" aria-label="Decrease">−</button>
+                  <span class="qty-stepper__val">{{ line.qty }}</span>
+                  <button class="qty-stepper__btn" (click)="increment(line)" aria-label="Increase">+</button>
+                </div>
+                <span class="cart-line__total">{{ line.price * line.qty | currency }}</span>
+                <button class="cart-line__remove" (click)="deleteItem(line)" title="Remove item">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="col-lg-4">
+        <div class="cart-summary">
+          <h3 class="cart-summary__title">Order summary</h3>
+
+          <div class="cart-summary__rows">
+            @for (line of items(); track line) {
+              <div class="cart-summary__row">
+                <span class="cart-summary__row-name">{{ line.name }} <em>×{{ line.qty }}</em></span>
+                <span>{{ line.price * line.qty | currency }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="cart-summary__total">
+            <span>Total</span>
+            <strong>{{ getTotalPrice() | currency }}</strong>
+          </div>
+
+          <button class="btn-checkout" (click)="checkout()">
+            <i class="fa fa-lock me-2"></i>Proceed to Checkout
+          </button>
+        </div>
+      </div>
+
+    </div>
+  }
+</div>
