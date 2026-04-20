@@ -1,30 +1,22 @@
-<div class="row">
-    <div class="breadcrumbDiv col-lg-12">
-      <ul class="breadcrumb">
-        <li><a [routerLink]="['/']">Home</a></li>
-        <li><a [routerLink]="['/account']">Account</a></li>
-        <li><a [routerLink]="['/account/addresses']">Addresses</a></li>
-        <li class="active"> {{ isUpdate ? 'Update address' : 'Add address' }}</li>
-      </ul>
-    </div>
-  </div>
-
+<div class="page-breadcrumb">
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h1 class="section-title-inner">
-          <span><i class="fa fa-map-marker me-2"></i>{{ isUpdate ? 'Update address' : 'Add address' }}</span>
-        </h1>
-        <app-form-address [id]="id" (actionEvent)="actionEvent()"></app-form-address>
-      </div>
-    </div>
+    <nav class="breadcrumb-nav">
+      <a [routerLink]="['/']"><i class="fa fa-home"></i></a>
+      <span class="breadcrumb-sep">/</span>
+      <a [routerLink]="['/account']">Account</a>
+      <span class="breadcrumb-sep">/</span>
+      <a [routerLink]="['/account/addresses']">Addresses</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>{{ isUpdate ? 'Edit address' : 'Add address' }}</span>
+    </nav>
+  </div>
 </div>
 
-<div class="col-lg-12 my-2 clearfix">
-    <ul class="contentFooter list-inline">
-      <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home me-2"></i> Home</a>
-      </li>
-      <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left me-2"></i> Account</a></li>
-    </ul>
+<div class="container page-body">
+  <div class="page-header">
+    <h1 class="page-title">
+      <i class="fa fa-map-marker me-2"></i>{{ isUpdate ? 'Edit address' : 'Add address' }}
+    </h1>
+  </div>
+  <app-form-address [id]="id" (actionEvent)="actionEvent()"></app-form-address>
 </div>
-

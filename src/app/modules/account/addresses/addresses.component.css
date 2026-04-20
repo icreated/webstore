@@ -1,0 +1,30 @@
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: var(--color-primary, #2d6a4f);
+  color: #fff;
+  border-radius: var(--radius-md, 8px);
+  padding: 0.4rem 1rem;
+  text-decoration: none;
+  transition: background .15s;
+}
+.btn-add:hover { background: var(--color-primary-dark, #1b4332); color: #fff; }
+
+.addresses-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-text-muted, #5e7a6b);
+  font-size: 0.9375rem;
+}
+.addresses-empty__icon {
+  display: block;
+  font-size: 2.5rem;
+  color: var(--color-accent, #95d5b2);
+  margin-bottom: 0.75rem;
+}
+.addresses-empty a {
+  color: var(--color-primary, #2d6a4f);
+  font-weight: 600;
+}

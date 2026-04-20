@@ -16,7 +16,7 @@ export class AlertComponent implements OnInit {
     dismissOnTimeout = 3000;
 
     alert = signal<Alert>({} as Alert);
-    closed = signal(false);
+    closed = signal(true);
     closing = signal(false);
     classes = signal<string[]>([]);
 

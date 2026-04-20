@@ -1,38 +1,37 @@
-<div class="row">
-  <div class="breadcrumbDiv col-lg-12">
-    <ul class="breadcrumb">
-      <li><a [routerLink]="['/']">Home</a></li>
-      <li><a [routerLink]="['/account']">Account</a></li>
-      <li class="active"> Addresses</li>
-    </ul>
+<div class="page-breadcrumb">
+  <div class="container">
+    <nav class="breadcrumb-nav">
+      <a [routerLink]="['/']"><i class="fa fa-home"></i></a>
+      <span class="breadcrumb-sep">/</span>
+      <a [routerLink]="['/account']">Account</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Addresses</span>
+    </nav>
   </div>
 </div>
 
+<div class="container page-body">
 
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="section-title-inner"><span><i class="fa fa-map-marker"></i> Addresses</span></h1>
-      <h2 class="block-title-2"> Here you can add update your address</h2>
+  <div class="page-header">
+    <h1 class="page-title"><i class="fa fa-map-marker me-2"></i>Addresses</h1>
+    <a class="btn-add" [routerLink]="['/account/upsert-address']">
+      <i class="fa fa-plus me-1"></i>Add address
+    </a>
+  </div>
+
+  @if (addresses().length === 0) {
+    <div class="addresses-empty">
+      <i class="fa fa-map-o addresses-empty__icon"></i>
+      <p>No addresses yet. <a [routerLink]="['/account/upsert-address']">Add one</a>.</p>
     </div>
+  }
 
+  <div class="row g-3">
     @for (address of addresses(); track address) {
-      <div class="col-lg-4 col-md-4">
+      <div class="col-lg-4 col-md-6">
         <app-address [address]="address" [actions]="actions" (actionEvent)="actionEvent($event, address)"></app-address>
       </div>
     }
-
-    <div class="col-lg-12 my-5">
-      <a class="btn btn-primary" [routerLink]="['/account/upsert-address']"><i class="fa fa-plus-circle me-2"></i> Add new address</a>
-    </div>
   </div>
-</div>
 
-<div class="col-lg-12 clearfix">
-  <ul class="contentFooter list-inline">
-    <li class="previous pull-right"><a [routerLink]="['/']"><i class="fa fa-home me-2"></i> Home</a>
-  </li>
-  <li class="next pull-left"><a [routerLink]="['/account']"><i class="fa fa-arrow-left me-2"></i> Account</a></li>
-</ul>
 </div>
-

@@ -1,44 +1,3 @@
-.page-breadcrumb {
-  background: var(--color-bg-subtle, #f4f9f6);
-  border-bottom: 1px solid var(--color-border, #d8e8e0);
-  padding: 0.625rem 0;
-}
-
-.breadcrumb-nav {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8125rem;
-  color: var(--color-text-muted, #5e7a6b);
-}
-.breadcrumb-nav a {
-  color: var(--color-primary, #2d6a4f);
-  text-decoration: none;
-}
-.breadcrumb-nav a:hover { text-decoration: underline; }
-.breadcrumb-sep { opacity: .4; }
-
-.page-body {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-}
-
-.page-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.page-title {
-  font-size: 1.375rem;
-  font-weight: 700;
-  color: var(--color-text, #1a2e22);
-  margin: 0;
-  padding: 0;
-}
-.page-title .fa { color: var(--color-primary-light, #52b788); }
-
 .page-count {
   font-size: 0.8125rem;
   font-weight: 600;
@@ -49,7 +8,6 @@
   padding: 2px 10px;
 }
 
-/* Empty state */
 .empty-state {
   text-align: center;
   padding: 4rem 1rem;
@@ -65,7 +23,6 @@
   font-size: 0.9375rem;
 }
 
-/* Orders list */
 .orders-list {
   border: 1px solid var(--color-border, #d8e8e0);
   border-radius: var(--radius-md, 8px);
@@ -99,13 +56,11 @@
   gap: 0.2rem;
   min-width: 0;
 }
-
 .order-row__no {
   font-size: 0.9375rem;
   font-weight: 700;
   color: var(--color-primary, #2d6a4f);
 }
-
 .order-row__desc {
   font-size: 0.8125rem;
   color: var(--color-text-muted, #5e7a6b);
@@ -121,12 +76,10 @@
   gap: 1rem;
   flex-shrink: 0;
 }
-
 .order-row__date {
   font-size: 0.8125rem;
   color: var(--color-text-muted, #5e7a6b);
 }
-
 .order-status {
   font-size: 0.75rem;
   font-weight: 600;
@@ -141,7 +94,6 @@
   color: #92400e;
   border-color: #fcd34d;
 }
-
 .order-row__total {
   font-size: 0.9375rem;
   font-weight: 700;
@@ -149,7 +101,6 @@
   min-width: 70px;
   text-align: right;
 }
-
 .order-row__arrow {
   font-size: 0.625rem;
   color: var(--color-text-muted, #5e7a6b);
