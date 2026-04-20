@@ -28,12 +28,13 @@
 
   /* Nav links */
   .site-nav-link {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
     color: var(--color-text-muted, #5e7a6b);
-    padding: 0.5rem 0.875rem;
+    padding: 0.5rem 0.5rem;
     border-radius: var(--radius-sm, 4px);
     transition: color .15s ease, background .15s ease;
 
