@@ -1,10 +1,4 @@
-.step-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--color-text, #1a2e22);
-  padding-bottom: 0;
-  margin-bottom: 1.25rem;
-}
+/* step-title is in global styles.scss */
 
 .shipper-list {
   display: flex;
@@ -31,7 +25,6 @@
     box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,.08));
   }
 }
-
 .shipper-card__icon {
   width: 42px;
   height: 42px;
@@ -44,6 +37,7 @@
   color: var(--color-primary, #2d6a4f);
   font-size: 1.125rem;
   flex-shrink: 0;
+  transition: background .15s, color .15s, border-color .15s;
 
   .shipper-card:hover & {
     background: var(--color-primary, #2d6a4f);
@@ -51,22 +45,16 @@
     border-color: var(--color-primary, #2d6a4f);
   }
 }
-
 .shipper-card__info { flex: 1; }
-
 .shipper-card__name {
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-text, #1a2e22);
 }
-
-.shipper-card__action { flex-shrink: 0; }
-
 .shipper-card__select {
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--color-primary-light, #52b788);
-
   .shipper-card:hover & { color: var(--color-primary, #2d6a4f); }
 }
 
@@ -82,6 +70,5 @@
   display: inline-flex;
   align-items: center;
   transition: color .15s, border-color .15s;
-
   &:hover { color: var(--color-primary, #2d6a4f); border-color: var(--color-primary, #2d6a4f); }
 }

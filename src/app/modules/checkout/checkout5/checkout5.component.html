@@ -1,23 +1,21 @@
 @if (order()) {
 
-  <!-- Success banner -->
   <div class="order-success">
     <div class="order-success__icon"><i class="fa fa-check-circle"></i></div>
     <div>
       <h2 class="order-success__title">Order confirmed!</h2>
-      <p class="order-success__sub">Thank you — your order <strong>{{ order().documentNo }}</strong> has been placed.</p>
+      <p class="order-success__sub">Thank you — order <strong>{{ order().documentNo }}</strong> has been placed.</p>
     </div>
   </div>
 
-  <!-- Meta row -->
-  <div class="order-meta">
+  <div class="order-meta-row">
     <div class="order-meta__item">
       <span class="order-meta__label">Order #</span>
       <span class="order-meta__value">{{ order().documentNo }}</span>
     </div>
     <div class="order-meta__item">
       <span class="order-meta__label">Date</span>
-      <span class="order-meta__value">{{ order().date | date: 'dd/MM/yyyy' }}</span>
+      <span class="order-meta__value">{{ order().date | date:'dd/MM/yyyy' }}</span>
     </div>
     <div class="order-meta__item">
       <span class="order-meta__label">Status</span>
@@ -25,16 +23,15 @@
     </div>
     <div class="order-meta__item">
       <button class="btn-pdf" (click)="downloadOrder()">
-        <i class="fa fa-download me-1"></i>PDF
+        <i class="fa fa-download"></i>PDF
       </button>
     </div>
   </div>
 
-  <!-- Addresses -->
   <div class="order-addresses">
     @if (order().shipAddress) {
-      <div class="order-address-card">
-        <p class="order-address-card__label"><i class="fa fa-map-marker me-1"></i>Delivery address</p>
+      <div class="order-card">
+        <p class="order-card__label"><i class="fa fa-map-marker me-1"></i>Delivery address</p>
         <address>
           {{ order().shipAddress.location.address1 }}<br>
           @if (order().shipAddress.location.address2) { {{ order().shipAddress.location.address2 }}<br> }
@@ -44,8 +41,8 @@
       </div>
     }
     @if (order().billAddress) {
-      <div class="order-address-card">
-        <p class="order-address-card__label"><i class="fa fa-envelope-o me-1"></i>Invoice address</p>
+      <div class="order-card">
+        <p class="order-card__label"><i class="fa fa-envelope-o me-1"></i>Invoice address</p>
         <address>
           {{ order().billAddress.location.address1 }}<br>
           @if (order().billAddress.location.address2) { {{ order().billAddress.location.address2 }}<br> }
@@ -56,14 +53,12 @@
     }
   </div>
 
-  <!-- Order lines -->
   <div class="order-lines">
-    <h3 class="order-lines__title">Items ordered</h3>
-    <div class="order-lines__table-wrap">
-      <table class="order-lines__table">
+    <span class="section-label">Items ordered</span>
+    <div class="order-lines-wrap">
+      <table class="order-lines-table">
         <thead>
           <tr>
-            <th class="d-none d-sm-table-cell">#</th>
             <th>Product</th>
             <th class="d-none d-md-table-cell">Description</th>
             <th class="d-none d-sm-table-cell text-end">Unit price</th>
@@ -74,7 +69,6 @@
         <tbody>
           @for (line of order().lines; track line) {
             <tr>
-              <td class="d-none d-sm-table-cell text-muted">{{ line.line }}</td>
               <td class="fw-semibold">{{ line.name }}</td>
               <td class="d-none d-md-table-cell text-muted">{{ line.description }}</td>
               <td class="d-none d-sm-table-cell text-end">{{ line.price | currency }}</td>
@@ -85,22 +79,17 @@
         </tbody>
       </table>
     </div>
-
-    <!-- Totals -->
     <div class="order-totals">
       <div class="order-totals__row">
-        <span>Net price</span>
-        <span>{{ order().totalLines | currency }}</span>
+        <span>Net price</span><span>{{ order().totalLines | currency }}</span>
       </div>
       @for (tax of order().taxes; track tax) {
         <div class="order-totals__row">
-          <span>Tax {{ tax.name }}</span>
-          <span>{{ tax.taxAmt | currency }}</span>
+          <span>Tax {{ tax.name }}</span><span>{{ tax.taxAmt | currency }}</span>
         </div>
       }
       <div class="order-totals__row order-totals__row--grand">
-        <span>Total</span>
-        <strong>{{ order().grandTotal | currency }}</strong>
+        <span>Total</span><strong>{{ order().grandTotal | currency }}</strong>
       </div>
     </div>
   </div>
