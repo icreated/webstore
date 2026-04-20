@@ -1,68 +1,79 @@
-<form novalidate #addressForm="ngForm" (ngSubmit)='onSubmit(address)'>
-  <div class="row mb-2">
-    <div class="col-12">
-      <h2 class="block-title-2"> Fill in this form</h2>
-      <p class="required"><sup>*</sup> Mandatory</p>
+<form novalidate #addressForm="ngForm" (ngSubmit)="onSubmit(address)">
+  <input [(ngModel)]="address.id" name="id" type="hidden">
+
+  <div class="form-card">
+    <div class="form-card__header">
+      <i class="fa fa-map-marker me-2"></i>Address details
     </div>
 
-    <input [(ngModel)]="address.id" name="id" #id="ngModel" type="hidden">
-    <div class="col-lg-12 col-xs-12 col-sm-12 mb-2">
-      <div class="form-group required">
-        <label for="addressLabel">Address Label<sup>*</sup></label>
-        <em [hidden]="label.valid || label.pristine" class="has-error">Label is mandatory</em>
-        <input [(ngModel)]="address.name" #label="ngModel" type="text" value="My address" name="name"
-          class="form-control" id="addressLabel" required>
-      </div>
-    </div>
-    <div class="col-lg-6 col-xs-6 col-sm-12 d-grid gap-2">
-      <div class="form-group required">
-        <label for="InputAddress">Address <sup>*</sup> </label>
-        <em [hidden]="address1.valid || address1.pristine" class="has-error">Your address is mandatory</em>
-        <input [(ngModel)]="address.location.address1" #address1="ngModel" name="address1" type="text"
-          class="form-control" id="InputAddress" placeholder="Address" required>
-      </div>
+    <div class="form-card__body">
+      <p class="form-note"><sup class="text-danger">*</sup> Required fields</p>
 
+      <!-- Label -->
       <div class="form-group">
-        <label for="InputAddress2">Address 2</label>
-        <input [(ngModel)]="address.location.address2" name="address2" type="text" class="form-control" id="InputAddress2"
-          placeholder="Address 2">
+        <label class="form-label" for="addressLabel">Address label <sup>*</sup></label>
+        <em [hidden]="label.valid || label.pristine">Label is required</em>
+        <input id="addressLabel" [(ngModel)]="address.name" #label="ngModel" name="name"
+          type="text" class="form-control" placeholder="e.g. Home, Office…" required>
       </div>
 
-      <div class="form-group required">
-        <label for="InputMobile">Phone <sup>*</sup></label>
-        <em [hidden]="phone.valid || phone.pristine" class="has-error">Phone is mandatory for delivery</em>
-        <input [(ngModel)]="address.phone" #phone="ngModel" type="tel" name="phone" class="form-control" id="InputMobile" required>
+      <!-- Address line 1 + 2 -->
+      <div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label" for="InputAddress">Address line 1 <sup>*</sup></label>
+          <em [hidden]="address1.valid || address1.pristine">Address is required</em>
+          <input id="InputAddress" [(ngModel)]="address.location.address1" #address1="ngModel"
+            name="address1" type="text" class="form-control" placeholder="Street and number" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="InputAddress2">Address line 2</label>
+          <input id="InputAddress2" [(ngModel)]="address.location.address2" name="address2"
+            type="text" class="form-control" placeholder="Apt, floor, building…">
+        </div>
       </div>
+
+      <!-- City + Postal -->
+      <div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label" for="InputCity">City <sup>*</sup></label>
+          <em [hidden]="city.valid || city.pristine">City is required</em>
+          <input id="InputCity" [(ngModel)]="address.location.city" #city="ngModel"
+            name="city" type="text" class="form-control" placeholder="City" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="InputZip">Postal code <sup>*</sup></label>
+          <em [hidden]="postal.valid || postal.pristine">Postal code is required</em>
+          <input id="InputZip" [(ngModel)]="address.location.postal" #postal="ngModel"
+            name="postal" type="text" class="form-control" placeholder="Postal code" required>
+        </div>
+      </div>
+
+      <!-- Country + Phone -->
+      <div class="form-row-2">
+        <div class="form-group">
+          <label class="form-label" for="InputCountry">Country <sup>*</sup></label>
+          <select id="InputCountry" [(ngModel)]="address.location.country"
+            name="selectedCountry" class="form-control form-select">
+            @for (country of countries; track country) {
+              <option [ngValue]="country">{{ country.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="InputMobile">Phone <sup>*</sup></label>
+          <em [hidden]="phone.valid || phone.pristine">Phone is required</em>
+          <input id="InputMobile" [(ngModel)]="address.phone" #phone="ngModel"
+            name="phone" type="tel" class="form-control" placeholder="+1 555 000 0000" required>
+        </div>
+      </div>
+
     </div>
 
-    <div class="col-lg-6 col-xs-6 col-sm-12 d-grid gap-2">
-      <div class="form-group required">
-        <label for="InputCity">City <sup>*</sup> </label>
-        <em [hidden]="city.valid || city.pristine" class="has-error">Your city is mandatory</em>
-        <input [(ngModel)]="address.location.city" name="city" #city="ngModel" type="text" class="form-control" id="InputCity" placeholder="City"  required>
-      </div>
-
-      <div class="form-group required">
-        <label for="InputZip">Postal <sup>*</sup> </label>
-        <em [hidden]="postal.valid || postal.pristine" class="has-error">Your postal is mandatory</em>
-        <input [(ngModel)]="address.location.postal" name="postal" #postal="ngModel" type="text" class="form-control" id="InputZip" placeholder="Postal" required>
-      </div>
-
-      <div class="form-group required">
-        <label for="InputCountry">Country <sup>*</sup> </label>
-        <select [(ngModel)]="address.location.country"  name="selectedCountry" class="form-control" id="InputCountry">
-          @for (country of countries; track country) {
-            <option [ngValue]="country">{{country.name}}</option>
-          }
-        </select>
-      </div>
-    </div>
-
-    <div class="col-lg-12 col-xs-12 mt-2">
+    <div class="form-card__footer">
       <button type="submit" class="btn {{ action.buttonClass }}" [disabled]="!addressForm.form.valid">
-        <i class="fa {{ action.icon }} me-2"></i> {{ action.label }}
+        <i class="fa {{ action.icon }} me-2"></i>{{ action.label }}
       </button>
     </div>
-
   </div>
+
 </form>

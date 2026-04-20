@@ -1,0 +1,31 @@
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 575px) {
+  .form-row-2 { grid-template-columns: 1fr; }
+}
+
+.form-group { display: flex; flex-direction: column; }
+
+em {
+  font-size: 0.75rem;
+  color: var(--color-error, #c0392b);
+  margin-bottom: 0.25rem;
+  font-style: normal;
+}
+
+.form-select {
+  border-color: var(--color-border, #d8e8e0);
+  border-radius: var(--radius-sm, 4px);
+  font-size: 0.875rem;
+  background-color: var(--color-bg, #fff);
+  transition: border-color .15s, box-shadow .15s;
+}
+.form-select:focus {
+  border-color: var(--color-primary-light, #52b788);
+  box-shadow: 0 0 0 3px rgba(82,183,136,.15);
+  outline: none;
+}
