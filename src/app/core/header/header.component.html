@@ -1,58 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand ms-2" [routerLink]="['/home']">ICREATED</a>
-  <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"  [attr.aria-expanded]="!isCollapsed">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-lg site-navbar">
+  <div class="container">
 
-  <div class="collapse navbar-collapse d-lg-flex" [collapse]="isCollapsed">
-    <ul class="navbar-nav mr-auto flex-grow-1">
-      @for (item of categories(); track item) {
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/catalog', item.id]">{{item.name}}<span class="sr-only" title="{{item.name}}">(current)</span></a>
-        </li>
-      }
-    </ul>
+    <a class="navbar-brand site-brand" [routerLink]="['/home']">
+      <i class="fa fa-leaf site-brand__icon"></i>
+      <span>WebStore</span>
+    </a>
 
+    <button class="navbar-toggler site-toggler" type="button"
+            (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="ms-auto col-auto">
-      <form class="input-group my-2 my-lg-0" (ngSubmit)='onSearch($event)'>
-        <input class="form-control my-2 mr-sm-1" name="search" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success input-sm my-2 mr-sm-1" type="submit">
-          <i class="fa fa-search"></i>
-        </button>
-      </form>
+    <div class="collapse navbar-collapse" [collapse]="isCollapsed">
+
+      <ul class="navbar-nav mx-auto">
+        @for (item of categories(); track item) {
+          <li class="nav-item">
+            <a class="nav-link site-nav-link" [routerLink]="['/catalog', item.id]">{{ item.name }}</a>
+          </li>
+        }
+      </ul>
+
+      <div class="site-actions d-flex align-items-center gap-2">
+
+        <form class="site-search" (ngSubmit)="onSearch($event)">
+          <div class="input-group input-group-sm">
+            <input class="form-control site-search__input" name="search" type="search"
+                   placeholder="Search…" aria-label="Search">
+            <button class="btn site-search__btn" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </form>
+
+        @if (cartCount() > 0) {
+          <a class="site-icon-btn" [routerLink]="['/cart']" title="View cart">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="site-badge">{{ cartCount() }}</span>
+          </a>
+        }
+
+        @if (!loggedUser()) {
+          <a class="btn site-btn-signin" [routerLink]="['/signup']">
+            <i class="fa fa-sign-in me-1"></i>Sign In
+          </a>
+        }
+
+        @if (loggedUser()) {
+          <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn site-btn-user dropdown-toggle"
+                    aria-controls="dropdown-user">
+              <i class="fa fa-user-circle me-1"></i>{{ loggedUser()?.name }}
+            </button>
+            <ul id="dropdown-user" *dropdownMenu class="dropdown-menu dropdown-menu-end site-dropdown"
+                role="menu" aria-labelledby="dropdown-user">
+              <li role="menuitem"><a class="dropdown-item" [routerLink]="['/account']">Account</a></li>
+              <li role="menuitem"><a class="dropdown-item" [routerLink]="['/account/orders']">Orders</a></li>
+              <li class="dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item site-logout" (click)="logout()" href="#">Logout</a></li>
+            </ul>
+          </div>
+        }
+
+      </div>
     </div>
 
-    <form class="form-inline my-2 my-lg-0">
-      @if (cartCount() > 0) {
-        <button class="btn my-2 my-sm-0" [routerLink]="['/cart']" title="Cart">
-          <i class="fa fa-shopping-cart"></i>
-          <span class='badge bg-warning'>{{ cartCount() }}</span>
-        </button>
-      }
-      @if (!loggedUser()) {
-        <button class="btn my-2 mr-sm-1" [routerLink]="['/signup']" title="Sign In"><i class="fa fa-sign-in"></i></button>
-      }
-
-      @if (loggedUser()) {
-        <div class="btn-group" dropdown>
-          <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle" aria-controls="dropdown-basic">
-            {{loggedUser()?.name}} <span class="caret"></span>
-          </button>
-          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-left" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/account']">Account</a></li>
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/account/orders']">Orders</a></li>
-            <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item" (click)="logout()" href="#">Logout</a></li>
-          </ul>
-        </div>
-      }
-    </form>
-
-
   </div>
-
 </nav>
-
-
-

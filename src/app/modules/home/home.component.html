@@ -1,30 +1,38 @@
-<div class="jumbotron text-center bg">
-  <h1 class="h1 text-uppercase">WebStore Next</h1>
-  <p class="h2 text-white">Angular / Bootstrap Simple Project</p>
-</div>
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="hero-overlay">
+    <div class="hero-content text-center">
+      <span class="hero-badge">Garden Essentials</span>
+      <h1 class="hero-title">Your Garden,<br><span>Beautifully Grown</span></h1>
+      <p class="hero-subtitle">Discover plants, tools &amp; everything your garden needs</p>
+      <a [routerLink]="['/catalog']" class="btn btn-hero">Shop Now</a>
+    </div>
+  </div>
+</section>
 
+<!-- ===== Featured Products ===== -->
+<section class="featured-section container py-5">
+  <div class="section-header text-center mb-4">
+    <p class="section-eyebrow">Hand-picked for you</p>
+    <h2 class="section-title">Featured Products</h2>
+  </div>
 
-<div class="row">
-  @for (item of featuredProducts(); track item) {
-    <div class="col-sm-4 col-lg-4 col-md-4 col-xs-6">
-      <div class="product">
-        <div class="description">
-          <h4>{{item.name}}</h4>
-        </div>
-        <div>
-          <p>&nbsp;{{item.description}}</p>
-        </div>
-        <div class="product-price">
-          <p> {{item.price | currency}}<a role="button" (click)="add(item)" [routerLink]=""><i class="fa fa-cart-plus ms-2"></i></a></p>
+  <div class="row g-4">
+    @for (item of featuredProducts(); track item) {
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="product-card">
+          <div class="product-card__body">
+            <h4 class="product-card__name">{{ item.name }}</h4>
+            <p class="product-card__desc">{{ item.description }}</p>
+          </div>
+          <div class="product-card__footer">
+            <span class="product-card__price">{{ item.price | currency }}</span>
+            <button class="product-card__btn" (click)="add(item)" [routerLink]="" title="Add to cart">
+              <i class="fa fa-cart-plus"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  }
-</div>
-
-
-
-
-
-
-
+    }
+  </div>
+</section>

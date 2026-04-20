@@ -1,47 +1,167 @@
-.bg {
-    /* The image used */
-    background-image: url("/assets/images/tulips.png");
-    opacity: 0.8;
-    min-height:500px;
-    /* Full height */
-    height: 100%;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+/* ===== Hero ===== */
+.hero {
+  position: relative;
+  min-height: 72vh;
+  background-image: url('/assets/images/tulips.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
 }
 
-.bg h1 {
-    font-size: 6em;
-    color: yellowgreen;
-    font-weight: bold;
-    padding-top: 1em;
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(27, 67, 50, 0.72) 0%,
+    rgba(27, 67, 50, 0.42) 60%,
+    rgba(0, 0, 0, 0.18) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.product {
-    display: block;
-    background-color: whitesmoke;
-    height: auto;
-    border-radius: 7px;
-    border: 1px solid #DDDDDD;
-    text-align: center;
-    margin: 10px;
-    padding: 10px;
+.hero-content {
+  color: #fff;
+  padding: 2rem;
+  max-width: 640px;
 }
 
-.product-price {
-    font-size: 28px;
-    font-weight: 600;
-    line-height: normal;
-    margin-bottom: 10px;
+.hero-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 100px;
+  padding: 4px 14px;
+  margin-bottom: 1rem;
+  color: #d8f3dc;
 }
 
-.description {
-    margin: 0 auto;
-    min-height: 40px;
-    max-width: 235px;
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  color: #fff;
+  padding-bottom: 0.75rem;
+  line-height: 1.15;
+
+  span {
+    color: #95d5b2;
+  }
 }
 
+.hero-subtitle {
+  font-size: 1.125rem;
+  color: rgba(255,255,255,.85);
+  margin-bottom: 2rem;
+}
 
+.btn-hero {
+  background: var(--color-primary-light, #52b788);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 0.75rem 2rem;
+  border-radius: 100px;
+  border: none;
+  transition: background .2s ease, transform .15s ease;
 
+  &:hover {
+    background: var(--color-primary, #2d6a4f);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+}
+
+/* ===== Section header ===== */
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary-light, #52b788);
+  margin-bottom: 0.25rem;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text, #1a2e22);
+  padding-bottom: 0;
+}
+
+/* ===== Product cards ===== */
+.product-card {
+  background: var(--color-bg, #fff);
+  border: 1px solid var(--color-border, #d8e8e0);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,.08));
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: box-shadow .2s ease, transform .15s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-md, 0 4px 16px rgba(0,0,0,.1));
+    transform: translateY(-2px);
+  }
+}
+
+.product-card__body {
+  padding: 1.25rem 1.25rem 0;
+  flex: 1;
+}
+
+.product-card__name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text, #1a2e22);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.product-card__desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted, #5e7a6b);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.product-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--color-border, #d8e8e0);
+  margin-top: 1rem;
+}
+
+.product-card__price {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-primary, #2d6a4f);
+}
+
+.product-card__btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-primary, #2d6a4f);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s ease;
+  font-size: 0.875rem;
+
+  &:hover {
+    background: var(--color-primary-dark, #1b4332);
+  }
+}

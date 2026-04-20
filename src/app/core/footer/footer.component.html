@@ -1,50 +1,60 @@
-<footer>
-  <div class="footer">
+<footer class="site-footer">
+  <div class="site-footer__main">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-3  col-md-3 col-sm-4 col-xs-12">
-          <h3>Support</h3>
-          <ul>
+      <div class="row g-4 g-lg-5">
+
+        <!-- Brand & Contact -->
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-brand">
+            <i class="fa fa-leaf footer-brand__icon"></i>
+            <span class="footer-brand__name">WebStore</span>
+          </div>
+          <p class="footer-tagline">Quality garden products for every green thumb.</p>
+          <ul class="footer-contact">
             <li>
-              <h4>Feedback</h4>
+              <a href="callto:0101010101">
+                <i class="fa fa-phone"></i>
+                <span>01 01 01 01 01</span>
+              </a>
             </li>
             <li>
-              <h4><a class="inline" href="callto:0101010101"> <strong> <i class="fa fa-phone"> </i> 01 01 01 01 01</strong> </a></h4>
-              <h4><a class="inline" href="mailto:{{email}}"> <i class="fa fa-envelope-o"> </i> {{email}}</a></h4>
+              <a href="mailto:{{email}}">
+                <i class="fa fa-envelope-o"></i>
+                <span>{{email}}</span>
+              </a>
             </li>
           </ul>
         </div>
 
-        <div class="col-lg-2  col-md-2 col-sm-4 col-xs-12">
-          <h3>Web Store</h3>
-          <ul>
+        <!-- Categories -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <h5 class="footer-heading">Shop</h5>
+          <ul class="footer-links">
             @for (item of categories(); track item) {
-              <li class="nav-item active">
-                <a class="nav-link" [routerLink]="['/catalog', item.id]">{{item.name}}<span class="sr-only" title="{{item.name}}">(current)</span></a>
+              <li>
+                <a [routerLink]="['/catalog', item.id]">{{ item.name }}</a>
               </li>
             }
           </ul>
         </div>
 
-        <div class="col-lg-2  col-md-2 col-sm-4 col-xs-12">
-          <h3>Account</h3>
-          <ul>
-            <li><a [routerLink]="['/account']">Account</a></li>
+        <!-- Account -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <h5 class="footer-heading">Account</h5>
+          <ul class="footer-links">
+            <li><a [routerLink]="['/account']">My Account</a></li>
             <li><a [routerLink]="['/account/addresses']">Addresses</a></li>
-            <li><a [routerLink]="['/account/orders']">Orders </a></li>
+            <li><a [routerLink]="['/account/orders']">Orders</a></li>
           </ul>
         </div>
 
       </div>
     </div>
-
   </div>
 
-
-  <div class="footer-bottom">
+  <div class="site-footer__bottom">
     <div class="container">
-      <p class="pull-left"> &copy; Icreated 2026</p>
+      <p class="footer-copy">&copy; Icreated 2026 — Open-source webstore for iDempiere ERP</p>
     </div>
   </div>
-  <!--/.footer-bottom-->
 </footer>
