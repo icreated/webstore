@@ -1,22 +1,72 @@
-<div class="row mx-2">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (line of products(); track line) {
-        <tr>
-          <td>{{line.name}}</td>
-          <td>{{line.description}}</td>
-          <td>{{line.price | currency}}</td>
-          <td><button type="button" class="btn btn-primary" (click)="add(line)" title="Add to Cart"><i class="fa fa-shopping-cart"></i></button></td>
-        </tr>
-      }
-    </tbody>
-  </table>
+<!-- ===== Toolbar ===== -->
+<div class="catalog-toolbar container-fluid px-3 py-3">
+  <div class="d-flex align-items-center justify-content-between gap-2">
+    <p class="catalog-count mb-0">
+      <strong>{{ products().length }}</strong> product{{ products().length !== 1 ? 's' : '' }}
+    </p>
+    <div class="catalog-view-toggle">
+      <button class="view-btn" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'" title="Grid view">
+        <i class="fa fa-th"></i>
+      </button>
+      <button class="view-btn" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'" title="List view">
+        <i class="fa fa-list"></i>
+      </button>
+    </div>
+  </div>
 </div>
+
+<!-- ===== Grid view ===== -->
+@if (viewMode === 'grid') {
+  <div class="container-fluid px-3">
+    <div class="row g-3">
+      @for (line of products(); track line) {
+        <div class="col-6 col-sm-4 col-md-3 col-xl-2">
+          <div class="product-card">
+            <div class="product-card__badge">
+              <span class="category-dot"></span>
+            </div>
+            <div class="product-card__body">
+              <h5 class="product-card__name">{{ line.name }}</h5>
+              <p class="product-card__desc">{{ line.description }}</p>
+            </div>
+            <div class="product-card__footer">
+              <span class="product-card__price">{{ line.price | currency }}</span>
+              <button class="product-card__btn" (click)="add(line)" title="Add to cart">
+                <i class="fa fa-cart-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+
+<!-- ===== List view ===== -->
+@if (viewMode === 'list') {
+  <div class="container-fluid px-3">
+    <div class="product-list">
+      @for (line of products(); track line; let odd = $odd) {
+        <div class="product-list-row" [class.product-list-row--alt]="odd">
+          <div class="product-list-row__info">
+            <h5 class="product-list-row__name">{{ line.name }}</h5>
+            <p class="product-list-row__desc">{{ line.description }}</p>
+          </div>
+          <div class="product-list-row__actions">
+            <span class="product-list-row__price">{{ line.price | currency }}</span>
+            <button class="catalog-add-btn" (click)="add(line)" title="Add to cart">
+              <i class="fa fa-cart-plus me-1"></i>Add
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+
+@if (products().length === 0) {
+  <div class="catalog-empty text-center py-5">
+    <i class="fa fa-leaf catalog-empty__icon"></i>
+    <p class="catalog-empty__text">No products found.</p>
+  </div>
+}

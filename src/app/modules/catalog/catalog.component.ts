@@ -17,6 +17,7 @@ import { CatalogService } from '@api/services/catalog.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatalogComponent {
+    viewMode: 'grid' | 'list' = 'grid';
     private readonly catalogService = inject(CatalogService);
     private readonly cartService = inject(CartService);
     private readonly route = inject(ActivatedRoute);
