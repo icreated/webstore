@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,8 @@ import { switchMap } from 'rxjs/operators';
 import { CartService } from '@core/services/cart.service';
 import { PriceListProduct } from '@api/models/price-list-product';
 import { CatalogService } from '@api/services/catalog.service';
+
+const VIEW_MODE_KEY = 'catalog.viewMode';
 
 @Component({
     selector: 'app-catalog',
@@ -17,10 +19,13 @@ import { CatalogService } from '@api/services/catalog.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatalogComponent {
-    viewMode: 'grid' | 'list' = 'grid';
     private readonly catalogService = inject(CatalogService);
     private readonly cartService = inject(CartService);
     private readonly route = inject(ActivatedRoute);
+
+    viewMode = signal<'grid' | 'list'>(
+        (localStorage.getItem(VIEW_MODE_KEY) as 'grid' | 'list') ?? 'grid'
+    );
 
     products = toSignal(
         merge(
@@ -39,6 +44,11 @@ export class CatalogComponent {
         ),
         { initialValue: [] as PriceListProduct[] }
     );
+
+    setViewMode(mode: 'grid' | 'list') {
+        this.viewMode.set(mode);
+        localStorage.setItem(VIEW_MODE_KEY, mode);
+    }
 
     add(item: PriceListProduct) {
         this.cartService.addItem(item);

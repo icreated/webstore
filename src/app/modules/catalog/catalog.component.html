@@ -5,10 +5,10 @@
       <strong>{{ products().length }}</strong> product{{ products().length !== 1 ? 's' : '' }}
     </p>
     <div class="catalog-view-toggle">
-      <button class="view-btn" [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'" title="Grid view">
+      <button class="view-btn" [class.active]="viewMode() === 'grid'" (click)="setViewMode('grid')" title="Grid view">
         <i class="fa fa-th"></i>
       </button>
-      <button class="view-btn" [class.active]="viewMode === 'list'" (click)="viewMode = 'list'" title="List view">
+      <button class="view-btn" [class.active]="viewMode() === 'list'" (click)="setViewMode('list')" title="List view">
         <i class="fa fa-list"></i>
       </button>
     </div>
@@ -16,7 +16,7 @@
 </div>
 
 <!-- ===== Grid view ===== -->
-@if (viewMode === 'grid') {
+@if (viewMode() === 'grid') {
   <div class="container-fluid px-3">
     <div class="row g-3">
       @for (line of products(); track line) {
@@ -43,7 +43,7 @@
 }
 
 <!-- ===== List view ===== -->
-@if (viewMode === 'list') {
+@if (viewMode() === 'list') {
   <div class="container-fluid px-3">
     <div class="product-list">
       @for (line of products(); track line; let odd = $odd) {
