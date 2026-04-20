@@ -22,8 +22,8 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations(),
         importProvidersFrom(
-            CollapseModule.forRoot(),
-            BsDropdownModule.forRoot(),
+            CollapseModule,
+            BsDropdownModule,
             ApiModule.forRoot({ rootUrl: environment.api.baseUrl }),
             JwtModule.forRoot({
                 jwtOptionsProvider: {
