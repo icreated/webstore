@@ -1,11 +1,17 @@
 @if (!closed()) {
-  <div id="myAlert" class="alert my-alert fade2" role="alert" [ngClass]="classes()">
-    <span class="alert-text"> {{alert().msg}}</span>
+  <div class="toast-alert" role="alert" [class.toast-alert--out]="closing()" [ngClass]="'toast-alert--' + alert().type">
+    <div class="toast-alert__icon">
+      <i class="fa" [ngClass]="{
+        'fa-check-circle':      alert().type === 'success',
+        'fa-exclamation-circle':alert().type === 'danger' || alert().type === 'warning',
+        'fa-info-circle':       alert().type === 'info'
+      }"></i>
+    </div>
+    <span class="toast-alert__msg">{{ alert().msg }}</span>
     @if (dismissible) {
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-        (click)="onClose()">
+      <button class="toast-alert__close" (click)="onClose()" aria-label="Close">
+        <i class="fa fa-times"></i>
       </button>
     }
   </div>
 }
-

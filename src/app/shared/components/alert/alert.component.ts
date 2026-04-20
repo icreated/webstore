@@ -17,6 +17,7 @@ export class AlertComponent implements OnInit {
 
     alert = signal<Alert>({} as Alert);
     closed = signal(false);
+    closing = signal(false);
     classes = signal<string[]>([]);
 
     private alertService = inject(AlertService);
@@ -24,6 +25,7 @@ export class AlertComponent implements OnInit {
     ngOnInit() {
         this.alertService.alert$.subscribe(alert => {
             this.closed.set(false);
+            this.closing.set(false);
             this.alert.set(alert);
 
             const newClasses = [`alert-${alert.type}`, 'alert-fixed'];
@@ -33,12 +35,13 @@ export class AlertComponent implements OnInit {
             this.classes.set(newClasses);
 
             if (this.dismissOnTimeout) {
-                setTimeout(() => this.onClose(), this.dismissOnTimeout);
+                setTimeout(() => this.closing.set(true), this.dismissOnTimeout);
+                setTimeout(() => this.onClose(), this.dismissOnTimeout + 300);
             }
         });
     }
 
     onClose(): void {
-        this.classes.update(c => c.filter(cls => cls !== 'in' && cls !== 'alert-fixed'));
+        this.closed.set(true);
     }
 }
