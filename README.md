@@ -1,95 +1,113 @@
-# &int; created
-> Integration created
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7TYVAGLZ7XATQ&source=url)
+# Webstore — Angular / Bootstrap
 
+[![Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://webstore.icreated.co)
+[![License: GPL](https://img.shields.io/badge/license-GPL-blue)](LICENSE)
 
-# Icreated WebStore Angular / Bootstrap
-> The full information about this project is available here: [https://icreated.co/projects/webstore](https://icreated.co/projects/webstore)
+A responsive Angular e-commerce frontend built for [Idempiere ERP](https://github.com/icreated/webstore-api). Uses an OpenAPI-first approach, so any compatible REST backend can be plugged in by regenerating the API client from `openapi.yaml`.
 
-> The demo is available here: [https://webstore.icreated.co](https://webstore.icreated.co)
+**Live demo:** [https://webstore.icreated.co](https://webstore.icreated.co)
 
-> The very simple backend API REST services for DEMO is available here: [https://github.com/icreated/webstore-json-server](https://github.com/icreated/webstore-json-server)
+![Architecture](https://icreated.co/assets/images/projects/webstore/screenshot_architecture.png)
 
-> The original Idempiere backend API REST services is available here:
-[https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api)
+## Features
 
-Angular WebStore is a frontend application created as responsive angular / bootstrap seed for your projects. 
-It can be used as a starting point for your WebStore project with custom backend API REST services. It is possible thankfully to OpenApi first approach.
-This application shows standard web sites features:
-* product catalog
-* product search
-* user authentication
-* basket management synchronized with server
-* order checkout
-* private customer area
-* orders information
-* addresses management
-* password update
-* account information update
+- Product catalog browsable by category, with full-text search and grid/list view toggle
+- JWT authentication (login, signup)
+- Cart with localStorage persistence and server sync
+- 5-step checkout wizard
+- Customer area: order history, order detail with void and PDF download, address management, account info, password update
 
+## Tech stack
 
-![WebStore Architecture](https://icreated.co/assets/images/projects/webstore/screenshot_architecture.png?raw=true "Webstore Architecture")
+| Layer | Technology |
+|---|---|
+| Framework | Angular 21 (standalone components, zoneless) |
+| UI | Bootstrap 5 + ngx-bootstrap |
+| State | Angular signals |
+| Auth | JWT via `@auth0/angular-jwt` |
+| API client | Auto-generated from `openapi.yaml` via `ng-openapi-gen` |
 
+## Getting started
 
-## Some snapshots:
+### 1. Install dependencies
 
-### Home page
-
-![WebStore Home](https://icreated.co/assets/images/projects/webstore/screenshot_home.png?raw=true "Webstore Home")
-
-### Basket page
-
-![WebStore Basket](https://icreated.co/assets/images/projects/webstore/screenshot_basket.png?raw=true "Webstore Basket")
-
-### Checkout page
-
-![WebStore Checkout](https://icreated.co/assets/images/projects/webstore/screenshot_checkout.png?raw=true "Webstore Checkout")
-
-### Order page
-
-![WebStore Order](https://icreated.co/assets/images/projects/webstore/screenshot_order.png?raw=true "Webstore Order")
-
-
-
-## Installing / Getting started
-
-Run `npm install`.
-
-This will create the node_modules directory in your current directory (if one doesn’t exist yet) and will download packages to that directory.
-
-Install also backend API REST services. There are two options:
-* Simple Json Server: [https://github.com/icreated/webstore-json-server](https://github.com/icreated/webstore-json-server) available at port 3000
-* Idempiere Webstore API REST plugin: [https://github.com/icreated/webstore-api](https://github.com/icreated/webstore-api) In this case you have to:
-  * Install Postgresql
-  * Install Idempiere
-  * Install Webstore API REST plugin
-  * Configure all these components
-
-The backend endpoint is configured in the environment.ts file:
-```
-    api: {
-      baseUrl: 'http://localhost:3000' // for Json Server
-      // baseUrl: 'http://localhost:8080/services/api/', // for Idempiere Webstore API REST plugin
-    }
+```bash
+npm install
 ```
 
+### 2. Start a backend
 
+**Option A — Idempiere** (primary backend)
 
-### Deploying / Publishing / Testing
+Full ERP backend via the [webstore-api](https://github.com/icreated/webstore-api) REST plugin.
+Requires PostgreSQL + Idempiere + the plugin installed and configured. Runs on `http://localhost:8080`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+**Option B — JSON mock server** (for demo / development without Idempiere)
 
+```bash
+# clone and start https://github.com/icreated/webstore-json-server
+# runs on http://localhost:3000
+```
+
+### 3. Configure the backend URL
+
+Edit `src/environments/environment.ts`:
+
+```typescript
+api: {
+  // baseUrl: 'http://localhost:8080/services/api'  // Idempiere (primary)
+  baseUrl: 'http://localhost:3000'                  // JSON mock server
+}
+```
+
+### 4. Run
+
+```bash
+npm start   # dev server at http://localhost:4200
+```
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `npm start` | Dev server with live reload |
+| `npm run build` | Production build |
+| `npm test` | Unit tests (Karma / Jasmine) |
+| `npm run lint` | ESLint |
+| `npm run ng-openapi-gen` | Regenerate API client from `openapi.yaml` |
+
+## Project structure
+
+```
+src/app/
+├── api/          # Auto-generated — do not edit manually
+├── core/         # Auth, interceptors, guards, cart, checkout, alert services
+├── modules/      # Lazy-loaded pages (home, catalog, cart, checkout, account, signup)
+└── shared/       # Reusable components, pipes, validators
+```
+
+Path aliases: `@core/*`, `@shared/*`, `@api/*`, `@env/*`
+
+## Regenerating the API client
+
+After modifying `openapi.yaml`:
+
+```bash
+npm run ng-openapi-gen
+```
+
+All files under `src/app/api/` are regenerated — never edit them directly.
+
+## Screenshots
+
+| Home | Cart | Checkout | Order |
+|---|---|---|---|
+| ![Home](https://icreated.co/assets/images/projects/webstore/screenshot_home.png) | ![Cart](https://icreated.co/assets/images/projects/webstore/screenshot_basket.png) | ![Checkout](https://icreated.co/assets/images/projects/webstore/screenshot_checkout.png) | ![Order](https://icreated.co/assets/images/projects/webstore/screenshot_order.png) |
 
 ## Contributing
 
-If you'd like to contribute, please fork the repository and use a feature
-branch. 
+Fork the repo and open a pull request from a feature branch.
 
-Pull requests are warmly welcome
+## License
 
-
-## Licensing
-
-GNU General Public License
-
-
+[GNU General Public License](LICENSE)
