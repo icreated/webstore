@@ -17,7 +17,7 @@
 
 <!-- ===== Grid view ===== -->
 @if (viewMode() === 'grid') {
-  <div class="container-fluid px-3">
+  <div class="container-fluid px-3 mt-3">
     <div class="row g-3">
       @for (line of products(); track line) {
         <div class="col-6 col-sm-4 col-md-3 col-xl-2">
@@ -44,7 +44,7 @@
 
 <!-- ===== List view ===== -->
 @if (viewMode() === 'list') {
-  <div class="container-fluid px-3">
+  <div class="container-fluid px-3 mt-3">
     <div class="product-list">
       @for (line of products(); track line; let odd = $odd) {
         <div class="product-list-row" [class.product-list-row--alt]="odd">
