@@ -5,7 +5,7 @@ import { CartService } from '@core/services/cart.service';
 import { AccountService } from '@api/services/account.service';
 import { Order } from '@api/models/order';
 import { CheckoutService } from '@core/services/checkout.service';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { AlertService } from '@core/services/alert.service';
 import { PaymentParam } from '@api/models/payment-param';
 
@@ -33,10 +33,15 @@ export class Checkout4Component {
             switchMap((order: Order) => {
                 this.cartService.clearCart();
                 this.checkoutService.setOrder(order);
-                return this.accountService.payment$Response({ id: order.id, body: { type } as PaymentParam });
+                return this.accountService.payment$Response({ id: order.id, body: { type } as PaymentParam }).pipe(
+                    switchMap(resp => this.accountService.getOrder({ id: order.id }).pipe(
+                        map((updated: Order) => ({ resp, updated }))
+                    ))
+                );
             })
-        ).subscribe(resp => {
+        ).subscribe(({ resp, updated }) => {
             if (resp.status === 200) {
+                this.checkoutService.setOrder(updated);
                 this.alertService.showAlert({ type: 'success', msg: 'Order ' + this.order().documentNo + ' is generated' });
                 this.router.navigate(['/checkout/checkout5']);
             }
